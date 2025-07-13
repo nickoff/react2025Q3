@@ -11,7 +11,7 @@
     "preview": "vite preview",
     "prepare": "husky",
     "format": "prettier --write \"src/**/*.{ts,tsx,css}\"",
-    "precommit": "npm run format && npm run lint:fix"
+    "precommit": "npm run lint:fix && npm run format"
   },
   "dependencies": {
     "eslint-config-prettier": "^10.1.5",

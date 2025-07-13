@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { ErrorButton } from '../../components/ErrorButton/ErrorButton';
+import { Header } from '../../components/Header/Header';
 
 type MainState = {
   searchTerm: string;
@@ -12,10 +12,10 @@ export class Main extends Component<unknown, MainState> {
 
   render() {
     return (
-      <>
+      <main>
+        <Header />
         <p>Main page</p>
-        <ErrorButton />
-      </>
+      </main>
     );
   }
 }
