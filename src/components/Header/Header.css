@@ -1,0 +1,40 @@
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  padding: 10px 20px;
+  font-size: 1.6rem;
+}
+
+.search-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.6rem;
+}
+
+.search-form__label {
+  h3 {
+    margin: 0;
+    font-size: 1.8rem;
+  }
+}
+
+.search-form__input {
+  font-size: 1.6rem;
+  padding: 5px 10px;
+  border-radius: 10px;
+  border: 1px solid #000;
+  outline: none;
+}
+
+.search-form__button {
+  font-size: 1.6rem;
+  padding: 5px 20px;
+  border-radius: 10px;
+  border: 1px solid #000;
+  outline: none;
+  cursor: pointer;
+}

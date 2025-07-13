@@ -1,0 +1,16 @@
+.result-list {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(30%, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.result-list__loader {
+  width: 100%;
+  margin-top: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.6rem;
+}
