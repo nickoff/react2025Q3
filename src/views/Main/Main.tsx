@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { Header } from '../../components/Header/Header';
+import { ResultList } from '../../components/ResultList/ResultList';
 
 type MainState = {
   searchTerm: string;
@@ -22,7 +23,7 @@ export class Main extends Component<unknown, MainState> {
     return (
       <main>
         <Header searchHandler={searchHandler} />
-        <p>Main page</p>
+        <ResultList searchTerm={this.state.searchTerm} />
       </main>
     );
   }
