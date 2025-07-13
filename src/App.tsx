@@ -1,7 +1,11 @@
+import { Component } from 'react';
 import './App.css';
 
-function App() {
-  return <p>React2025q3</p>;
+class App extends Component {
+  render() {
+    return <p>React2025q3</p>;
+  }
+
 }
 
 export default App;
