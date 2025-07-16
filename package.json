@@ -18,7 +18,8 @@
   "lint-staged": {
     "**/*.{ts,tsx,js,jsx, css}": [
       "eslint --fix",
-      "prettier --write \"src/**/*.{ts,tsx}\""
+      "prettier --write \"src/**/*.{ts,tsx}\"",
+      "npm run coverage"
     ]
   },
   "dependencies": {
