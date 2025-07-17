@@ -1,0 +1,23 @@
+.fallback {
+  display: flex;
+  flex-direction: column;
+  place-content: center;
+  place-items: center;
+  gap: 20px;
+  height: 100vh;
+
+  h2 {
+    margin: 0;
+    font-size: 1.8rem;
+  }
+}
+
+.fallback__reload-button {
+  font-size: 1.6rem;
+  padding: 5px 20px;
+  border-radius: 10px;
+  background-color: #276bc3;
+  border: 1px solid #276bc3;
+  outline: none;
+  cursor: pointer;
+}
