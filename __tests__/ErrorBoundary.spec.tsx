@@ -2,7 +2,6 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, test } from 'vitest';
 import { ErrorBoundary } from '../src/components/ErrorBoundary/ErrorBoundary';
-import React from 'react';
 
 const ThrowComponent = () => {
   throw new Error('Simulated error');
@@ -32,7 +31,7 @@ describe('ErrorBoundary', () => {
   test('reloadCallback restores content', async () => {
     const Fallback = (reload: () => void) => (
       <button data-testid="reload" onClick={reload}>
-        Повторить
+        Reload
       </button>
     );
 
