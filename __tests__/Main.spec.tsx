@@ -2,7 +2,6 @@ import { describe, expect, test, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { Main } from '../src/views/Main/Main';
 
-// 🔧 Заглушки компонентов Header и ResultList
 vi.mock('../../components/Header/Header', () => ({
   Header: ({ searchHandler }: { searchHandler: (value: string) => void }) => (
     <div>
