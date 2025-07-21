@@ -1,4 +1,4 @@
-import { describe, expect, test } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { Providers } from '../src/app/Providers/Providers';
 
@@ -7,7 +7,7 @@ const ThrowComponent = () => {
 };
 
 describe('Providers component', () => {
-  test('renders Fallback when error is thrown', () => {
+  it('renders Fallback when error is thrown', () => {
     render(
       <Providers>
         <ThrowComponent />
