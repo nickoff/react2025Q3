@@ -1,7 +1,7 @@
-import { Component } from 'react';
+import { useEffect, useState } from 'react';
 import './ResultList.css';
 import { Card, type ICard } from '../Card/Card';
-import { API_KEY, API_URL } from '../../utils/constants';
+import { getResult } from '../../utils/getResult';
 
 type ResultState = {
   resultList: ICard[] | [];
@@ -12,61 +12,36 @@ interface ResultStateProps {
   searchTerm: string;
 }
 
-export class ResultList extends Component<ResultStateProps, ResultState> {
-  constructor(props: ResultStateProps) {
-    super(props);
+export const ResultList = (props: ResultStateProps) => {
+  const [state, setState] = useState<ResultState>({
+    resultList: [],
+    isLoading: false
+  });
 
-    this.state = {
-      resultList: [],
-      isLoading: false
-    };
-  }
+  useEffect(() => {
+    getResultList(props.searchTerm ?? '');
+  }, [props.searchTerm]);
 
-  private getResultList = (searchTerm: string) => {
-    const apiUrl = `${API_URL}?page=1&pageSize=20&q=name:${searchTerm}*`;
-    const fetchOptions: RequestInit = {
-      headers: {
-        'X-Api-Key': API_KEY
-      },
-      method: 'GET'
-    };
-    this.setState({ isLoading: true });
-    fetch(apiUrl, fetchOptions).then((response) => {
+  const getResultList = (searchTerm: string) => {
+    setState((prevState) => ({ ...prevState, isLoading: true }));
+    getResult(searchTerm).then((response) => {
       response.json().then((data) => {
-        this.setState({ resultList: data.data });
-        this.setState({ isLoading: false });
+        setState({ resultList: data.data, isLoading: false });
       });
     });
   };
 
-  componentDidMount() {
-    this.getResultList(this.props.searchTerm ?? '');
-  }
-
-  componentDidUpdate(prevProps: ResultStateProps) {
-    if (this.props.searchTerm !== prevProps.searchTerm) {
-      this.getResultList(this.props.searchTerm ?? '');
-    }
-  }
-
-  render() {
-    return (
-      <>
-        {this.state.isLoading && <div className="result-list__loader">Loading...</div>}
-        {!this.state.isLoading && this.state.resultList.length > 0 && (
-          <div className="result-list">
-            {this.state.resultList.map((result, index) => (
-              <Card key={index} card={result} />
-            ))}
-          </div>
-        )}
-        {!this.state.isLoading && this.state.resultList.length === 0 && (
-          <div className="result-list__loader">No results found</div>
-        )}
-      </>
-    );
-  }
-  componentWillUnmount() {
-    this.setState({ resultList: [] });
-  }
-}
+  return (
+    <>
+      {state.isLoading && <div className="result-list__loader">Loading...</div>}
+      {!state.isLoading && state.resultList.length > 0 && (
+        <div className="result-list">
+          {state.resultList.map((result, index) => (
+            <Card key={index} card={result} />
+          ))}
+        </div>
+      )}
+      {!state.isLoading && state.resultList.length === 0 && <div className="result-list__loader">No results found</div>}
+    </>
+  );
+};
