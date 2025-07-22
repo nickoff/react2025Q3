@@ -1,17 +1,13 @@
-import { Component } from 'react';
+import { useState } from 'react';
 
-export class ErrorButton extends Component {
-  state = { hasError: false };
+export const ErrorButton = () => {
+  const [state, setState] = useState({ hasError: false });
 
-  handleClick(): void {
-    this.setState({ hasError: true });
-  }
+  const handleClick = (): void => {
+    setState({ hasError: true });
+  };
 
-  render(): React.ReactNode {
-    if (this.state.hasError) {
-      throw new Error('Something went wrong!');
-    }
+  if (state.hasError) throw new Error('Something went wrong!');
 
-    return <button onClick={() => this.handleClick()}>Call an Error</button>;
-  }
-}
+  return <button onClick={() => handleClick()}>Call an Error</button>;
+};
