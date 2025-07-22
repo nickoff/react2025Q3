@@ -1,4 +1,3 @@
-import { Component } from 'react';
 import './Card.css';
 
 export interface ICard {
@@ -15,25 +14,20 @@ export interface CardProps {
   card: ICard;
 }
 
-export class Card extends Component<CardProps> {
-  private card: ICard;
-  constructor(props: CardProps) {
-    super(props);
-    this.card = props.card;
-  }
-  render() {
-    return (
-      <div className="card">
-        <h3>{this.card.name}</h3>
-        <img alt="card image" className="card_image" src={this.props.card.images.small} />
-        <div>
-          <p>Pokémon description:</p>
-          <ul>
-            <li>Set: {this.props.card.set.name}</li>
-            <li>Series: {this.props.card.set.series}</li>
-          </ul>
-        </div>
+export const Card = (props: CardProps) => {
+  const { card } = props;
+
+  return (
+    <div className="card">
+      <h3>{card.name}</h3>
+      <img alt="card image" className="card_image" src={card.images.small} />
+      <div>
+        <p>Pokémon description:</p>
+        <ul>
+          <li>Set: {card.set.name}</li>
+          <li>Series: {card.set.series}</li>
+        </ul>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
