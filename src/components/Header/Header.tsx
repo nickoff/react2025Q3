@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import './Header.css';
-import { ErrorButton } from '../ErrorButton/ErrorButton';
 
 interface HeaderProps {
   searchHandler: (value: string) => void;
@@ -37,7 +36,6 @@ export const Header = (props: HeaderProps) => {
           Search
         </button>
       </form>
-      <ErrorButton />
     </header>
   );
 };
