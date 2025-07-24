@@ -1,9 +1,13 @@
 import { useState } from 'react';
-import './Header.css';
 
 interface HeaderProps {
   searchHandler: (value: string) => void;
 }
+
+const CONTENT = {
+  title: 'Pokémon cards',
+  search: 'Search'
+};
 
 export const Header = (props: HeaderProps) => {
   const [state, setState] = useState(localStorage.getItem('searchTerm') || '');
@@ -13,27 +17,28 @@ export const Header = (props: HeaderProps) => {
     setState(inputValue);
   };
 
-  const handleSearch = () => {
+  const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     props.searchHandler(state.trim());
     localStorage.setItem('searchTerm', state.trim());
   };
 
   return (
-    <header className="header">
-      <form className="search-form" onSubmit={handleSearch}>
-        <label className="search-form__label" htmlFor="search">
-          <h3>Pokémon cards</h3>
+    <header className="flex justify-center items-center px-5 py-2.5 border-b-2 border-gray-600">
+      <form className="flex justify-center items-center gap-2.5" onSubmit={handleSearch}>
+        <label htmlFor="search">
+          <h3 className="text-3xl">{CONTENT.title}</h3>
         </label>
         <input
-          className="search-form__input"
+          className="text-2xl text-amber-50 px-2 py-1 rounded-md border border-black outline-none bg-gray-600"
           type="text"
           name="search"
           id="search"
           value={state}
           onChange={handleChange}
         />
-        <button className="search-form__button" type="button" onClick={handleSearch}>
-          Search
+        <button className="text-2xl text-amber-50 px-4 py-1 rounded-md border border-black outline-none bg-gray-600 cursor-pointer transition duration-300 ease-in-out hover:bg-gray-400">
+          {CONTENT.search}
         </button>
       </form>
     </header>

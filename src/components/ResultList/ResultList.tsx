@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import './ResultList.css';
 import { Card, type ICard } from '../Card/Card';
 import { getResult } from '../../utils/getResult';
 
@@ -11,6 +10,11 @@ type ResultState = {
 interface ResultStateProps {
   searchTerm: string;
 }
+
+const CONTENT = {
+  loading: 'Loading...',
+  noResults: 'Ups... No results found 😟'
+};
 
 export const ResultList = (props: ResultStateProps) => {
   const [state, setState] = useState<ResultState>({
@@ -33,15 +37,19 @@ export const ResultList = (props: ResultStateProps) => {
 
   return (
     <>
-      {state.isLoading && <div className="result-list__loader">Loading...</div>}
+      {state.isLoading && (
+        <div className="flex justify-center items-center text-3xl mt-48 w-full animate-pulse">{CONTENT.loading}</div>
+      )}
       {!state.isLoading && state.resultList.length > 0 && (
-        <div className="result-list">
+        <div className="w-full grid grid-cols-3 gap-5 p-5">
           {state.resultList.map((result, index) => (
             <Card key={index} card={result} />
           ))}
         </div>
       )}
-      {!state.isLoading && state.resultList.length === 0 && <div className="result-list__loader">No results found</div>}
+      {!state.isLoading && state.resultList.length === 0 && (
+        <div className="flex justify-center items-center text-3xl mt-48 w-full">{CONTENT.noResults}</div>
+      )}
     </>
   );
 };

@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, test } from 'vitest';
 import { Card, ICard } from '../src/components/Card/Card';
+import '@testing-library/jest-dom';
 
 const mockCard: ICard = {
   id: 'xy7-54',
@@ -22,9 +23,8 @@ describe('Card Component', () => {
 
     const image = screen.getByAltText('card image');
     expect(image).toHaveAttribute('src', mockCard.images.small);
-    expect(image).toHaveClass('card_image');
 
-    expect(screen.getByText('Pokémon description:')).toBeInTheDocument();
+    expect(screen.getByText('Description:')).toBeInTheDocument();
     expect(screen.getByText(`Set: ${mockCard.set.name}`)).toBeInTheDocument();
     expect(screen.getByText(`Series: ${mockCard.set.series}`)).toBeInTheDocument();
   });
