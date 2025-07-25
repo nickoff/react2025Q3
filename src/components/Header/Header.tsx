@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
 
 interface HeaderProps {
   searchHandler: (value: string) => void;
@@ -10,17 +10,16 @@ const CONTENT = {
 };
 
 export const Header = (props: HeaderProps) => {
-  const [state, setState] = useState(localStorage.getItem('searchTerm') || '');
+  const { searchTerm, setSearchTerm } = useLocalStorage();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
-    setState(inputValue);
+    setSearchTerm(inputValue);
   };
 
   const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    props.searchHandler(state.trim());
-    localStorage.setItem('searchTerm', state.trim());
+    props.searchHandler(searchTerm);
   };
 
   return (
@@ -34,7 +33,7 @@ export const Header = (props: HeaderProps) => {
           type="text"
           name="search"
           id="search"
-          value={state}
+          value={searchTerm}
           onChange={handleChange}
         />
         <button className="text-2xl text-amber-50 px-4 py-1 rounded-md border border-black outline-none bg-gray-600 cursor-pointer transition duration-300 ease-in-out hover:bg-gray-400">

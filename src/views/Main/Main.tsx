@@ -1,22 +1,18 @@
-import { useState } from 'react';
 import { Header } from '../../components/Header/Header';
 import { ResultList } from '../../components/ResultList/ResultList';
-
-type MainState = {
-  searchTerm: string;
-};
+import { useLocalStorage } from '../../hooks/useLocalStorage';
 
 export const Main = () => {
-  const [state, setState] = useState<MainState>({ searchTerm: localStorage.getItem('searchTerm') || '' });
+  const { searchTerm, setSearchTerm } = useLocalStorage();
 
   const searchHandler = (value: string) => {
-    setState({ searchTerm: value });
+    setSearchTerm(value);
   };
 
   return (
     <main>
       <Header searchHandler={searchHandler} />
-      <ResultList searchTerm={state.searchTerm} />
+      <ResultList searchTerm={searchTerm} />
     </main>
   );
 };
