@@ -2,12 +2,14 @@ import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } 
 import { Main } from '../views/Main/Main';
 import { Layout } from '../views/Layout/Layout';
 import { NotFound } from '../views/NotFound/NotFound';
+import { About } from '../views/About/About';
 
 export const AppRouter = () => {
   const routers = createRoutesFromElements(
     <>
       <Route path="/" element={<Layout />} errorElement={<p>Upps</p>}>
         <Route path="/" element={<Main />} errorElement={<p>Upps</p>}></Route>
+        <Route path="/about" element={<About />} errorElement={<p>Upps</p>}></Route>
       </Route>
       <Route path="*" element={<NotFound />} />
     </>
