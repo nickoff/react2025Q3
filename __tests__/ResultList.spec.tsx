@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 import { ResultList } from '../src/components/ResultList/ResultList';
 import { ICard } from '../src/types/card';
@@ -32,48 +32,36 @@ const mockData: { data: ICard[] } = {
 };
 
 describe('ResultList', () => {
-  const fetchMock = vi.fn(() =>
-    Promise.resolve({
-      ok: true,
-      status: 200,
-      json: () => Promise.resolve(mockData)
-    })
-  );
+  it('fetches and displays result cards', () => {
+    render(<ResultList data={mockData.data} error={null} loading={false} />);
 
-  beforeEach(() => {
-    vi.stubGlobal('fetch', fetchMock);
-  });
-
-  afterEach(() => {
-    vi.restoreAllMocks();
-  });
-
-  it('fetches and displays result cards', async () => {
-    render(<ResultList searchTerm="Test" />);
-
-    expect(screen.getByText(/loading/i)).toBeInTheDocument();
-    await waitFor(() => expect(fetchMock).toHaveBeenCalled());
-
-    await waitFor(() => {
+    waitFor(() => {
       expect(screen.getByText((content) => content.includes('Test Card 1'))).toBeInTheDocument();
       expect(screen.getByText((content) => content.includes('Test Card 2'))).toBeInTheDocument();
     });
   });
 
-  it('shows "No results found" when response is empty', async () => {
-    fetchMock.mockImplementationOnce(() =>
-      Promise.resolve({
-        ok: true,
-        status: 200,
-        json: () => Promise.resolve({ data: [] })
-      })
-    );
+  it('shows "No results found" when response is empty', () => {
+    render(<ResultList data={[]} error={null} loading={false} />);
 
-    render(<ResultList searchTerm="Empty" />);
-    expect(screen.getByText(/loading/i)).toBeInTheDocument();
-
-    await waitFor(() => {
+    waitFor(() => {
       expect(screen.getByText(/no results found/i)).toBeInTheDocument();
+    });
+  });
+
+  it('shows "Loading..." when loading', () => {
+    render(<ResultList data={[]} error={null} loading={true} />);
+
+    waitFor(() => {
+      expect(screen.getByText(/loading/i)).toBeInTheDocument();
+    });
+  });
+
+  it('shows "Error" when error', () => {
+    render(<ResultList data={[]} error={new Error('Test error')} loading={false} />);
+
+    waitFor(() => {
+      expect(screen.getByText(/test error/i)).toBeInTheDocument();
     });
   });
 });

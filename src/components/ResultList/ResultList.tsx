@@ -1,10 +1,10 @@
 import { Card } from '../Card/Card';
-import { useApiSearch } from '../../hooks/useApiSearch';
 import type { ICard } from '../../types/card';
 
 interface ResultStateProps {
-  searchTerm: string;
-  page: string;
+  data: ICard[] | null;
+  error: Error | null;
+  loading: boolean;
 }
 
 const CONTENT = {
@@ -13,9 +13,8 @@ const CONTENT = {
   error: '❌ Ошибка загрузки: '
 };
 
-export const ResultList = ({ searchTerm, page }: ResultStateProps) => {
-  const { data, error, loading } = useApiSearch(searchTerm ?? '', page);
-  const resultList = data ? (data as ICard[]) : [];
+export const ResultList = ({ data, error, loading }: ResultStateProps) => {
+  const resultList = data ? data : [];
 
   return (
     <>
