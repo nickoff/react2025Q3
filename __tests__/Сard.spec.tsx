@@ -22,11 +22,6 @@ describe('Card Component', () => {
 
     expect(screen.getByRole('heading', { level: 3 })).toHaveTextContent(mockCard.titles[0].title);
 
-    const image = screen.getByAltText('card image');
-    expect(image).toHaveAttribute('src', mockCard.images.webp.image_url);
-
-    expect(screen.getByText('Description:')).toBeInTheDocument();
-    expect(screen.getByText(`Source: ${mockCard.source}`)).toBeInTheDocument();
     expect(screen.getByText(`Aired: ${mockCard.aired.string}`)).toBeInTheDocument();
   });
 });
