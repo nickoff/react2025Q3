@@ -3,6 +3,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import { ResultList } from '../src/components/ResultList/ResultList';
 import { ICard } from '../src/types/card';
 import '@testing-library/jest-dom';
+import { MemoryRouter } from 'react-router';
 
 const mockData: { data: ICard[] } = {
   data: [
@@ -33,7 +34,11 @@ const mockData: { data: ICard[] } = {
 
 describe('ResultList', () => {
   it('fetches and displays result cards', () => {
-    render(<ResultList data={mockData.data} error={null} loading={false} />);
+    render(
+      <MemoryRouter initialEntries={['/']}>
+        <ResultList data={mockData.data} error={null} loading={false} />
+      </MemoryRouter>
+    );
 
     waitFor(() => {
       expect(screen.getByText((content) => content.includes('Test Card 1'))).toBeInTheDocument();
@@ -50,7 +55,11 @@ describe('ResultList', () => {
   });
 
   it('shows "Loading..." when loading', () => {
-    render(<ResultList data={[]} error={null} loading={true} />);
+    render(
+      <MemoryRouter initialEntries={['/']}>
+        <ResultList data={[]} error={null} loading={true} />
+      </MemoryRouter>
+    );
 
     waitFor(() => {
       expect(screen.getByText(/loading/i)).toBeInTheDocument();
@@ -58,7 +67,11 @@ describe('ResultList', () => {
   });
 
   it('shows "Error" when error', () => {
-    render(<ResultList data={[]} error={new Error('Test error')} loading={false} />);
+    render(
+      <MemoryRouter initialEntries={['/']}>
+        <ResultList data={[]} error={new Error('Test error')} loading={false} />
+      </MemoryRouter>
+    );
 
     waitFor(() => {
       expect(screen.getByText(/test error/i)).toBeInTheDocument();

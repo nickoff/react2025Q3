@@ -3,6 +3,7 @@ import { describe, expect, test } from 'vitest';
 import { Card } from '../src/components/Card/Card';
 import '@testing-library/jest-dom';
 import { ICard } from '../src/types/card';
+import { MemoryRouter } from 'react-router';
 
 const mockCard: ICard = {
   mal_id: 1,
@@ -18,7 +19,11 @@ const mockCard: ICard = {
 
 describe('Card Component', () => {
   test('renders card name, image and details', () => {
-    render(<Card card={mockCard} />);
+    render(
+      <MemoryRouter initialEntries={['/']}>
+        <Card card={mockCard} />
+      </MemoryRouter>
+    );
 
     expect(screen.getByRole('heading', { level: 3 })).toHaveTextContent(mockCard.titles[0].title);
 

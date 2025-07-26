@@ -1,7 +1,7 @@
 import { useContext, useEffect } from 'react';
 import { ResultList } from '../../components/ResultList/ResultList';
 import { SearchContext } from '../Layout/Layout';
-import { useSearchParams } from 'react-router';
+import { Outlet, useSearchParams } from 'react-router';
 import { useApiSearch } from '../../hooks/useApiSearch';
 import { Pagination } from '../../components/Pagination/Pagination';
 
@@ -28,9 +28,12 @@ export const Main = () => {
   };
 
   return (
-    <div className="flex flex-col justify-between max-w-128 min-h-[85vh]">
-      <ResultList data={data} error={error} loading={loading} />
-      {pagination && <Pagination pagination={pagination} handleNumberPage={handleNumberPage} />}
-    </div>
+    <>
+      <div className="flex flex-col justify-between max-w-128 min-h-[85vh]">
+        <ResultList data={data} error={error} loading={loading} />
+        {pagination && <Pagination pagination={pagination} handleNumberPage={handleNumberPage} />}
+      </div>
+      <Outlet />
+    </>
   );
 };
