@@ -14,6 +14,7 @@ export const routers = createRoutesFromElements(
       </Route>
       <Route path="/about" element={<About />} errorElement={<p>Upps</p>}></Route>
     </Route>
+    <Route path="/not-found" element={<NotFound />} />
     <Route path="*" element={<NotFound />} />
   </>
 );

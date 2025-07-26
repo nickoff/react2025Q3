@@ -1,4 +1,4 @@
-import { Await, Link, useLoaderData, useSearchParams } from 'react-router';
+import { Await, Link, Navigate, useLoaderData, useSearchParams } from 'react-router';
 import type { ICard } from '../../types/card';
 import { Suspense } from 'react';
 
@@ -29,19 +29,23 @@ export const Description = () => {
           </div>
         }>
         <Await resolve={description}>
-          {({ data }) => (
-            <>
-              <h2 className="text-3xl font-bold text-orange-500 text-shadow-amber-950">{data.titles[0].title}</h2>
-              <img src={data.images.webp.image_url} alt="Description image" />
-              <p className="text-2xl text-left text-gray-300">{data.synopsis}</p>
-              <p className="text-2xl text-left text-gray-300">
-                {CONTENT.source} {data.source}
-              </p>
-              <p className="text-2xl text-left text-gray-300">
-                {CONTENT.duration} {data.duration}
-              </p>
-            </>
-          )}
+          {({ data }) =>
+            data ? (
+              <>
+                <h2 className="text-3xl font-bold text-orange-500 text-shadow-amber-950">{data.titles[0].title}</h2>
+                <img src={data.images.webp.image_url} alt="Description image" />
+                <p className="text-2xl text-left text-gray-300">{data.synopsis}</p>
+                <p className="text-2xl text-left text-gray-300">
+                  {CONTENT.source} {data.source}
+                </p>
+                <p className="text-2xl text-left text-gray-300">
+                  {CONTENT.duration} {data.duration}
+                </p>
+              </>
+            ) : (
+              <Navigate to="/not-found" replace />
+            )
+          }
         </Await>
       </Suspense>
     </div>
