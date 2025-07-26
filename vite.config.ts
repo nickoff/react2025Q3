@@ -21,7 +21,8 @@ export default defineConfig({
         'src/index.{js,jsx,ts,tsx}',
         'src/main.{js,jsx,ts,tsx}',
         'src/setupTests.{js,ts}',
-        'src/**/*.d.ts'
+        'src/**/*.d.ts',
+        'src/types/**/*.ts'
       ],
       thresholds: {
         lines: 50,

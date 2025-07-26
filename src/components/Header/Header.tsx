@@ -1,6 +1,7 @@
-import { useLocalStorage } from '../../hooks/useLocalStorage';
+import { useState } from 'react';
 
 interface HeaderProps {
+  searchTerm: string;
   searchHandler: (value: string) => void;
 }
 
@@ -10,30 +11,31 @@ const CONTENT = {
 };
 
 export const Header = (props: HeaderProps) => {
-  const { searchTerm, setSearchTerm } = useLocalStorage();
+  const { searchTerm, searchHandler } = props;
+  const [inputValue, setInputValue] = useState(searchTerm);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
-    setSearchTerm(inputValue);
+    setInputValue(inputValue);
   };
 
   const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    props.searchHandler(searchTerm);
+    searchHandler(inputValue.trim());
   };
 
   return (
     <header className="flex justify-center items-center px-5 py-2.5 border-b-2 border-gray-600">
       <form className="flex justify-center items-center gap-2.5" onSubmit={handleSearch}>
         <label htmlFor="search">
-          <h3 className="text-3xl">{CONTENT.title}</h3>
+          <h3 className="text-3xl font-bold">{CONTENT.title}</h3>
         </label>
         <input
           className="text-2xl text-amber-50 px-2 py-1 rounded-md border border-black outline-none bg-gray-600"
           type="text"
           name="search"
           id="search"
-          value={searchTerm}
+          value={inputValue}
           onChange={handleChange}
         />
         <button className="text-2xl text-amber-50 px-4 py-1 rounded-md border border-black outline-none bg-gray-600 cursor-pointer transition duration-300 ease-in-out hover:bg-gray-400">

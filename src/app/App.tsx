@@ -1,10 +1,10 @@
-import { Main } from '../views/Main/Main';
+import { AppRouter } from './AppRouter';
 import { Providers } from './Providers/Providers';
 
 const App = () => {
   return (
     <Providers>
-      <Main />
+      <AppRouter />
     </Providers>
   );
 };

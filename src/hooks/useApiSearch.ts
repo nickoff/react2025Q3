@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import type { ICard } from '../types/card';
 
-export const useApiSearch = (searchTerm: string) => {
+export const useApiSearch = (searchTerm: string, page: string) => {
   const [data, setData] = useState<ICard[]>([]);
   const [error, setError] = useState<Error | null>(null);
   const [loading, setLoading] = useState(false);
@@ -14,7 +14,7 @@ export const useApiSearch = (searchTerm: string) => {
       setError(null);
 
       try {
-        const res = await fetch(`${API_URL}?page=1&limit=20&q=${searchTerm}`, { method: 'GET' });
+        const res = await fetch(`${API_URL}?page=${page}&limit=10&q=${searchTerm}`, { method: 'GET' });
 
         if (!res.ok) throw new Error(`Status: ${res.status}`);
 
@@ -29,7 +29,7 @@ export const useApiSearch = (searchTerm: string) => {
     };
 
     fetchData();
-  }, [searchTerm]);
+  }, [page, searchTerm]);
 
   return { data, error, loading };
 };

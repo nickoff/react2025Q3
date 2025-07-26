@@ -1,18 +1,21 @@
-import { Header } from '../../components/Header/Header';
+import { useContext, useEffect } from 'react';
 import { ResultList } from '../../components/ResultList/ResultList';
-import { useLocalStorage } from '../../hooks/useLocalStorage';
+import { SearchContext } from '../Layout/Layout';
+import { useSearchParams } from 'react-router';
 
 export const Main = () => {
-  const { searchTerm, setSearchTerm } = useLocalStorage();
+  const searchTerm = useContext(SearchContext);
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const searchHandler = (value: string) => {
-    setSearchTerm(value);
-  };
+  useEffect(() => {
+    if (!searchParams.get('page')) {
+      setSearchParams({ page: '1' });
+    }
+  });
 
   return (
-    <main>
-      <Header searchHandler={searchHandler} />
-      <ResultList searchTerm={searchTerm} />
-    </main>
+    <div className="flex flex-col justify-between min-h-screen">
+      <ResultList page={searchParams.get('page') ?? '1'} searchTerm={searchTerm} />
+    </div>
   );
 };
