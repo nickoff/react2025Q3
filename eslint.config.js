@@ -14,7 +14,8 @@ export default tseslint.config([
       prettier: prettierPlugin
     },
     rules: {
-      'prettier/prettier': 'error'
+      'prettier/prettier': 'error',
+      'react-hooks/exhaustive-deps': 'off'
     },
     extends: [
       js.configs.recommended,

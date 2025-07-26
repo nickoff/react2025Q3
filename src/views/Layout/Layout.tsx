@@ -12,7 +12,7 @@ export const Layout = () => {
 
   return (
     <SearchContext.Provider value={searchTerm}>
-      <div className="max-w-7xl mx-auto flex flex-col min-h-screen">
+      <div className="max-w-7xl mx-auto flex flex-col h-[90vh]">
         <Header searchTerm={searchTerm} searchHandler={searchHandler} />
         <main className="w-full flex flex-1 justify-between gap-5 p-5">
           <Outlet />

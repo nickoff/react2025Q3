@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 import type { ICard } from '../types/card';
+import type { IPagination } from '../types/pagination';
 
 export const useApiSearch = (searchTerm: string, page: string) => {
   const [data, setData] = useState<ICard[]>([]);
+  const [pagination, setPagination] = useState<IPagination>();
   const [error, setError] = useState<Error | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -19,6 +21,7 @@ export const useApiSearch = (searchTerm: string, page: string) => {
         if (!res.ok) throw new Error(`Status: ${res.status}`);
 
         const json = await res.json();
+        setPagination(json.pagination);
         setData(json.data as ICard[]);
       } catch (err) {
         setError(err as Error);
@@ -31,5 +34,5 @@ export const useApiSearch = (searchTerm: string, page: string) => {
     fetchData();
   }, [page, searchTerm]);
 
-  return { data, error, loading };
+  return { data, pagination, error, loading };
 };
