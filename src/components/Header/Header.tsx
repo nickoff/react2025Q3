@@ -5,7 +5,7 @@ interface HeaderProps {
 }
 
 const CONTENT = {
-  title: 'Pokémon cards',
+  title: 'Anime searcher',
   search: 'Search'
 };
 

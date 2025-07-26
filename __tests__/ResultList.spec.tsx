@@ -1,19 +1,41 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 import { ResultList } from '../src/components/ResultList/ResultList';
-import { ICard } from '../src/components/Card/Card';
+import { ICard } from '../src/types/card';
 import '@testing-library/jest-dom';
 
 const mockData: { data: ICard[] } = {
   data: [
-    { id: '1', name: 'Test Card 1', set: { name: 'Test Set 1', series: 'Test Series 1' }, images: { small: '' } },
-    { id: '2', name: 'Test Card 2', set: { name: 'Test Set 2', series: 'Test Series 2' }, images: { small: '' } }
+    {
+      mal_id: 1,
+      images: { webp: { image_url: '' } },
+      title_english: 'Test Card 1',
+      aired: { string: '1998' },
+      title_japanese: 'ddd',
+      titles: [{ type: 'Default', title: 'Test Card 1' }],
+      synopsis: '',
+      source: '',
+      duration: ''
+    },
+    {
+      mal_id: 2,
+      images: { webp: { image_url: '' } },
+      title_english: 'Test Card 2',
+      aired: { string: '1999' },
+      title_japanese: 'fff',
+      titles: [{ type: 'Default', title: 'Test Card 2' }],
+      synopsis: '',
+      source: '',
+      duration: ''
+    }
   ]
 };
 
 describe('ResultList', () => {
   const fetchMock = vi.fn(() =>
     Promise.resolve({
+      ok: true,
+      status: 200,
       json: () => Promise.resolve(mockData)
     })
   );
@@ -33,14 +55,16 @@ describe('ResultList', () => {
     await waitFor(() => expect(fetchMock).toHaveBeenCalled());
 
     await waitFor(() => {
-      expect(screen.getByText(/test card 1/i)).toBeInTheDocument();
-      expect(screen.getByText(/test card 2/i)).toBeInTheDocument();
+      expect(screen.getByText((content) => content.includes('Test Card 1'))).toBeInTheDocument();
+      expect(screen.getByText((content) => content.includes('Test Card 2'))).toBeInTheDocument();
     });
   });
 
   it('shows "No results found" when response is empty', async () => {
     fetchMock.mockImplementationOnce(() =>
       Promise.resolve({
+        ok: true,
+        status: 200,
         json: () => Promise.resolve({ data: [] })
       })
     );

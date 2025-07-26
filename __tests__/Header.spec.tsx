@@ -13,7 +13,7 @@ describe('Header component', () => {
 
   test('renders header and input', () => {
     render(<Header searchHandler={mockSearchHandler} />);
-    expect(screen.getByRole('heading', { level: 3 })).toHaveTextContent('Pokémon cards');
+    expect(screen.getByRole('heading', { level: 3 })).toHaveTextContent('Anime searcher');
     expect(screen.getByRole('textbox')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /search/i })).toBeInTheDocument();
   });

@@ -1,11 +1,6 @@
-import { useEffect, useState } from 'react';
-import { Card, type ICard } from '../Card/Card';
-import { getResult } from '../../utils/getResult';
-
-type ResultState = {
-  resultList: ICard[] | [];
-  isLoading: boolean;
-};
+import { Card } from '../Card/Card';
+import { useApiSearch } from '../../hooks/useApiSearch';
+import type { ICard } from '../../types/card';
 
 interface ResultStateProps {
   searchTerm: string;
@@ -16,39 +11,29 @@ const CONTENT = {
   noResults: 'Ups... No results found 😟'
 };
 
-export const ResultList = (props: ResultStateProps) => {
-  const [state, setState] = useState<ResultState>({
-    resultList: [],
-    isLoading: false
-  });
-
-  useEffect(() => {
-    getResultList(props.searchTerm ?? '');
-  }, [props.searchTerm]);
-
-  const getResultList = (searchTerm: string) => {
-    setState((prevState) => ({ ...prevState, isLoading: true }));
-    getResult(searchTerm).then((response) => {
-      response.json().then((data) => {
-        setState({ resultList: data.data, isLoading: false });
-      });
-    });
-  };
+export const ResultList = ({ searchTerm }: ResultStateProps) => {
+  const { data, error, loading } = useApiSearch(searchTerm ?? '');
+  const resultList = data ? (data as ICard[]) : [];
 
   return (
     <>
-      {state.isLoading && (
+      {loading && (
         <div className="flex justify-center items-center text-3xl mt-48 w-full animate-pulse">{CONTENT.loading}</div>
       )}
-      {!state.isLoading && state.resultList.length > 0 && (
+      {!loading && resultList.length > 0 && (
         <div className="w-full grid grid-cols-3 gap-5 p-5">
-          {state.resultList.map((result, index) => (
+          {resultList.map((result, index) => (
             <Card key={index} card={result} />
           ))}
         </div>
       )}
-      {!state.isLoading && state.resultList.length === 0 && (
+      {!loading && resultList.length === 0 && (
         <div className="flex justify-center items-center text-3xl mt-48 w-full">{CONTENT.noResults}</div>
+      )}
+      {error && (
+        <div className="flex justify-center items-center text-3xl mt-48 w-full text-red-500">
+          ❌ Ошибка загрузки: {error.message}
+        </div>
       )}
     </>
   );

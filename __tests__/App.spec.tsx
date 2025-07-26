@@ -6,6 +6,6 @@ import '@testing-library/jest-dom';
 describe('App component', () => {
   it('renders Main inside by default', () => {
     render(<App />);
-    expect(screen.getByRole('heading')).toHaveTextContent('Pokémon cards');
+    expect(screen.getByRole('heading')).toHaveTextContent('Anime searcher');
   });
 });
