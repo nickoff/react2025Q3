@@ -8,7 +8,7 @@ const CONTENT = {
   error: '❌ Ошибка загрузки: ',
   source: 'Source: ',
   duration: 'Duration: ',
-  close: 'Go back'
+  close: 'Close'
 };
 
 export const Description = () => {
@@ -16,9 +16,9 @@ export const Description = () => {
   const [searchParams] = useSearchParams();
 
   return (
-    <div className="w-full h-fit flex flex-col justify-start items-start rounded-md gap-5 py-5 px-8 bg-[rgba(0,0,0,0.7)]">
+    <div className="w-full relative h-fit flex flex-col justify-start items-start rounded-md gap-5 py-5 px-8 bg-[rgba(0,0,0,0.7)]">
       <Link
-        className="text-2xl text-amber-50 px-4 py-1 rounded-md border border-black outline-none bg-gray-600"
+        className="absolute top-5 right-5 text-2xl text-amber-50 px-4 py-1 ml-auto rounded-md border border-black outline-none bg-gray-600 transition duration-300 ease-in-out hover:bg-orange-400"
         to={'/?page=' + searchParams.get('page')}>
         {CONTENT.close}
       </Link>

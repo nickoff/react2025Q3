@@ -29,7 +29,7 @@ export const Main = () => {
 
   return (
     <>
-      <div className="flex flex-col justify-between max-w-128 min-h-[85vh]">
+      <div className="flex flex-col flex-1 justify-between min-w-[35%] max-w-[35%] min-h-[85vh]">
         <ResultList data={data} error={error} loading={loading} />
         {pagination && <Pagination pagination={pagination} handleNumberPage={handleNumberPage} />}
       </div>
