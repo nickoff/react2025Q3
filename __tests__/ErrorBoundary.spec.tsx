@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, test } from 'vitest';
 import { ErrorBoundary } from '../src/components/ErrorBoundary/ErrorBoundary';
+import '@testing-library/jest-dom';
 
 const ThrowComponent = () => {
   throw new Error('Simulated error');

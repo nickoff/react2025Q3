@@ -1,72 +1,41 @@
-import { Component } from 'react';
-import './ResultList.css';
-import { Card, type ICard } from '../Card/Card';
-import { API_KEY, API_URL } from '../../utils/constants';
-
-type ResultState = {
-  resultList: ICard[] | [];
-  isLoading: boolean;
-};
+import { Card } from '../Card/Card';
+import type { ICard } from '../../types/card';
 
 interface ResultStateProps {
-  searchTerm: string;
+  data: ICard[] | null;
+  error: Error | null;
+  loading: boolean;
 }
 
-export class ResultList extends Component<ResultStateProps, ResultState> {
-  constructor(props: ResultStateProps) {
-    super(props);
+const CONTENT = {
+  loading: 'Loading...',
+  noResults: 'Ups... No results found 😟',
+  error: '❌ Ошибка загрузки: '
+};
 
-    this.state = {
-      resultList: [],
-      isLoading: false
-    };
-  }
+export const ResultList = ({ data, error, loading }: ResultStateProps) => {
+  const resultList = data ? data : [];
 
-  private getResultList = (searchTerm: string) => {
-    const apiUrl = `${API_URL}?page=1&pageSize=20&q=name:${searchTerm}*`;
-    const fetchOptions: RequestInit = {
-      headers: {
-        'X-Api-Key': API_KEY
-      },
-      method: 'GET'
-    };
-    this.setState({ isLoading: true });
-    fetch(apiUrl, fetchOptions).then((response) => {
-      response.json().then((data) => {
-        this.setState({ resultList: data.data });
-        this.setState({ isLoading: false });
-      });
-    });
-  };
-
-  componentDidMount() {
-    this.getResultList(this.props.searchTerm ?? '');
-  }
-
-  componentDidUpdate(prevProps: ResultStateProps) {
-    if (this.props.searchTerm !== prevProps.searchTerm) {
-      this.getResultList(this.props.searchTerm ?? '');
-    }
-  }
-
-  render() {
-    return (
-      <>
-        {this.state.isLoading && <div className="result-list__loader">Loading...</div>}
-        {!this.state.isLoading && this.state.resultList.length > 0 && (
-          <div className="result-list">
-            {this.state.resultList.map((result, index) => (
-              <Card key={index} card={result} />
-            ))}
-          </div>
-        )}
-        {!this.state.isLoading && this.state.resultList.length === 0 && (
-          <div className="result-list__loader">No results found</div>
-        )}
-      </>
-    );
-  }
-  componentWillUnmount() {
-    this.setState({ resultList: [] });
-  }
-}
+  return (
+    <>
+      {loading && (
+        <div className="flex justify-center items-center text-3xl mt-48 w-full animate-pulse">{CONTENT.loading}</div>
+      )}
+      {!loading && resultList.length > 0 && (
+        <div className="w-full flex flex-col gap-5 px-5">
+          {resultList.map((result, index) => (
+            <Card key={index} card={result} />
+          ))}
+        </div>
+      )}
+      {!loading && !error && resultList.length === 0 && (
+        <div className="flex justify-center items-center text-3xl mt-48 w-full">{CONTENT.noResults}</div>
+      )}
+      {error && (
+        <div className="flex justify-center items-center text-3xl mt-48 w-full text-red-500">
+          {CONTENT.error} {error.message}
+        </div>
+      )}
+    </>
+  );
+};

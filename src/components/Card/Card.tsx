@@ -1,39 +1,40 @@
-import { Component } from 'react';
-import './Card.css';
-
-export interface ICard {
-  id: string;
-  name: string;
-  set: {
-    name: string;
-    series: string;
-  };
-  images: { small: string };
-}
+import { NavLink, useLocation, useResolvedPath, useSearchParams } from 'react-router';
+import type { ICard } from '../../types/card';
 
 export interface CardProps {
   card: ICard;
 }
 
-export class Card extends Component<CardProps> {
-  private card: ICard;
-  constructor(props: CardProps) {
-    super(props);
-    this.card = props.card;
-  }
-  render() {
-    return (
-      <div className="card">
-        <h3>{this.card.name}</h3>
-        <img alt="card image" className="card_image" src={this.props.card.images.small} />
-        <div>
-          <p>Pokémon description:</p>
-          <ul>
-            <li>Set: {this.props.card.set.name}</li>
-            <li>Series: {this.props.card.set.series}</li>
-          </ul>
-        </div>
-      </div>
-    );
-  }
-}
+const CONTENT = {
+  description: 'Description:',
+  source: 'Source: ',
+  aired: 'Aired: ',
+  duration: 'Duration: '
+};
+
+export const Card = (props: CardProps) => {
+  const { card } = props;
+  const title = card.titles.find((title) => title.type === 'Default')?.title;
+  const [searchParams] = useSearchParams();
+  const location = useLocation();
+  const resolvedPath = useResolvedPath(`/${card.mal_id}`);
+  const isActivePath = location.pathname === resolvedPath.pathname;
+  const toUrl = isActivePath
+    ? `/?page=${searchParams.get('page')}`
+    : `/${card.mal_id}?page=${searchParams.get('page')}`;
+
+  return (
+    <NavLink
+      to={toUrl}
+      className={
+        isActivePath
+          ? 'flex flex-col justify-between items-start rounded-md gap-2.5 border-2 border-orange-800 text-2xl bg-[#9f2d00bc] py-2.5 px-8'
+          : 'flex flex-col justify-between items-start rounded-md gap-2.5 border-2 border-gray-500 text-2xl bg-[#6a7282bc] py-2.5 px-8 transition duration-300 ease-in-out hover:border-2 hover:border-orange-400'
+      }>
+      <h3 className="text-2xl text-left font-medium text-orange-300">{title}</h3>
+      <p className="text-lg text-gray-300">
+        {CONTENT.aired} {card.aired.string}
+      </p>
+    </NavLink>
+  );
+};

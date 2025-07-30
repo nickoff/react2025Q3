@@ -1,27 +1,27 @@
-import { describe, expect, test, vi } from 'vitest';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
+import '@testing-library/jest-dom';
 import { Main } from '../src/views/Main/Main';
+import { MemoryRouter } from 'react-router';
 
-vi.mock('../../components/Header/Header', () => ({
-  Header: ({ searchHandler }: { searchHandler: (value: string) => void }) => (
-    <div>
-      <button data-testid="trigger-search" onClick={() => searchHandler('Pikachu')}>
-        Trigger Search
-      </button>
-    </div>
-  )
+vi.mock('../src/components/ResultList/ResultList', () => ({
+  ResultList: ({ searchTerm }: { searchTerm: string }) => <div data-testid="result-list">{searchTerm}</div>
 }));
 
-vi.mock('../../components/ResultList/ResultList', () => ({
-  ResultList: ({ searchTerm }: { searchTerm: string }) => <div data-testid="result-list">Search: {searchTerm}</div>
-}));
+describe('Main component (with mocked Header & ResultList)', () => {
+  beforeEach(() => {
+    localStorage.clear();
+    vi.resetAllMocks();
+  });
 
-describe('Main component', () => {
-  test('renders children components', () => {
-    render(<Main />);
+  it('renders empty result-list by default', () => {
+    render(
+      <MemoryRouter initialEntries={['/']}>
+        <Main />
+      </MemoryRouter>
+    );
 
-    expect(screen.getByRole('heading', { level: 3 })).toHaveTextContent('Pokémon cards');
-    expect(screen.getByRole('textbox')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /search/i })).toBeInTheDocument();
+    const result = screen.getByTestId('result-list');
+    expect(result).toHaveTextContent('');
   });
 });

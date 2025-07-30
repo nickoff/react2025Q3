@@ -1,31 +1,32 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, test } from 'vitest';
-import { Card, ICard } from '../src/components/Card/Card';
+import { Card } from '../src/components/Card/Card';
+import '@testing-library/jest-dom';
+import { ICard } from '../src/types/card';
+import { MemoryRouter } from 'react-router';
 
 const mockCard: ICard = {
-  id: 'xy7-54',
-  name: 'Gardevoir',
-  set: {
-    name: 'Ancient Origins',
-    series: 'XY'
-  },
-  images: {
-    small: 'https://images.pokemontcg.io/xy7/54.png'
-  }
+  mal_id: 1,
+  images: { webp: { image_url: 'https://example.com/image.jpg' } },
+  title_english: 'Test Card 1',
+  aired: { string: '1998' },
+  title_japanese: 'ddd',
+  titles: [{ type: 'Default', title: 'Test Card 1' }],
+  synopsis: '',
+  source: 'Original',
+  duration: '1 hr 55 min'
 };
 
 describe('Card Component', () => {
   test('renders card name, image and details', () => {
-    render(<Card card={mockCard} />);
+    render(
+      <MemoryRouter initialEntries={['/']}>
+        <Card card={mockCard} />
+      </MemoryRouter>
+    );
 
-    expect(screen.getByRole('heading', { level: 3 })).toHaveTextContent(mockCard.name);
+    expect(screen.getByRole('heading', { level: 3 })).toHaveTextContent(mockCard.titles[0].title);
 
-    const image = screen.getByAltText('card image');
-    expect(image).toHaveAttribute('src', mockCard.images.small);
-    expect(image).toHaveClass('card_image');
-
-    expect(screen.getByText('Pokémon description:')).toBeInTheDocument();
-    expect(screen.getByText(`Set: ${mockCard.set.name}`)).toBeInTheDocument();
-    expect(screen.getByText(`Series: ${mockCard.set.series}`)).toBeInTheDocument();
+    expect(screen.getByText(`Aired: ${mockCard.aired.string}`)).toBeInTheDocument();
   });
 });
