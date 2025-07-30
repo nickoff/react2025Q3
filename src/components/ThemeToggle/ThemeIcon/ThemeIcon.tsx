@@ -13,8 +13,8 @@ export const ThemeIcon = (props: ThemIconProps) => {
           fill="#6a7282"
         />
         <circle cx="26" cy="32" r="4" fill="#6a7282" />
-        <path d="M22 28 Q26 26 30 28" stroke="#6a7282" stroke-width="2" fill="none" />
-        <path d="M24 40 Q26 42 28 40" stroke="#6a7282" stroke-width="2" fill="none" />
+        <path d="M22 28 Q26 26 30 28" stroke="#6a7282" strokeWidth="2" fill="none" />
+        <path d="M24 40 Q26 42 28 40" stroke="#6a7282" strokeWidth="2" fill="none" />
       </svg>
     );
   }
