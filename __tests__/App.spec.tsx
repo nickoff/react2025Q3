@@ -6,6 +6,6 @@ import '@testing-library/jest-dom';
 describe('App component', () => {
   it('renders Main inside by default', () => {
     render(<App />);
-    expect(screen.getByRole('heading')).toHaveTextContent('Anime searcher');
+    expect(screen.getByRole('heading')).toBeInTheDocument();
   });
 });

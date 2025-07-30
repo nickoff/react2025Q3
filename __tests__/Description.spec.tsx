@@ -27,4 +27,19 @@ describe('Description Component', () => {
 
     expect(await screen.findByText('Test title')).toBeInTheDocument();
   });
+
+  it('render Not Found if no data', async () => {
+    const loader = () => ({
+      description: Promise.resolve({ data: null })
+    });
+
+    const router = createMemoryRouter(
+      createRoutesFromElements(<Route path="/" loader={loader} element={<Description />} />),
+      { initialEntries: ['/'] }
+    );
+
+    render(<RouterProvider router={router} />);
+
+    expect(await screen.findByText('404 Not Found')).toBeInTheDocument();
+  });
 });

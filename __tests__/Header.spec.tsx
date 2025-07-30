@@ -1,8 +1,9 @@
 import { describe, expect, test, vi, beforeEach } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { Header } from '../src/components/Header/Header';
 import '@testing-library/jest-dom';
 import { MemoryRouter } from 'react-router';
+import userEvent from '@testing-library/user-event';
 
 describe('Header component', () => {
   const mockSearchHandler = vi.fn();
@@ -31,5 +32,22 @@ describe('Header component', () => {
       </MemoryRouter>
     );
     expect(screen.getByRole('textbox')).toHaveValue('Pikachu');
+  });
+
+  test('calls searchHandler with input value', async () => {
+    render(
+      <MemoryRouter initialEntries={['/']}>
+        <Header searchTerm="Pikachu" searchHandler={mockSearchHandler} />
+      </MemoryRouter>
+    );
+
+    const searchInput = screen.getByRole('textbox');
+    const searchButton = screen.getByRole('button', { name: /search/i });
+
+    fireEvent.change(searchInput, { target: { value: 'Bleach' } });
+    await userEvent.click(searchButton);
+
+    expect(searchInput).toHaveValue('Bleach');
+    expect(mockSearchHandler).toHaveBeenCalledTimes(1);
   });
 });

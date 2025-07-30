@@ -8,49 +8,40 @@ const ThrowComponent = () => {
   throw new Error('Simulated error');
 };
 
-describe('ErrorBoundary', () => {
-  test('renders children when no error', () => {
-    render(
-      <ErrorBoundary fallback={() => <div data-testid="fallback">Error</div>}>
-        <div data-testid="content">Content</div>
-      </ErrorBoundary>
-    );
+const props = {
+  fallback: (reload: () => void) => <button onClick={reload}>Reload</button>,
+  children: <div>Content</div>
+};
 
-    expect(screen.getByTestId('content')).toBeInTheDocument();
+describe('ErrorBoundary ', () => {
+  test('renders children when no error', () => {
+    render(<ErrorBoundary {...props} />);
+
+    expect(screen.getByText(/content/i)).toBeInTheDocument();
   });
 
   test('renders fallback when error is thrown', () => {
     render(
-      <ErrorBoundary fallback={() => <div data-testid="fallback">Error</div>}>
+      <ErrorBoundary {...props}>
         <ThrowComponent />
       </ErrorBoundary>
     );
 
-    expect(screen.getByTestId('fallback')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Reload' })).toBeInTheDocument();
   });
 
   test('reloadCallback restores content', async () => {
-    const Fallback = (reload: () => void) => (
-      <button data-testid="reload" onClick={reload}>
-        Reload
-      </button>
-    );
-
     render(
-      <ErrorBoundary fallback={Fallback}>
+      <ErrorBoundary {...props}>
         <ThrowComponent />
       </ErrorBoundary>
     );
 
-    const reloadButton = await screen.findByTestId('reload');
+    const reloadButton = screen.getByRole('button', { name: 'Reload' });
     await userEvent.click(reloadButton);
 
-    render(
-      <ErrorBoundary fallback={Fallback}>
-        <div data-testid="content">Content</div>
-      </ErrorBoundary>
-    );
+    render(<ErrorBoundary {...props} />);
 
-    expect(screen.getByTestId('content')).toBeInTheDocument();
+    expect(screen.getByText(/content/i)).toBeInTheDocument();
   });
 });

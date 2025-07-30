@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { describe, expect, test } from 'vitest';
+import { describe, expect, test, vi } from 'vitest';
 import { Card } from '../src/components/Card/Card';
 import '@testing-library/jest-dom';
 import { ICard } from '../src/types/card';
@@ -26,7 +26,26 @@ describe('Card Component', () => {
     );
 
     expect(screen.getByRole('heading', { level: 3 })).toHaveTextContent(mockCard.titles[0].title);
-
     expect(screen.getByText(`Aired: ${mockCard.aired.string}`)).toBeInTheDocument();
+  });
+
+  test('render active link', async () => {
+    vi.mock('react-router', async () => {
+      const actual = await vi.importActual<typeof import('react-router')>('react-router');
+      return {
+        ...actual,
+        useSearchParams: () => [new URLSearchParams('page=3')],
+        useLocation: () => ({ pathname: '/1' }),
+        useResolvedPath: vi.fn((to: string) => ({ pathname: to }))
+      };
+    });
+
+    render(
+      <MemoryRouter initialEntries={['/']}>
+        <Card card={mockCard} />
+      </MemoryRouter>
+    );
+
+    expect(screen.getByRole('link')).toHaveAttribute('href', '/?page=3');
   });
 });

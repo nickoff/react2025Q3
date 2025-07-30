@@ -6,7 +6,7 @@ describe('getDescription', () => {
 
   it('returns description if fetch is successful', async () => {
     const mockData = { title: 'Naruto', synopsis: 'Ninja story' };
-    global.fetch = vi.fn(() =>
+    globalThis.fetch = vi.fn(() =>
       Promise.resolve({
         ok: true,
         json: () => Promise.resolve({ data: mockData })
@@ -18,7 +18,7 @@ describe('getDescription', () => {
   });
 
   it('returns error description if fetch is successful', async () => {
-    global.fetch = vi.fn(() =>
+    globalThis.fetch = vi.fn(() =>
       Promise.resolve({
         ok: false,
         status: 404
