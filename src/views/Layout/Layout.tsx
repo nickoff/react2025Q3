@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router';
 import { Header } from '../../components/Header/Header';
-import { useLocalStorage } from '../../hooks/useLocalStorage';
+import { useLocalStorage } from '../../hooks/useLocalStorageSearch';
 import { SearchContext } from '../../utils/searchContext';
 import { useContext } from 'react';
 import { ThemeContext } from '../../app/Providers/ThemeContextProvider/themeContext';
