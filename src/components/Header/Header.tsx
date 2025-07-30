@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { Navigation } from '../Navigation/Navigation';
+import { ThemeToggle } from '../ThemeToggle/ThemeToggle';
 
 interface HeaderProps {
   searchTerm: string;
@@ -49,6 +50,7 @@ export const Header = (props: HeaderProps) => {
         </button>
       </form>
       <Navigation />
+      <ThemeToggle />
     </header>
   );
 };
