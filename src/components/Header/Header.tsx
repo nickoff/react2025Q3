@@ -22,8 +22,8 @@ export const Header = () => {
   const handleSearch = (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
     const inputElement = event.target.elements.namedItem('search') as HTMLInputElement;
-    setSearchTerm(inputElement.value);
-    dispatch(setNewSearchTermValue(inputElement.value));
+    setSearchTerm(inputElement.value.trim());
+    dispatch(setNewSearchTermValue(inputElement.value.trim()));
     navigate('/');
   };
 
