@@ -6,9 +6,11 @@ import { MemoryRouter } from 'react-router';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import { rootReducer } from '../src/app/reducers/rootReducer';
+import { animeApi } from '../src/utils/animeApi';
 
 const mockStore = configureStore({
-  reducer: rootReducer
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(animeApi.middleware)
 });
 
 vi.mock('../src/components/ResultList/ResultList', () => ({

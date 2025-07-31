@@ -1,9 +1,11 @@
 import { Card } from '../Card/Card';
 import type { ICard } from '../../types/card';
+import type { SerializedError } from '@reduxjs/toolkit';
+import type { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 
 interface ResultStateProps {
-  data: ICard[] | null;
-  error: Error | null;
+  data: ICard[] | undefined;
+  error: FetchBaseQueryError | SerializedError | undefined;
   loading: boolean;
 }
 
@@ -33,7 +35,7 @@ export const ResultList = ({ data, error, loading }: ResultStateProps) => {
       )}
       {error && (
         <div className="flex justify-center items-center text-3xl mt-48 w-full text-red-500">
-          {CONTENT.error} {error.message}
+          {CONTENT.error} {'status' in error ? error.status : 'Error not status'}
         </div>
       )}
     </>
