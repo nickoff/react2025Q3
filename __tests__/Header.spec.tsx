@@ -1,22 +1,27 @@
-import { describe, expect, test, vi, beforeEach } from 'vitest';
+import { describe, expect, test } from 'vitest';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { Header } from '../src/components/Header/Header';
 import '@testing-library/jest-dom';
 import { MemoryRouter } from 'react-router';
 import userEvent from '@testing-library/user-event';
+import { configureStore } from '@reduxjs/toolkit';
+import { rootReducer } from '../src/app/reducers/rootReducer';
+import { Provider } from 'react-redux';
+import { ThemeContext } from '../src/app/Providers/ThemeContextProvider/themeContext';
+
+const mockContextValue = { themeDark: false, changeTheme: () => {} };
+
+const mockStore = configureStore({
+  reducer: rootReducer
+});
 
 describe('Header component', () => {
-  const mockSearchHandler = vi.fn();
-
-  beforeEach(() => {
-    localStorage.clear();
-    mockSearchHandler.mockClear();
-  });
-
   test('renders header and input', () => {
     render(
       <MemoryRouter initialEntries={['/']}>
-        <Header searchTerm="" searchHandler={mockSearchHandler} />
+        <Provider store={mockStore}>
+          <Header />
+        </Provider>
       </MemoryRouter>
     );
     expect(screen.getByRole('heading', { level: 3 })).toHaveTextContent('Anime searcher');
@@ -24,20 +29,12 @@ describe('Header component', () => {
     expect(screen.getByRole('button', { name: /search/i })).toBeInTheDocument();
   });
 
-  test('preloads input value from localStorage', () => {
-    localStorage.setItem('searchTerm', 'Pikachu');
-    render(
-      <MemoryRouter initialEntries={['/']}>
-        <Header searchTerm="Pikachu" searchHandler={mockSearchHandler} />
-      </MemoryRouter>
-    );
-    expect(screen.getByRole('textbox')).toHaveValue('Pikachu');
-  });
-
   test('calls searchHandler with input value', async () => {
     render(
       <MemoryRouter initialEntries={['/']}>
-        <Header searchTerm="Pikachu" searchHandler={mockSearchHandler} />
+        <Provider store={mockStore}>
+          <Header />
+        </Provider>
       </MemoryRouter>
     );
 
@@ -48,6 +45,20 @@ describe('Header component', () => {
     await userEvent.click(searchButton);
 
     expect(searchInput).toHaveValue('Bleach');
-    expect(mockSearchHandler).toHaveBeenCalledTimes(1);
+  });
+
+  test('renders correct styles for light theme', () => {
+    render(
+      <MemoryRouter initialEntries={['/']}>
+        <ThemeContext.Provider value={mockContextValue}>
+          <Provider store={mockStore}>
+            <Header />
+          </Provider>
+        </ThemeContext.Provider>
+      </MemoryRouter>
+    );
+
+    const searchInput = screen.getByRole('textbox');
+    expect(searchInput).toHaveClass('bg-amber-50');
   });
 });

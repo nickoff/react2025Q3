@@ -1,12 +1,12 @@
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
 import { ResultList } from '../../components/ResultList/ResultList';
-import { SearchContext } from '../Layout/Layout';
 import { Outlet, useSearchParams } from 'react-router';
 import { useApiSearch } from '../../hooks/useApiSearch';
 import { Pagination } from '../../components/Pagination/Pagination';
+import { useAppSelector } from '../../app/hooks';
 
 export const Main = () => {
-  const searchTerm = useContext(SearchContext);
+  const searchTerm = useAppSelector((state) => state.search.value);
   const [searchParams, setSearchParams] = useSearchParams();
   const page = searchParams.get('page') ?? '1';
   const { data, error, loading, pagination } = useApiSearch(searchTerm ?? '', page);

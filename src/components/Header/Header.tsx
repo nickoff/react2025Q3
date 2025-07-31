@@ -1,33 +1,29 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { useNavigate } from 'react-router';
 import { Navigation } from '../Navigation/Navigation';
 import { ThemeToggle } from '../ThemeToggle/ThemeToggle';
 import { ThemeContext } from '../../app/Providers/ThemeContextProvider/themeContext';
-
-interface HeaderProps {
-  searchTerm: string;
-  searchHandler: (value: string) => void;
-}
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { setNewSearchTermValue } from '../../app/reducers/search';
+import { useLocalStorage } from '../../hooks/useLocalStorageSearch';
 
 const CONTENT = {
   title: 'Anime searcher',
   search: 'Search'
 };
 
-export const Header = (props: HeaderProps) => {
-  const { searchTerm, searchHandler } = props;
-  const [inputValue, setInputValue] = useState(searchTerm);
+export const Header = () => {
+  const searchTerm = useAppSelector((state) => state.search.value);
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { setSearchTerm } = useLocalStorage();
   const { themeDark } = useContext(ThemeContext);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const inputValue = event.target.value;
-    setInputValue(inputValue);
-  };
-
-  const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSearch = (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
-    searchHandler(inputValue.trim());
+    const inputElement = event.target.elements.namedItem('search') as HTMLInputElement;
+    setSearchTerm(inputElement.value);
+    dispatch(setNewSearchTermValue(inputElement.value));
     navigate('/');
   };
 
@@ -45,8 +41,7 @@ export const Header = (props: HeaderProps) => {
           type="text"
           name="search"
           id="search"
-          value={inputValue}
-          onChange={handleChange}
+          defaultValue={searchTerm}
         />
         <button
           className={`${themeDark ? 'bg-gray-600' : 'bg-gray-500'} text-2xl text-amber-50 px-4 py-1 rounded-md border outline-none cursor-pointer transition duration-300 ease-in-out hover:bg-orange-400`}>
