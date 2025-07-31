@@ -1,6 +1,5 @@
 import { Outlet } from 'react-router';
 import { Header } from '../../components/Header/Header';
-import { SearchContext } from '../../utils/searchContext';
 import { useContext } from 'react';
 import { ThemeContext } from '../../app/Providers/ThemeContextProvider/themeContext';
 
@@ -19,4 +18,3 @@ export const Layout = () => {
     </div>
   );
 };
-export { SearchContext };
