@@ -4,6 +4,7 @@ import { Outlet, useSearchParams } from 'react-router';
 import { Pagination } from '../../components/Pagination/Pagination';
 import { useAppSelector } from '../../app/hooks';
 import { useGetSearchAnimeQuery } from '../../utils/animeApi';
+import { Snackbar } from '../../components/Snackbar/Snackbar';
 
 export const Main = () => {
   const searchTerm = useAppSelector((state) => state.search.value);
@@ -34,6 +35,7 @@ export const Main = () => {
         {data?.pagination && <Pagination pagination={data.pagination} handleNumberPage={handleNumberPage} />}
       </div>
       <Outlet />
+      <Snackbar />
     </>
   );
 };

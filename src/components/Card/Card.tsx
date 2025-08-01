@@ -48,9 +48,9 @@ export const Card = (props: CardProps) => {
               <path
                 d="M6 12L10 16L18 8"
                 stroke="#9f2d00bc"
-                stroke-width="3"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="3"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
             </svg>
           </div>
