@@ -4,6 +4,10 @@ import { ResultList } from '../src/components/ResultList/ResultList';
 import { ICard } from '../src/types/card';
 import '@testing-library/jest-dom';
 import { MemoryRouter } from 'react-router';
+import { rootReducer } from '../src/app/reducers/rootReducer';
+import { animeApi } from '../src/utils/animeApi';
+import { Provider } from 'react-redux';
+import { configureStore } from '@reduxjs/toolkit';
 
 const mockData: { data: ICard[] } = {
   data: [
@@ -32,11 +36,18 @@ const mockData: { data: ICard[] } = {
   ]
 };
 
+const mockStore = configureStore({
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(animeApi.middleware)
+});
+
 describe('ResultList', () => {
   it('fetches and displays result cards', () => {
     render(
       <MemoryRouter initialEntries={['/']}>
-        <ResultList data={mockData.data} error={null} loading={false} />
+        <Provider store={mockStore}>
+          <ResultList data={mockData.data} error={undefined} loading={false} />
+        </Provider>
       </MemoryRouter>
     );
 
@@ -47,7 +58,7 @@ describe('ResultList', () => {
   });
 
   it('shows "No results found" when response is empty', () => {
-    render(<ResultList data={[]} error={null} loading={false} />);
+    render(<ResultList data={[]} error={undefined} loading={false} />);
 
     waitFor(() => {
       expect(screen.getByText(/no results found/i)).toBeInTheDocument();
@@ -57,7 +68,7 @@ describe('ResultList', () => {
   it('shows "Loading..." when loading', () => {
     render(
       <MemoryRouter initialEntries={['/']}>
-        <ResultList data={[]} error={null} loading={true} />
+        <ResultList data={[]} error={undefined} loading={true} />
       </MemoryRouter>
     );
 

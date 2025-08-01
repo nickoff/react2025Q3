@@ -4,6 +4,10 @@ import { Card } from '../src/components/Card/Card';
 import '@testing-library/jest-dom';
 import { ICard } from '../src/types/card';
 import { MemoryRouter } from 'react-router';
+import { configureStore } from '@reduxjs/toolkit';
+import { rootReducer } from '../src/app/reducers/rootReducer';
+import { animeApi } from '../src/utils/animeApi';
+import { Provider } from 'react-redux';
 
 const mockCard: ICard = {
   mal_id: 1,
@@ -17,11 +21,18 @@ const mockCard: ICard = {
   duration: '1 hr 55 min'
 };
 
+const mockStore = configureStore({
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(animeApi.middleware)
+});
+
 describe('Card Component', () => {
   test('renders card name, image and details', () => {
     render(
       <MemoryRouter initialEntries={['/']}>
-        <Card card={mockCard} />
+        <Provider store={mockStore}>
+          <Card card={mockCard} />
+        </Provider>
       </MemoryRouter>
     );
 
@@ -42,7 +53,9 @@ describe('Card Component', () => {
 
     render(
       <MemoryRouter initialEntries={['/']}>
-        <Card card={mockCard} />
+        <Provider store={mockStore}>
+          <Card card={mockCard} />
+        </Provider>
       </MemoryRouter>
     );
 
