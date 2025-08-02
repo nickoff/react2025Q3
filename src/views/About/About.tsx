@@ -21,7 +21,7 @@ export const About = () => {
         interactions, and modern styling using TailwindCSS.
       </p>
       <p className={`text-3xl font-bold ${themeDark ? 'text-orange-300' : 'text-orange-600'}`}>
-        Autor:{' '}
+        Author:{' '}
         <Link
           className={`${themeDark ? 'text-orange-300' : 'text-orange-600'} underline hover:text-orange-400 cursor-pointer transition duration-300 ease-in-out`}
           to="https://github.com/nickoff">

@@ -6,7 +6,7 @@ import { ThemeContext } from '../../app/Providers/ThemeContextProvider/themeCont
 const CONTENT = {
   loading: 'Loading...',
   noResults: 'Ups... No results found 😟',
-  error: '❌ Ошибка загрузки: ',
+  error: '❌ Loading error: ',
   source: 'Source: ',
   duration: 'Duration: ',
   close: 'Close'

@@ -2,6 +2,11 @@ import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { clearSelectedCards } from '../../app/reducers/selectedCards';
 import { downLoadSelectedCards } from '../../utils/downLoadSelectedCards';
 
+const CONTENT = {
+  unselect: 'Unselect all',
+  downLoad: 'Download'
+};
+
 export const Snackbar = () => {
   const selectedCards = useAppSelector((state) => state.selectedCards.selectedCards);
   const numSelectedCards = selectedCards.length;
@@ -25,12 +30,12 @@ export const Snackbar = () => {
           <button
             onClick={handelUnselect}
             className="min-w-32 cursor-pointer text-2xl text-amber-50 px-4 py-1 rounded-md border border-black outline-none bg-gray-600 transition duration-300 ease-in-out hover:bg-orange-400 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-gray-600">
-            Unselect all
+            {CONTENT.unselect}
           </button>
           <button
             onClick={handleDownLoad}
             className="min-w-32 cursor-pointer text-2xl text-amber-50 px-4 py-1 rounded-md border border-black outline-none bg-gray-600 transition duration-300 ease-in-out hover:bg-orange-400 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-gray-600">
-            Download
+            {CONTENT.downLoad}
           </button>
         </div>
       </div>

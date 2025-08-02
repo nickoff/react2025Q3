@@ -7,7 +7,7 @@ import { ThemeContext } from '../src/app/Providers/ThemeContextProvider/themeCon
 import { ThemeContextProvider } from '../src/app/Providers/ThemeContextProvider/ThemeContextProvider';
 
 describe('ThemeContextProvider', () => {
-  it('renders component and childrens icons', async () => {
+  it('renders component and children icons', async () => {
     render(
       <ThemeContextProvider>
         <ThemeToggle />

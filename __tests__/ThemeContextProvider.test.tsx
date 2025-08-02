@@ -8,7 +8,7 @@ import { ThemeContext } from '../src/app/Providers/ThemeContextProvider/themeCon
 
 const ThemeConsumer = () => {
   const { themeDark, changeTheme } = useContext(ThemeContext);
-  return <button onClick={changeTheme}>{themeDark ? 'dark' : 'ligth'}</button>;
+  return <button onClick={changeTheme}>{themeDark ? 'dark' : 'light'}</button>;
 };
 
 describe('ThemeContextProvider', () => {
@@ -32,7 +32,7 @@ describe('ThemeContextProvider', () => {
     const button = screen.getByRole('button', { name: 'dark' });
     await userEvent.click(button);
 
-    expect(button).toHaveTextContent('ligth');
+    expect(button).toHaveTextContent('light');
 
     await userEvent.click(button);
 

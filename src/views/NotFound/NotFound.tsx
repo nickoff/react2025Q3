@@ -1,5 +1,7 @@
 import { Link } from 'react-router';
 
+const CONTENT = { back: 'Back to Home' };
+
 export const NotFound = () => {
   return (
     <div className="w-full flex flex-col justify-center items-center gap-5 min-h-[85vh]">
@@ -7,7 +9,7 @@ export const NotFound = () => {
       <Link
         className="text-2xl text-amber-50 px-4 py-1 rounded-md border border-black outline-none bg-gray-600"
         to={'/'}>
-        Back to Home
+        {CONTENT.back}
       </Link>
     </div>
   );

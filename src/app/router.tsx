@@ -6,7 +6,7 @@ import { loaderDescription } from '../utils/loaderDescriptions';
 import { About } from '../views/About/About';
 import { NotFound } from '../views/NotFound/NotFound';
 
-const errorElement = <p>Upps</p>;
+const errorElement = <p>Ups</p>;
 
 export const router = createBrowserRouter([
   {

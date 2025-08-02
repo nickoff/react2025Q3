@@ -2,24 +2,12 @@ import { render, screen } from '@testing-library/react';
 import { describe, expect, test, vi } from 'vitest';
 import { Card } from '../src/components/Card/Card';
 import '@testing-library/jest-dom';
-import { ICard } from '../src/types/card';
 import { MemoryRouter } from 'react-router';
 import { configureStore } from '@reduxjs/toolkit';
 import { rootReducer } from '../src/app/reducers/rootReducer';
 import { animeApi } from '../src/utils/animeApi';
 import { Provider } from 'react-redux';
-
-const mockCard: ICard = {
-  mal_id: 1,
-  images: { webp: { image_url: 'https://example.com/image.jpg' } },
-  title_english: 'Test Card 1',
-  aired: { string: '1998' },
-  title_japanese: 'ddd',
-  titles: [{ type: 'Default', title: 'Test Card 1' }],
-  synopsis: '',
-  source: 'Original',
-  duration: '1 hr 55 min'
-};
+import { mockCard } from './mocks/mocks';
 
 const mockStore = configureStore({
   reducer: rootReducer,

@@ -1,40 +1,13 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 import { ResultList } from '../src/components/ResultList/ResultList';
-import { ICard } from '../src/types/card';
 import '@testing-library/jest-dom';
 import { MemoryRouter } from 'react-router';
 import { rootReducer } from '../src/app/reducers/rootReducer';
 import { animeApi } from '../src/utils/animeApi';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
-
-const mockData: { data: ICard[] } = {
-  data: [
-    {
-      mal_id: 1,
-      images: { webp: { image_url: '' } },
-      title_english: 'Test Card 1',
-      aired: { string: '1998' },
-      title_japanese: 'ddd',
-      titles: [{ type: 'Default', title: 'Test Card 1' }],
-      synopsis: '',
-      source: '',
-      duration: ''
-    },
-    {
-      mal_id: 2,
-      images: { webp: { image_url: '' } },
-      title_english: 'Test Card 2',
-      aired: { string: '1999' },
-      title_japanese: 'fff',
-      titles: [{ type: 'Default', title: 'Test Card 2' }],
-      synopsis: '',
-      source: '',
-      duration: ''
-    }
-  ]
-};
+import { mockData } from './mocks/mocks';
 
 const mockStore = configureStore({
   reducer: rootReducer,

@@ -12,8 +12,8 @@
     "prepare": "husky",
     "format": "prettier --write \"src/**/*.{ts,tsx,css}\"",
     "precommit": "npm run lint:fix && npm run format",
-    "test": "vitest",
-    "coverage": "vitest run --coverage"
+    "test": "vitest run --silent",
+    "coverage": "vitest run --silent --coverage"
   },
   "lint-staged": {
     "**/*.{ts,tsx,js,jsx, css}": [
