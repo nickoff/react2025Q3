@@ -4,7 +4,7 @@ import '@testing-library/jest-dom';
 import { IPagination } from '../src/types/pagination';
 import { Pagination } from '../src/components/Pagination/Pagination';
 
-const mockPagitation: IPagination = {
+const mockPagination: IPagination = {
   current_page: 2,
   has_next_page: true,
   has_prev_page: false,
@@ -13,7 +13,7 @@ const mockPagitation: IPagination = {
 
 describe('Pagination Component', () => {
   it('renders pagination', () => {
-    render(<Pagination pagination={mockPagitation} handleNumberPage={() => {}} />);
+    render(<Pagination pagination={mockPagination} handleNumberPage={() => {}} />);
     expect(screen.getByText('Previous')).toBeInTheDocument();
     expect(screen.getByText('page 2 of 10')).toBeInTheDocument();
     expect(screen.getByText('Next')).toBeInTheDocument();
@@ -21,14 +21,14 @@ describe('Pagination Component', () => {
 
   it('clicks on next page', () => {
     const handleNumberPage = vi.fn();
-    render(<Pagination pagination={mockPagitation} handleNumberPage={handleNumberPage} />);
+    render(<Pagination pagination={mockPagination} handleNumberPage={handleNumberPage} />);
     screen.getByText('Next').click();
     expect(handleNumberPage).toHaveBeenCalledWith(3);
   });
 
   it('clicks on previous page', () => {
     const handleNumberPage = vi.fn();
-    render(<Pagination pagination={mockPagitation} handleNumberPage={handleNumberPage} />);
+    render(<Pagination pagination={mockPagination} handleNumberPage={handleNumberPage} />);
     screen.getByText('Previous').click();
     expect(handleNumberPage).toHaveBeenCalledWith(1);
   });

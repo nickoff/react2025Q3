@@ -1,15 +1,16 @@
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
 import { ResultList } from '../../components/ResultList/ResultList';
-import { SearchContext } from '../Layout/Layout';
 import { Outlet, useSearchParams } from 'react-router';
-import { useApiSearch } from '../../hooks/useApiSearch';
 import { Pagination } from '../../components/Pagination/Pagination';
+import { useAppSelector } from '../../app/hooks';
+import { useGetSearchAnimeQuery } from '../../utils/animeApi';
+import { Snackbar } from '../../components/Snackbar/Snackbar';
 
 export const Main = () => {
-  const searchTerm = useContext(SearchContext);
+  const searchTerm = useAppSelector((state) => state.search.value);
   const [searchParams, setSearchParams] = useSearchParams();
   const page = searchParams.get('page') ?? '1';
-  const { data, error, loading, pagination } = useApiSearch(searchTerm ?? '', page);
+  const { data, error, isLoading } = useGetSearchAnimeQuery({ searchTerm, page });
 
   useEffect(() => {
     if (!searchParams.get('page')) {
@@ -30,10 +31,11 @@ export const Main = () => {
   return (
     <>
       <div className="flex flex-col flex-1 justify-between min-w-[35%] max-w-[35%] min-h-[85vh]">
-        <ResultList data={data} error={error} loading={loading} />
-        {pagination && <Pagination pagination={pagination} handleNumberPage={handleNumberPage} />}
+        <ResultList data={data?.data} error={error} loading={isLoading} />
+        {data?.pagination && <Pagination pagination={data.pagination} handleNumberPage={handleNumberPage} />}
       </div>
       <Outlet />
+      <Snackbar />
     </>
   );
 };

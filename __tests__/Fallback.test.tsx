@@ -2,6 +2,7 @@ import { describe, expect, test, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Fallback } from '../src/views/Fallback/Fallback';
+import '@testing-library/jest-dom';
 
 describe('Fallback component', () => {
   test('renders fallback message and button', () => {

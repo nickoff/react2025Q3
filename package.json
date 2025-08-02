@@ -12,8 +12,8 @@
     "prepare": "husky",
     "format": "prettier --write \"src/**/*.{ts,tsx,css}\"",
     "precommit": "npm run lint:fix && npm run format",
-    "test": "vitest",
-    "coverage": "vitest run --coverage"
+    "test": "vitest run --silent",
+    "coverage": "vitest run --silent --coverage"
   },
   "lint-staged": {
     "**/*.{ts,tsx,js,jsx, css}": [
@@ -22,9 +22,11 @@
     ]
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.8.2",
     "@tailwindcss/vite": "^4.1.11",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-redux": "^9.2.0",
     "react-router": "^7.7.1",
     "tailwindcss": "^4.1.11"
   },
@@ -51,5 +53,8 @@
     "typescript-eslint": "^8.35.1",
     "vite": "^7.0.4",
     "vitest": "^3.2.4"
+  },
+  "engines": {
+    "node": ">=20.0.0"
   }
 }

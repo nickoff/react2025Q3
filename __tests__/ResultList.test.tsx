@@ -1,42 +1,26 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 import { ResultList } from '../src/components/ResultList/ResultList';
-import { ICard } from '../src/types/card';
 import '@testing-library/jest-dom';
 import { MemoryRouter } from 'react-router';
+import { rootReducer } from '../src/app/reducers/rootReducer';
+import { animeApi } from '../src/utils/animeApi';
+import { Provider } from 'react-redux';
+import { configureStore } from '@reduxjs/toolkit';
+import { mockData } from './mocks/mocks';
 
-const mockData: { data: ICard[] } = {
-  data: [
-    {
-      mal_id: 1,
-      images: { webp: { image_url: '' } },
-      title_english: 'Test Card 1',
-      aired: { string: '1998' },
-      title_japanese: 'ddd',
-      titles: [{ type: 'Default', title: 'Test Card 1' }],
-      synopsis: '',
-      source: '',
-      duration: ''
-    },
-    {
-      mal_id: 2,
-      images: { webp: { image_url: '' } },
-      title_english: 'Test Card 2',
-      aired: { string: '1999' },
-      title_japanese: 'fff',
-      titles: [{ type: 'Default', title: 'Test Card 2' }],
-      synopsis: '',
-      source: '',
-      duration: ''
-    }
-  ]
-};
+const mockStore = configureStore({
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(animeApi.middleware)
+});
 
 describe('ResultList', () => {
   it('fetches and displays result cards', () => {
     render(
       <MemoryRouter initialEntries={['/']}>
-        <ResultList data={mockData.data} error={null} loading={false} />
+        <Provider store={mockStore}>
+          <ResultList data={mockData.data} error={undefined} loading={false} />
+        </Provider>
       </MemoryRouter>
     );
 
@@ -47,7 +31,7 @@ describe('ResultList', () => {
   });
 
   it('shows "No results found" when response is empty', () => {
-    render(<ResultList data={[]} error={null} loading={false} />);
+    render(<ResultList data={[]} error={undefined} loading={false} />);
 
     waitFor(() => {
       expect(screen.getByText(/no results found/i)).toBeInTheDocument();
@@ -57,7 +41,7 @@ describe('ResultList', () => {
   it('shows "Loading..." when loading', () => {
     render(
       <MemoryRouter initialEntries={['/']}>
-        <ResultList data={[]} error={null} loading={true} />
+        <ResultList data={[]} error={undefined} loading={true} />
       </MemoryRouter>
     );
 

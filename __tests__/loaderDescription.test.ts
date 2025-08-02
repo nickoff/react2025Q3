@@ -1,18 +1,12 @@
 import { describe, it, expect, vi } from 'vitest';
+import { mockCard } from './mocks/mocks';
+import { loaderDescription } from '../src/utils/loaderDescriptions';
 
 vi.mock('../src/utils/getDescription', () => ({
   getDescription: vi.fn().mockResolvedValue({
-    data: {
-      titles: [{ title: 'Naruto', type: 'Default' }],
-      synopsis: 'Some synopsis',
-      source: 'Some source',
-      duration: '24 min',
-      images: { webp: { image_url: 'https://example.com/image.webp' } }
-    }
+    data: mockCard
   })
 }));
-
-import { loaderDescription } from '../src/utils/loaderDescriptions';
 
 describe('loaderDescription', () => {
   it('returns description', async () => {
@@ -24,6 +18,6 @@ describe('loaderDescription', () => {
 
     const resolved = await result.description;
 
-    expect(resolved.data.titles[0].title).toBe('Naruto');
+    expect(resolved.data.titles[0].title).toBe(mockCard.titles[0].title);
   });
 });
