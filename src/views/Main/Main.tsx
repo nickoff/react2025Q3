@@ -18,12 +18,6 @@ export const Main = () => {
     }
   }, [searchParams, setSearchParams]);
 
-  useEffect(() => {
-    if (page !== '1') {
-      setSearchParams({ page: '1' });
-    }
-  }, [searchTerm]);
-
   const handleNumberPage = (page: number) => {
     setSearchParams({ page: page.toString() });
   };
