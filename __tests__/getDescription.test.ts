@@ -9,7 +9,7 @@ describe('getDescription', () => {
     globalThis.fetch = vi.fn(() =>
       Promise.resolve({
         ok: true,
-        json: () => Promise.resolve({ data: mockData })
+        json: () => Promise.resolve({ data: mockData }),
       } as Response)
     );
 
@@ -21,7 +21,7 @@ describe('getDescription', () => {
     globalThis.fetch = vi.fn(() =>
       Promise.resolve({
         ok: false,
-        status: 404
+        status: 404,
       } as Response)
     );
 

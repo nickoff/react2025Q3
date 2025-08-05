@@ -9,8 +9,8 @@ describe('Description Component', () => {
   it('renders description', async () => {
     const loader = () => ({
       description: Promise.resolve({
-        data: mockCard
-      })
+        data: mockCard,
+      }),
     });
 
     const router = createMemoryRouter(
@@ -25,7 +25,7 @@ describe('Description Component', () => {
 
   it('render Not Found if no data', async () => {
     const loader = () => ({
-      description: Promise.resolve({ data: null })
+      description: Promise.resolve({ data: null }),
     });
 
     const router = createMemoryRouter(

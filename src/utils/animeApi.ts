@@ -14,9 +14,9 @@ export const animeApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: API_URL }),
   endpoints: (builder) => ({
     getSearchAnime: builder.query<SearchAnimeResponse, { searchTerm: string; page: string }>({
-      query: ({ searchTerm = '', page = 1 }) => `?page=${page}&limit=10&q=${searchTerm}`
-    })
-  })
+      query: ({ searchTerm = '', page = 1 }) => `?page=${page}&limit=10&q=${searchTerm}`,
+    }),
+  }),
 });
 
 export const { useGetSearchAnimeQuery } = animeApi;

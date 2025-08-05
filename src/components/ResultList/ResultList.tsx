@@ -12,7 +12,7 @@ interface ResultStateProps {
 const CONTENT = {
   loading: 'Loading...',
   noResults: 'Ups... No results found 😟',
-  error: '❌ Loading error: '
+  error: '❌ Loading error: ',
 };
 
 export const ResultList = ({ data, error, loading }: ResultStateProps) => {

@@ -8,7 +8,7 @@ interface PaginationProps {
 const CONTENT = {
   previous: 'Previous',
   pageOf: { page: 'page', of: 'of' },
-  next: 'Next'
+  next: 'Next',
 };
 
 export const Pagination = (props: PaginationProps) => {

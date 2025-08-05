@@ -10,7 +10,7 @@
     "lint:fix": "eslint . --fix",
     "preview": "vite preview",
     "prepare": "husky",
-    "format": "prettier --write \"src/**/*.{ts,tsx,css}\"",
+    "format:fix": "prettier --write .",
     "precommit": "npm run lint:fix && npm run format",
     "test": "vitest run --silent",
     "coverage": "vitest run --silent --coverage"
@@ -18,7 +18,7 @@
   "lint-staged": {
     "**/*.{ts,tsx,js,jsx, css}": [
       "eslint --fix",
-      "prettier --write \"src/**/*.{ts,tsx}\""
+      "prettier --write ."
     ]
   },
   "dependencies": {

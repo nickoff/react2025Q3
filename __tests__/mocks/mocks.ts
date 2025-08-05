@@ -9,7 +9,7 @@ export const mockCard: ICard = {
   titles: [{ type: 'Default', title: 'Test Card 1' }],
   synopsis: '',
   source: 'Original',
-  duration: '1 hr 55 min'
+  duration: '1 hr 55 min',
 };
 
 export const mockData: { data: ICard[] } = {
@@ -23,7 +23,7 @@ export const mockData: { data: ICard[] } = {
       titles: [{ type: 'Default', title: 'Test Card 1' }],
       synopsis: '',
       source: '',
-      duration: ''
+      duration: '',
     },
     {
       mal_id: 2,
@@ -34,7 +34,7 @@ export const mockData: { data: ICard[] } = {
       titles: [{ type: 'Default', title: 'Test Card 2' }],
       synopsis: '',
       source: '',
-      duration: ''
-    }
-  ]
+      duration: '',
+    },
+  ],
 };

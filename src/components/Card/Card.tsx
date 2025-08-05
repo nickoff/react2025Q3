@@ -11,7 +11,7 @@ const CONTENT = {
   description: 'Description:',
   source: 'Source: ',
   aired: 'Aired: ',
-  duration: 'Duration: '
+  duration: 'Duration: ',
 };
 
 export const Card = (props: CardProps) => {

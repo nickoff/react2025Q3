@@ -6,5 +6,5 @@ import selectedCardReducer from './selectedCards';
 export const rootReducer = combineReducers({
   search: searchReducer,
   [animeApi.reducerPath]: animeApi.reducer,
-  selectedCards: selectedCardReducer
+  selectedCards: selectedCardReducer,
 });

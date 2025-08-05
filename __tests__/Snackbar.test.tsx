@@ -8,12 +8,12 @@ import { rootReducer } from '../src/app/reducers/rootReducer';
 import { mockCard } from './mocks/mocks';
 
 const mockState = {
-  selectedCards: [mockCard]
+  selectedCards: [mockCard],
 };
 
 const mockStore = configureStore({
   reducer: rootReducer,
-  preloadedState: { selectedCards: mockState }
+  preloadedState: { selectedCards: mockState },
 });
 
 describe('Snackbar component', () => {

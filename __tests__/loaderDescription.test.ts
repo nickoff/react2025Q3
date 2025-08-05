@@ -4,8 +4,8 @@ import { loaderDescription } from '../src/utils/loaderDescriptions';
 
 vi.mock('../src/utils/getDescription', () => ({
   getDescription: vi.fn().mockResolvedValue({
-    data: mockCard
-  })
+    data: mockCard,
+  }),
 }));
 
 describe('loaderDescription', () => {

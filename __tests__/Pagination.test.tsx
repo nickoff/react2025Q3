@@ -8,7 +8,7 @@ const mockPagination: IPagination = {
   current_page: 2,
   has_next_page: true,
   has_prev_page: false,
-  last_visible_page: 10
+  last_visible_page: 10,
 };
 
 describe('Pagination Component', () => {

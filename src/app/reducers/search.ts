@@ -8,7 +8,7 @@ export interface SearchTerm {
 const storedSearchTerm = localStorage.getItem('searchTerm') || '';
 
 const initialState: SearchTerm = {
-  value: storedSearchTerm
+  value: storedSearchTerm,
 };
 
 export const searchTermSlice = createSlice({
@@ -18,10 +18,10 @@ export const searchTermSlice = createSlice({
     setNewSearchTermValue: (state, action: PayloadAction<string>) => {
       return {
         ...state,
-        value: action.payload
+        value: action.payload,
       };
-    }
-  }
+    },
+  },
 });
 
 export const { setNewSearchTermValue } = searchTermSlice.actions;

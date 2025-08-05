@@ -23,24 +23,24 @@ export const router = createBrowserRouter([
             path: ':mal_id',
             loader: loaderDescription,
             Component: Description,
-            errorElement: errorElement
-          }
-        ]
+            errorElement: errorElement,
+          },
+        ],
       },
 
       {
         path: '/about',
         Component: About,
-        errorElement: errorElement
+        errorElement: errorElement,
       },
       {
         path: '/not-found',
-        Component: NotFound
+        Component: NotFound,
       },
       {
         path: '*',
-        Component: NotFound
-      }
-    ]
-  }
+        Component: NotFound,
+      },
+    ],
+  },
 ]);

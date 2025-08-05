@@ -7,7 +7,7 @@ export type SelectedCards = {
 };
 
 const initialState: SelectedCards = {
-  selectedCards: []
+  selectedCards: [],
 };
 
 export const selectedCardsSlice = createSlice({
@@ -17,22 +17,22 @@ export const selectedCardsSlice = createSlice({
     addSelectedCard: (state, action: PayloadAction<ICard>) => {
       return {
         ...state,
-        selectedCards: state.selectedCards.concat(action.payload)
+        selectedCards: state.selectedCards.concat(action.payload),
       };
     },
     removeCardById: (state, action: PayloadAction<number>) => {
       return {
         ...state,
-        selectedCards: state.selectedCards.filter((card) => card.mal_id !== action.payload)
+        selectedCards: state.selectedCards.filter((card) => card.mal_id !== action.payload),
       };
     },
     clearSelectedCards: (state) => {
       return {
         ...state,
-        selectedCards: initialState.selectedCards
+        selectedCards: initialState.selectedCards,
       };
-    }
-  }
+    },
+  },
 });
 
 export const { addSelectedCard, removeCardById, clearSelectedCards } = selectedCardsSlice.actions;

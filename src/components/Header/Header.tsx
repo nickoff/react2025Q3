@@ -9,7 +9,7 @@ import { useLocalStorage } from '../../hooks/useLocalStorageSearch';
 
 const CONTENT = {
   title: 'Anime searcher',
-  search: 'Search'
+  search: 'Search',
 };
 
 export const Header = () => {

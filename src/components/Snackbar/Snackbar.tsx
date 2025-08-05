@@ -4,7 +4,7 @@ import { downLoadSelectedCards } from '../../utils/downLoadSelectedCards';
 
 const CONTENT = {
   unselect: 'Unselect all',
-  downLoad: 'Download'
+  downLoad: 'Download',
 };
 
 export const Snackbar = () => {

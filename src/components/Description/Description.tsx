@@ -9,7 +9,7 @@ const CONTENT = {
   error: '❌ Loading error: ',
   source: 'Source: ',
   duration: 'Duration: ',
-  close: 'Close'
+  close: 'Close',
 };
 
 export const Description = () => {

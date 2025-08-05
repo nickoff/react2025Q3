@@ -14,6 +14,6 @@ export const useLocalStorageTheme = () => {
 
   return {
     themeDark,
-    changeTheme
+    changeTheme,
   };
 };

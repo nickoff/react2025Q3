@@ -11,7 +11,7 @@ import { mockData } from './mocks/mocks';
 
 const mockStore = configureStore({
   reducer: rootReducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(animeApi.middleware)
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(animeApi.middleware),
 });
 
 describe('ResultList', () => {
