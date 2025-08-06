@@ -1,21 +1,70 @@
-import { Await, Link, Navigate, useLoaderData, useSearchParams } from 'react-router';
-import type { ICard } from '../../types/card';
-import { Suspense, useContext } from 'react';
+import { Link, useParams, useSearchParams } from 'react-router';
+import { useContext } from 'react';
 import { ThemeContext } from '../../app/Providers/ThemeContextProvider/themeContext';
+import { useGetAnimeByIdQuery } from '../../utils/animeApi';
 
 const CONTENT = {
   loading: 'Loading...',
-  noResults: 'Ups... No results found 😟',
   error: '❌ Loading error: ',
   source: 'Source: ',
   duration: 'Duration: ',
   close: 'Close',
 };
 
+type CustomError = {
+  data: {
+    status: string;
+    message: string;
+  };
+};
+
+const DescriptionContent = (props: { malId: string }) => {
+  const { malId } = props;
+  const { isFetching, isLoading, isError, error, data: description } = useGetAnimeByIdQuery(malId);
+
+  if (isFetching)
+    return (
+      <div className="flex justify-center items-center min-w-[400px] text-3xl mt-48 mb-65 w-full animate-pulse">
+        {CONTENT.loading}
+      </div>
+    );
+
+  if (!isLoading && isError) {
+    console.log(error);
+
+    const err = error as CustomError;
+
+    return (
+      <div className="flex justify-center items-center text-3xl mt-48 mb-65 w-full text-red-500">
+        {CONTENT.error} {err.data.status} {err.data.message}
+      </div>
+    );
+  }
+
+  if (!isFetching && description)
+    return (
+      <>
+        <h2 className="text-3xl text-left w-[80%] font-bold text-orange-500 text-shadow-amber-950">
+          {description.data.titles[0].title}
+        </h2>
+        <img src={description.data.images.webp.image_url} alt="Description image" />
+        <p className="text-2xl text-left ">{description.data.synopsis}</p>
+        <p className="text-2xl text-left">
+          {CONTENT.source} {description.data.source}
+        </p>
+        <p className="text-2xl text-left">
+          {CONTENT.duration} {description.data.duration}
+        </p>
+      </>
+    );
+};
+
 export const Description = () => {
-  const { description } = useLoaderData() as { description: Promise<{ data: ICard }> };
-  const [searchParams] = useSearchParams();
   const { themeDark } = useContext(ThemeContext);
+  const [searchParams] = useSearchParams();
+  const { mal_id } = useParams();
+
+  if (!mal_id) return null;
 
   return (
     <div
@@ -25,32 +74,7 @@ export const Description = () => {
         to={'/?page=' + searchParams.get('page')}>
         {CONTENT.close}
       </Link>
-      <Suspense
-        fallback={
-          <div className="flex justify-center items-center min-w-[400px] text-3xl mt-48 mb-65 w-full animate-pulse">
-            {CONTENT.loading}
-          </div>
-        }>
-        <Await resolve={description}>
-          {({ data }) =>
-            data ? (
-              <>
-                <h2 className="text-3xl font-bold text-orange-500 text-shadow-amber-950">{data.titles[0].title}</h2>
-                <img src={data.images.webp.image_url} alt="Description image" />
-                <p className="text-2xl text-left ">{data.synopsis}</p>
-                <p className="text-2xl text-left">
-                  {CONTENT.source} {data.source}
-                </p>
-                <p className="text-2xl text-left">
-                  {CONTENT.duration} {data.duration}
-                </p>
-              </>
-            ) : (
-              <Navigate to="/not-found" replace />
-            )
-          }
-        </Await>
-      </Suspense>
+      <DescriptionContent malId={mal_id} />
     </div>
   );
 };
