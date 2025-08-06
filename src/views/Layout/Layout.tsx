@@ -11,7 +11,7 @@ export const Layout = () => {
       className={`${themeDark ? "bg-[url('./assets/dark-theme.jpg')]" : "bg-[url('./assets/light-theme.png')]"} h-[100vh] [overflow:overlay] bg-center bg-no-repeat bg-fixed bg-[length:100%_auto]`}>
       <div className="max-w-7xl mx-auto flex flex-col">
         <Header />
-        <main className="w-full flex flex-1 justify-between gap-5 p-5">
+        <main className="w-full flex flex-1 justify-between gap-5 p-5 pb-10">
           <Outlet />
         </main>
       </div>

@@ -24,7 +24,7 @@ export const ResultList = ({ data, error, loading }: ResultStateProps) => {
         <div className="flex justify-center items-center text-3xl mt-48 w-full animate-pulse">{CONTENT.loading}</div>
       )}
       {!loading && resultList.length > 0 && (
-        <div className="w-full flex flex-col gap-5 px-5">
+        <div className="w-full flex flex-col gap-5">
           {resultList.map((result, index) => (
             <Card key={index} card={result} />
           ))}

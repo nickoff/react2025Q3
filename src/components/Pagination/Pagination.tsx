@@ -28,7 +28,7 @@ export const Pagination = (props: PaginationProps) => {
   };
 
   return (
-    <div className="flex justify-center items-center gap-3 my-5">
+    <div className="flex justify-center items-center gap-3">
       <Button disabled={pagination.current_page === 1} onClick={handlePreviousPage}>
         {CONTENT.previous}
       </Button>
