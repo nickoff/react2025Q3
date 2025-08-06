@@ -30,8 +30,6 @@ const DescriptionContent = (props: { malId: string }) => {
     );
 
   if (!isLoading && isError) {
-    console.log(error);
-
     const err = error as CustomError;
 
     return (
