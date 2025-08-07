@@ -3,9 +3,9 @@ import { useContext } from 'react';
 import { ThemeContext } from '../../app/Providers/ThemeContextProvider/themeContext';
 import { useGetAnimeByIdQuery } from '../../utils/animeApi';
 import { Button } from '../Button/Button';
+import { Loading } from '../Loading/Loading';
 
 const CONTENT = {
-  loading: 'Loading...',
   error: '❌ Loading error: ',
   source: 'Source: ',
   duration: 'Duration: ',
@@ -27,12 +27,7 @@ const DescriptionContent = (props: { malId: string }) => {
     refetch();
   };
 
-  if (isFetching)
-    return (
-      <div className="flex justify-center items-center min-w-[400px] text-3xl mt-48 mb-65 w-full animate-pulse">
-        {CONTENT.loading}
-      </div>
-    );
+  if (isFetching) return <Loading />;
 
   if (!isLoading && isError) {
     const err = error as CustomError;

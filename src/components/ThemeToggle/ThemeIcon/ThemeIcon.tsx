@@ -7,7 +7,7 @@ export const ThemeIcon = (props: ThemIconProps) => {
 
   if (variant === 'dark') {
     return (
-      <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg className="rotate-45" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
           d="M44 32C44 47.464 30 56 20 48C28 48 36 40 36 32C36 24 28 16 20 16C30 8 44 16.536 44 32Z"
           fill="#6a7282"

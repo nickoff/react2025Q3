@@ -2,6 +2,7 @@ import { Card } from '../Card/Card';
 import type { ICard } from '../../types/card';
 import type { SerializedError } from '@reduxjs/toolkit';
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+import { Loading } from '../Loading/Loading';
 
 interface ResultStateProps {
   data: ICard[] | undefined;
@@ -10,7 +11,6 @@ interface ResultStateProps {
 }
 
 const CONTENT = {
-  loading: 'Loading...',
   noResults: 'Ups... No results found 😟',
   error: '❌ Loading error: ',
 };
@@ -20,9 +20,7 @@ export const ResultList = ({ data, error, loading }: ResultStateProps) => {
 
   return (
     <>
-      {loading && (
-        <div className="flex justify-center items-center text-3xl mt-48 w-full animate-pulse">{CONTENT.loading}</div>
-      )}
+      {loading && <Loading />}
       {!loading && resultList.length > 0 && (
         <div className="w-full flex flex-col gap-5">
           {resultList.map((result, index) => (
