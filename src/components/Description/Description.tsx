@@ -2,6 +2,7 @@ import { Link, useParams, useSearchParams } from 'react-router';
 import { useContext } from 'react';
 import { ThemeContext } from '../../app/Providers/ThemeContextProvider/themeContext';
 import { useGetAnimeByIdQuery } from '../../utils/animeApi';
+import { Button } from '../Button/Button';
 
 const CONTENT = {
   loading: 'Loading...',
@@ -20,7 +21,11 @@ type CustomError = {
 
 const DescriptionContent = (props: { malId: string }) => {
   const { malId } = props;
-  const { isFetching, isLoading, isError, error, data: description } = useGetAnimeByIdQuery(malId);
+  const { isFetching, isLoading, isError, error, data: description, refetch } = useGetAnimeByIdQuery(malId);
+
+  const handleRefresh = () => {
+    refetch();
+  };
 
   if (isFetching)
     return (
@@ -45,6 +50,9 @@ const DescriptionContent = (props: { malId: string }) => {
         <h2 className="text-3xl text-left w-[80%] font-bold text-orange-500 text-shadow-amber-950">
           {description.data.titles[0].title}
         </h2>
+        <Button disabled={isFetching} onClick={handleRefresh}>
+          {isFetching ? 'Refreshing ...' : 'Refresh'}
+        </Button>
         <img src={description.data.images.webp.image_url} alt="Description image" />
         <p className="text-2xl text-left ">{description.data.synopsis}</p>
         <p className="text-2xl text-left">
