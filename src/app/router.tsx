@@ -5,7 +5,7 @@ import { Description } from '../components/Description/Description';
 import { About } from '../views/About/About';
 import { NotFound } from '../views/NotFound/NotFound';
 
-const errorElement = <p>Ups</p>;
+const errorElement = <p>Oops!</p>;
 
 export const router = createBrowserRouter([
   {
