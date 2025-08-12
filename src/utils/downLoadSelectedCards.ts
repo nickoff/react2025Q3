@@ -11,7 +11,7 @@ export const downLoadSelectedCards = (selectedCards: ICard[]) => {
       synopsis: String(card.synopsis),
       aired: String(card.aired.string),
       source: String(card.source),
-      duration: String(card.duration)
+      duration: String(card.duration),
     };
   });
 
@@ -22,7 +22,7 @@ export const downLoadSelectedCards = (selectedCards: ICard[]) => {
     'synopsis',
     'aired',
     'source',
-    'duration'
+    'duration',
   ];
 
   const rows = printData.map((obj) => headers.map((header) => `"${obj[header]}"`).join(','));

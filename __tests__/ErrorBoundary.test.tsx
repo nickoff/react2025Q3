@@ -10,7 +10,7 @@ const ThrowComponent = () => {
 
 const props = {
   fallback: (reload: () => void) => <button onClick={reload}>Reload</button>,
-  children: <div>Content</div>
+  children: <div>Content</div>,
 };
 
 describe('ErrorBoundary ', () => {

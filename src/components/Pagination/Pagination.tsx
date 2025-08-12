@@ -1,4 +1,5 @@
 import type { IPagination } from '../../types/pagination';
+import { Button } from '../Button/Button';
 
 interface PaginationProps {
   pagination: IPagination;
@@ -8,7 +9,7 @@ interface PaginationProps {
 const CONTENT = {
   previous: 'Previous',
   pageOf: { page: 'page', of: 'of' },
-  next: 'Next'
+  next: 'Next',
 };
 
 export const Pagination = (props: PaginationProps) => {
@@ -27,22 +28,16 @@ export const Pagination = (props: PaginationProps) => {
   };
 
   return (
-    <div className="flex justify-center items-center gap-3 my-5">
-      <button
-        className="min-w-32 cursor-pointer text-2xl text-amber-50 px-4 py-1 rounded-md border border-black outline-none bg-gray-600 transition duration-300 ease-in-out hover:bg-orange-400 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-gray-600"
-        disabled={pagination.current_page === 1}
-        onClick={handlePreviousPage}>
+    <div className="flex justify-center items-center gap-3">
+      <Button disabled={pagination.current_page === 1} onClick={handlePreviousPage}>
         {CONTENT.previous}
-      </button>
+      </Button>
       <span>
         {CONTENT.pageOf.page} {pagination.current_page} {CONTENT.pageOf.of} {pagination.last_visible_page}
       </span>
-      <button
-        className="min-w-32 cursor-pointer text-2xl text-amber-50 px-4 py-1 rounded-md border border-black outline-none bg-gray-600 transition duration-300 ease-in-out hover:bg-orange-400 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-orange-600"
-        disabled={!pagination.has_next_page}
-        onClick={handleNextPage}>
+      <Button disabled={!pagination.has_next_page} onClick={handleNextPage}>
         {CONTENT.next}
-      </button>
+      </Button>
     </div>
   );
 };

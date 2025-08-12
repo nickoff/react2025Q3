@@ -2,7 +2,6 @@ import { createBrowserRouter } from 'react-router';
 import { Layout } from '../views/Layout/Layout';
 import { Main } from '../views/Main/Main';
 import { Description } from '../components/Description/Description';
-import { loaderDescription } from '../utils/loaderDescriptions';
 import { About } from '../views/About/About';
 import { NotFound } from '../views/NotFound/NotFound';
 
@@ -21,26 +20,25 @@ export const router = createBrowserRouter([
         children: [
           {
             path: ':mal_id',
-            loader: loaderDescription,
             Component: Description,
-            errorElement: errorElement
-          }
-        ]
+            errorElement: errorElement,
+          },
+        ],
       },
 
       {
         path: '/about',
         Component: About,
-        errorElement: errorElement
+        errorElement: errorElement,
       },
       {
         path: '/not-found',
-        Component: NotFound
+        Component: NotFound,
       },
       {
         path: '*',
-        Component: NotFound
-      }
-    ]
-  }
+        Component: NotFound,
+      },
+    ],
+  },
 ]);

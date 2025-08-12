@@ -4,7 +4,7 @@ import { ThemeContext } from '../../app/Providers/ThemeContextProvider/themeCont
 
 const navLinks = [
   { title: 'Home', url: '/' },
-  { title: 'About', url: '/about' }
+  { title: 'About', url: '/about' },
 ];
 
 export const Navigation = () => {

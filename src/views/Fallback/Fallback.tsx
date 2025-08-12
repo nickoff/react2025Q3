@@ -4,7 +4,7 @@ interface FallbackProps {
 
 const CONTENT = {
   title: 'Ups... 😟 Something went wrong!',
-  button: 'Try reload'
+  button: 'Try reload',
 };
 
 export const Fallback = (props: FallbackProps) => {

@@ -12,7 +12,7 @@ import { ThemeContext } from '../src/app/Providers/ThemeContextProvider/themeCon
 const mockContextValue = { themeDark: false, changeTheme: () => {} };
 
 const mockStore = configureStore({
-  reducer: rootReducer
+  reducer: rootReducer,
 });
 
 describe('Header component', () => {

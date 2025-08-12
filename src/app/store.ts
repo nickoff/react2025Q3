@@ -5,7 +5,7 @@ import { animeApi } from '../utils/animeApi';
 export const store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(animeApi.middleware),
-  devTools: true
+  devTools: true,
 });
 
 export type RootState = ReturnType<typeof store.getState>;

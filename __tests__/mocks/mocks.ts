@@ -1,3 +1,4 @@
+import { vi } from 'vitest';
 import { ICard } from '../../src/types/card';
 
 export const mockCard: ICard = {
@@ -9,7 +10,7 @@ export const mockCard: ICard = {
   titles: [{ type: 'Default', title: 'Test Card 1' }],
   synopsis: '',
   source: 'Original',
-  duration: '1 hr 55 min'
+  duration: '1 hr 55 min',
 };
 
 export const mockData: { data: ICard[] } = {
@@ -23,7 +24,7 @@ export const mockData: { data: ICard[] } = {
       titles: [{ type: 'Default', title: 'Test Card 1' }],
       synopsis: '',
       source: '',
-      duration: ''
+      duration: '',
     },
     {
       mal_id: 2,
@@ -34,7 +35,21 @@ export const mockData: { data: ICard[] } = {
       titles: [{ type: 'Default', title: 'Test Card 2' }],
       synopsis: '',
       source: '',
-      duration: ''
-    }
-  ]
+      duration: '',
+    },
+  ],
+};
+
+export const mockReturnValue = {
+  isFetching: false,
+  isLoading: false,
+  isError: false,
+  data: {
+    data: mockCard,
+  },
+  error: undefined,
+  refetch: vi.fn(),
+  fulfilledTimeStamp: 0,
+  status: 'pending',
+  originalArgs: undefined,
 };

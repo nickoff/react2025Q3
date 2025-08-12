@@ -7,16 +7,23 @@ type SearchAnimeResponse = {
   data: ICard[];
 };
 
+type AnimeByIdResponse = {
+  data: ICard;
+};
+
 const API_URL = 'https://api.jikan.moe/v4/anime';
 
 export const animeApi = createApi({
   reducerPath: 'animeApi',
   baseQuery: fetchBaseQuery({ baseUrl: API_URL }),
-  endpoints: (builder) => ({
-    getSearchAnime: builder.query<SearchAnimeResponse, { searchTerm: string; page: string }>({
-      query: ({ searchTerm = '', page = 1 }) => `?page=${page}&limit=10&q=${searchTerm}`
-    })
-  })
+  endpoints: (build) => ({
+    getSearchAnime: build.query<SearchAnimeResponse, { searchTerm: string; page: string }>({
+      query: ({ searchTerm = '', page = 1 }) => `?page=${page}&limit=10&q=${searchTerm}`,
+    }),
+    getAnimeById: build.query<AnimeByIdResponse, string>({
+      query: (malId) => `/${malId}`,
+    }),
+  }),
 });
 
-export const { useGetSearchAnimeQuery } = animeApi;
+export const { useGetSearchAnimeQuery, useGetAnimeByIdQuery } = animeApi;

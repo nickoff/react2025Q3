@@ -6,10 +6,11 @@ import { ThemeContext } from '../../app/Providers/ThemeContextProvider/themeCont
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { setNewSearchTermValue } from '../../app/reducers/search';
 import { useLocalStorage } from '../../hooks/useLocalStorageSearch';
+import { Button } from '../Button/Button';
 
 const CONTENT = {
   title: 'Anime searcher',
-  search: 'Search'
+  search: 'Search',
 };
 
 export const Header = () => {
@@ -43,10 +44,7 @@ export const Header = () => {
           id="search"
           defaultValue={searchTerm}
         />
-        <button
-          className={`${themeDark ? 'bg-gray-600' : 'bg-gray-500'} text-2xl text-amber-50 px-4 py-1 rounded-md border outline-none cursor-pointer transition duration-300 ease-in-out hover:bg-orange-400`}>
-          {CONTENT.search}
-        </button>
+        <Button>{CONTENT.search}</Button>
       </form>
       <Navigation />
       <ThemeToggle />

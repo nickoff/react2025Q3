@@ -11,7 +11,7 @@ import { mockCard } from './mocks/mocks';
 
 const mockStore = configureStore({
   reducer: rootReducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(animeApi.middleware)
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(animeApi.middleware),
 });
 
 describe('Card Component', () => {
@@ -35,7 +35,7 @@ describe('Card Component', () => {
         ...actual,
         useSearchParams: () => [new URLSearchParams('page=3')],
         useLocation: () => ({ pathname: '/1' }),
-        useResolvedPath: vi.fn((to: string) => ({ pathname: to }))
+        useResolvedPath: vi.fn((to: string) => ({ pathname: to })),
       };
     });
 

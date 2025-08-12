@@ -10,11 +10,11 @@ import { animeApi } from '../src/utils/animeApi';
 
 const mockStore = configureStore({
   reducer: rootReducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(animeApi.middleware)
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(animeApi.middleware),
 });
 
 vi.mock('../src/components/ResultList/ResultList', () => ({
-  ResultList: ({ searchTerm }: { searchTerm: string }) => <div data-testid="result-list">{searchTerm}</div>
+  ResultList: ({ searchTerm }: { searchTerm: string }) => <div data-testid="result-list">{searchTerm}</div>,
 }));
 
 describe('Main component (with mocked Header & ResultList)', () => {

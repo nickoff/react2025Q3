@@ -1,40 +1,103 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { createMemoryRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router';
+import { MemoryRouter, Route, Routes } from 'react-router';
 import { Description } from '../src/components/Description/Description';
-import { mockCard } from './mocks/mocks';
+import { rootReducer } from '../src/app/reducers/rootReducer';
+import { animeApi } from '../src/utils/animeApi';
+import { configureStore } from '@reduxjs/toolkit';
+import { Provider } from 'react-redux';
+import { ThemeContext } from '../src/app/Providers/ThemeContextProvider/themeContext';
+import * as AnimeApiModule from '../src/utils/animeApi';
+import { mockCard, mockReturnValue } from './mocks/mocks';
+import userEvent from '@testing-library/user-event';
+
+const mockStore = configureStore({
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(animeApi.middleware),
+});
+
+const mockContextValue = { themeDark: false, changeTheme: () => {} };
+
+const TestWrapper = () => {
+  return (
+    <MemoryRouter initialEntries={['/123']}>
+      <ThemeContext.Provider value={mockContextValue}>
+        <Provider store={mockStore}>
+          <Routes>
+            <Route path="/:mal_id" element={<Description />} />
+          </Routes>
+        </Provider>
+      </ThemeContext.Provider>
+    </MemoryRouter>
+  );
+};
+
+vi.mock('../src/utils/animeApi', async () => {
+  const actual = await vi.importActual<typeof AnimeApiModule>('../src/utils/animeApi');
+  const { mockReturnValue } = await import('./mocks/mocks');
+
+  return {
+    ...actual,
+    useGetAnimeByIdQuery: vi.fn().mockReturnValue(mockReturnValue),
+  };
+});
 
 describe('Description Component', () => {
-  it('renders description', async () => {
-    const loader = () => ({
-      description: Promise.resolve({
-        data: mockCard
-      })
-    });
+  it('renders if susses fetch data', () => {
+    render(<TestWrapper />);
 
-    const router = createMemoryRouter(
-      createRoutesFromElements(<Route path="/" loader={loader} element={<Description />} />),
-      { initialEntries: ['/'] }
-    );
-
-    render(<RouterProvider router={router} />);
-
-    expect(await screen.findByText(mockCard.titles[0].title)).toBeInTheDocument();
+    const title = screen.getByRole('heading', { level: 2 });
+    expect(title).toHaveTextContent('Test Card 1');
   });
 
-  it('render Not Found if no data', async () => {
-    const loader = () => ({
-      description: Promise.resolve({ data: null })
+  it('renders refresh button and clicks', async () => {
+    const handleRefresh = vi.fn();
+
+    vi.mocked(AnimeApiModule.useGetAnimeByIdQuery).mockReturnValue({
+      ...mockReturnValue,
+      data: {
+        data: mockCard,
+      },
+      refetch: handleRefresh,
     });
 
-    const router = createMemoryRouter(
-      createRoutesFromElements(<Route path="/" loader={loader} element={<Description />} />),
-      { initialEntries: ['/'] }
-    );
+    render(<TestWrapper />);
 
-    render(<RouterProvider router={router} />);
+    const title = screen.getByRole('heading', { level: 2 });
+    const button = screen.getByText('Refresh');
 
-    expect(await screen.findByText('404 Not Found')).toBeInTheDocument();
+    expect(title).toHaveTextContent('Test Card 1');
+    expect(button).toBeInTheDocument();
+    await userEvent.click(button);
+    expect(handleRefresh).toHaveBeenCalledOnce();
+  });
+
+  it('renders loading state when data is loading', () => {
+    vi.mocked(AnimeApiModule.useGetAnimeByIdQuery).mockReturnValue({
+      ...mockReturnValue,
+      isFetching: true,
+    });
+
+    render(<TestWrapper />);
+
+    expect(screen.getByText(/loading/i)).toBeInTheDocument();
+  });
+
+  it('renders error data state when data is error', () => {
+    vi.mocked(AnimeApiModule.useGetAnimeByIdQuery).mockReturnValue({
+      ...mockReturnValue,
+      isError: true,
+      error: {
+        data: {
+          status: '404',
+          message: 'Not found',
+        },
+      },
+    });
+
+    render(<TestWrapper />);
+
+    expect(screen.getByText(/404/i)).toBeInTheDocument();
   });
 });

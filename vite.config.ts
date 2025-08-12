@@ -22,14 +22,14 @@ export default defineConfig({
         'src/main.{js,jsx,ts,tsx}',
         'src/setupTests.{js,ts}',
         'src/**/*.d.ts',
-        'src/types/**/*.ts'
+        'src/types/**/*.ts',
       ],
       thresholds: {
         lines: 50,
         functions: 50,
         branches: 50,
-        statements: 80
-      }
-    }
-  }
+        statements: 80,
+      },
+    },
+  },
 });
