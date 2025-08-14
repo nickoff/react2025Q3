@@ -1,7 +1,13 @@
+import { Metadata } from 'next';
+
 const CONTENT = {
   title: 'Welcome, fellow otaku 🌸',
   content:
     'Select an anime from the list on the left to view its details. Use the search bar to find your favorite titles.',
+};
+
+export const metadata: Metadata = {
+  title: 'Home',
 };
 
 export default function Page() {

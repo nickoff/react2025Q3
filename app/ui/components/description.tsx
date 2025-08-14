@@ -5,6 +5,7 @@ import { Button } from '@/app/ui/components';
 import { Loading } from './loading/loading';
 import { useParams, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const CONTENT = {
   error: '❌ Loading error: ',
@@ -51,7 +52,7 @@ const DescriptionContent = (props: { malId: string }) => {
         <Button disabled={isFetching} onClick={handleRefresh}>
           {isFetching ? 'Refreshing ...' : 'Refresh'}
         </Button>
-        <img src={description.data.images.webp.image_url} alt="Description image" />
+        <Image width={200} height={150} src={description.data.images.webp.image_url} alt="Description image" />
         <p className="text-2xl text-left ">{description.data.synopsis}</p>
         <p className="text-2xl text-left">
           {CONTENT.source} {description.data.source}

@@ -6,7 +6,10 @@ import StoreProvider from './lib/store-provider';
 import { Suspense } from 'react';
 
 export const metadata: Metadata = {
-  title: 'React2025q3',
+  title: {
+    template: '%s | React2025q3',
+    default: 'React2025q3',
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

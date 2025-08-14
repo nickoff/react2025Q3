@@ -1,5 +1,3 @@
-'use client';
-
 import './loading.css';
 
 export const Loading = () => {

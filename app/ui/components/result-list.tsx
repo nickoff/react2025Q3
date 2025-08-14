@@ -1,5 +1,3 @@
-'use client';
-
 import { Card } from '@/app/ui/components/card';
 import type { CardModel } from '@/app/lib/types/card';
 import type { SerializedError } from '@reduxjs/toolkit';
