@@ -4,15 +4,9 @@ import { useGetAnimeByIdQuery } from '../../lib/utils/animeApi';
 import { Button } from '@/app/ui/components';
 import { Loading } from './loading/loading';
 import { useParams, useSearchParams } from 'next/navigation';
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 import Image from 'next/image';
-
-const CONTENT = {
-  error: '❌ Loading error: ',
-  source: 'Source: ',
-  duration: 'Duration: ',
-  close: 'Close',
-};
+import { useTranslations } from 'next-intl';
 
 const pageParam = '/?page=';
 
@@ -26,6 +20,7 @@ type CustomError = {
 const DescriptionContent = (props: { malId: string }) => {
   const { malId } = props;
   const { isFetching, isLoading, isError, error, data: description, refetch } = useGetAnimeByIdQuery(malId);
+  const t = useTranslations('ResultList');
 
   const handleRefresh = () => {
     refetch();
@@ -38,7 +33,7 @@ const DescriptionContent = (props: { malId: string }) => {
 
     return (
       <div className="flex justify-center items-center text-3xl mt-48 mb-65 w-full text-red-500">
-        {CONTENT.error} {err.data.status} {err.data.message}
+        {t('error')} {err.data.status} {err.data.message}
       </div>
     );
   }
@@ -50,15 +45,15 @@ const DescriptionContent = (props: { malId: string }) => {
           {description.data.titles[0].title}
         </h2>
         <Button disabled={isFetching} onClick={handleRefresh}>
-          {isFetching ? 'Refreshing ...' : 'Refresh'}
+          {isFetching ? t('refresh_button_fetching') : t('refresh_button')}
         </Button>
         <Image width={200} height={150} src={description.data.images.webp.image_url} alt="Description image" />
         <p className="text-2xl text-left ">{description.data.synopsis}</p>
         <p className="text-2xl text-left">
-          {CONTENT.source} {description.data.source}
+          {t('source')} {description.data.source}
         </p>
         <p className="text-2xl text-left">
-          {CONTENT.duration} {description.data.duration}
+          {t('duration')} {description.data.duration}
         </p>
       </>
     );
@@ -68,6 +63,7 @@ export const Description = () => {
   const searchParams = useSearchParams();
   const params = useParams();
   const mal_id = params.mal_id as string;
+  const t = useTranslations('ResultList');
 
   if (!mal_id) return null;
 
@@ -77,7 +73,7 @@ export const Description = () => {
       <Link
         className="absolute top-5 right-5 text-2xl text-amber-50 px-4 py-1 ml-auto rounded-md border border-black outline-none bg-gray-500 transition duration-300 ease-in-out hover:bg-orange-400"
         href={pageParam + searchParams.get('page')}>
-        {CONTENT.close}
+        {t('close')}
       </Link>
       <DescriptionContent malId={mal_id} />
     </div>

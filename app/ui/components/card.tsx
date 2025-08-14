@@ -4,18 +4,12 @@ import type { CardModel } from '../../lib/types/card';
 import { useAppDispatch, useAppSelector } from '../../lib/hooks/useStoreHooks';
 import { addSelectedCard, removeCardById } from '../../lib/reducers/selectedCards';
 import { usePathname, useSearchParams } from 'next/navigation';
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
+import { useTranslations } from 'next-intl';
 
 export interface CardProps {
   card: CardModel;
 }
-
-const CONTENT = {
-  description: 'Description:',
-  source: 'Source: ',
-  aired: 'Aired: ',
-  duration: 'Duration: ',
-};
 
 export const Card = (props: CardProps) => {
   const { card } = props;
@@ -30,6 +24,7 @@ export const Card = (props: CardProps) => {
   const toUrl = isActivePath
     ? `/?page=${searchParams.get('page')}`
     : `/${card.mal_id}?page=${searchParams.get('page')}`;
+  const t = useTranslations('ResultList');
 
   const handelSelect = () => {
     if (isSelectedCard) {
@@ -67,7 +62,7 @@ export const Card = (props: CardProps) => {
         }>
         <h3 className="text-2xl text-left font-medium text-orange-300">{title}</h3>
         <p className="text-lg text-gray-300">
-          {CONTENT.aired} {card.aired.string}
+          {t('aired')} {card.aired.string}
         </p>
       </Link>
     </div>

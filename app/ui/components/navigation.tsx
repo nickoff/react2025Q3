@@ -1,15 +1,17 @@
 'use client';
 
-import Link from 'next/link';
+import { useTranslations } from 'next-intl';
+import { Link } from '@/i18n/navigation';
 import { usePathname } from 'next/navigation';
-
-const navLinks = [
-  { title: 'Home', url: '/' },
-  { title: 'About', url: '/about' },
-];
 
 export default function Navigation() {
   const pathname = usePathname();
+  const t = useTranslations('Header');
+
+  const navLinks = [
+    { title: t('nav_link_home'), url: '/' },
+    { title: t('nav_link_about'), url: '/about' },
+  ];
 
   return (
     <nav>

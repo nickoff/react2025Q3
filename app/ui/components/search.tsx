@@ -3,16 +3,14 @@
 import { useLocalStorage } from '@/app/lib/hooks/useLocalStorageSearch';
 import { Button } from '@/app/ui/components/button';
 import { inter } from '@/app/ui/fonts';
+import { useTranslations } from 'next-intl';
 import { useSearchParams, useRouter } from 'next/navigation';
-
-const CONTENT = {
-  search: 'Search',
-};
 
 export default function Search() {
   const { searchTerm, setSearchTerm } = useLocalStorage();
   const searchParams = useSearchParams();
   const { replace } = useRouter();
+  const t = useTranslations('Header');
 
   const handleSearch = (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -39,7 +37,7 @@ export default function Search() {
         id="search"
         defaultValue={searchTerm}
       />
-      <Button>{CONTENT.search}</Button>
+      <Button>{t('button')}</Button>
     </form>
   );
 }

@@ -1,6 +1,9 @@
+import { useTranslations } from 'next-intl';
 import './loading.css';
 
 export const Loading = () => {
+  const t = useTranslations('Loading');
+
   return (
     <div className="flex flex-col items-center gap-2 mt-48 mb-65 justify-center w-full">
       <div className="flex gap-2">
@@ -11,7 +14,7 @@ export const Loading = () => {
         <div className="w-2 bg-orange-600 rounded-2xl wave h-6" style={{ animationDelay: '400ms' }}></div>
         <div className="w-2 bg-orange-600 rounded-2xl wave h-6" style={{ animationDelay: '500ms' }}></div>
       </div>
-      <p className="text-2xl font-bold">LOADING</p>
+      <p className="text-2xl font-bold uppercase">{t('loading')}</p>
     </div>
   );
 };

@@ -1,19 +1,15 @@
 import type { PaginationModel } from '@/app/lib/types/pagination';
 import { Button } from '@/app/ui/components';
+import { useTranslations } from 'next-intl';
 
 interface PaginationProps {
   pagination: PaginationModel;
   handleNumberPage: (page: number) => void;
 }
 
-const CONTENT = {
-  previous: 'Previous',
-  pageOf: { page: 'page', of: 'of' },
-  next: 'Next',
-};
-
 export const Pagination = (props: PaginationProps) => {
   const { pagination } = props;
+  const t = useTranslations('ResultList');
 
   const handlePreviousPage = () => {
     if (pagination.current_page > 1) {
@@ -30,13 +26,13 @@ export const Pagination = (props: PaginationProps) => {
   return (
     <div className="flex justify-center items-center gap-3">
       <Button disabled={pagination.current_page === 1} onClick={handlePreviousPage}>
-        {CONTENT.previous}
+        {t('previous_button')}
       </Button>
       <span>
-        {CONTENT.pageOf.page} {pagination.current_page} {CONTENT.pageOf.of} {pagination.last_visible_page}
+        {t('page')} {pagination.current_page} {t('of')} {pagination.last_visible_page}
       </span>
       <Button disabled={!pagination.has_next_page} onClick={handleNextPage}>
-        {CONTENT.next}
+        {t('next_button')}
       </Button>
     </div>
   );
