@@ -1,7 +1,7 @@
 'use client';
 
 import type { CardModel } from '../../lib/types/card';
-import { useAppDispatch, useAppSelector } from '../../lib/hooks';
+import { useAppDispatch, useAppSelector } from '../../lib/hooks/useStoreHooks';
 import { addSelectedCard, removeCardById } from '../../lib/reducers/selectedCards';
 import { usePathname, useSearchParams } from 'next/navigation';
 import Link from 'next/link';

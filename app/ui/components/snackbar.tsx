@@ -1,6 +1,6 @@
 'use client';
 
-import { useAppDispatch, useAppSelector } from '@/app/lib/hooks';
+import { useAppDispatch, useAppSelector } from '@/app/lib/hooks/useStoreHooks';
 import { clearSelectedCards } from '@/app/lib/reducers/selectedCards';
 import { downLoadSelectedCards } from '@/app/lib/utils/downLoadSelectedCards';
 import { Button } from '@/app/ui/components';

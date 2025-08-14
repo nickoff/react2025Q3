@@ -1,29 +1,26 @@
 'use client';
 
 import { ReactNode, useEffect } from 'react';
-import { Button, Pagination, ResultList, Snackbar } from '../ui/components';
-import { useGetSearchAnimeQuery } from '../lib/utils/animeApi';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { Button, Pagination, ResultList, Snackbar } from '@/app/ui/components';
+import { useGetSearchAnimeQuery } from '@/app/lib/utils/animeApi';
+import { useSearchParams } from 'next/navigation';
+import { useQueryUpdater } from '@/app/lib/hooks/useQueryUpdater';
 
 export default function MainSectionLayout({ children }: { children: ReactNode }) {
   const searchParams = useSearchParams();
   const searchTerm = searchParams.get('query') ?? '';
   const page = searchParams.get('page') ?? '1';
   const { data, error, isFetching, refetch } = useGetSearchAnimeQuery({ searchTerm, page });
-  const { replace } = useRouter();
+  const { updateParam } = useQueryUpdater();
 
   useEffect(() => {
     if (!searchParams.get('page')) {
-      const params = new URLSearchParams(searchParams);
-      params.set('page', '1');
-      replace(`/?${params.toString()}`);
+      updateParam('page', '1');
     }
-  }, [replace, searchParams]);
+  }, [searchParams, updateParam]);
 
   const handleNumberPage = (page: number) => {
-    const params = new URLSearchParams(searchParams);
-    params.set('page', page.toString());
-    replace(`/?${params.toString()}`);
+    updateParam('page', page.toString());
   };
 
   const handleRefresh = () => {
