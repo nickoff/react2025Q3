@@ -8,7 +8,7 @@ const navLinks = [
   { title: 'About', url: '/about' },
 ];
 
-export const Navigation = () => {
+export default function Navigation() {
   const pathname = usePathname();
 
   return (
@@ -26,4 +26,4 @@ export const Navigation = () => {
       </ul>
     </nav>
   );
-};
+}

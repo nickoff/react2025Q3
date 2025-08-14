@@ -9,3 +9,4 @@ export * from './snackbar';
 export * from './theme-toggle/theme-toggle';
 export * from './loading/loading';
 export * from '../../lib/store-provider';
+export * from '../components/search';
