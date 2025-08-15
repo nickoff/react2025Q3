@@ -1,12 +1,18 @@
 import { Metadata } from 'next';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
+import { setRequestLocale } from 'next-intl/server';
+import { use } from 'react';
 
 export const metadata: Metadata = {
   title: 'About',
 };
 
-export default function About() {
+export default function About({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = use(params);
+
+  setRequestLocale(locale);
+
   const t = useTranslations('About');
 
   return (

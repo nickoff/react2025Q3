@@ -7,6 +7,7 @@ import { Suspense } from 'react';
 import { NextIntlClientProvider, hasLocale } from 'next-intl';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
+import { setRequestLocale } from 'next-intl/server';
 
 export const metadata: Metadata = {
   title: {
@@ -14,6 +15,10 @@ export const metadata: Metadata = {
     default: 'React2025q3',
   },
 };
+
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
 
 export default async function LocaleLayout({
   children,
@@ -26,6 +31,8 @@ export default async function LocaleLayout({
   if (!hasLocale(routing.locales, locale)) {
     notFound();
   }
+
+  setRequestLocale(locale);
 
   return (
     <html lang={locale}>
