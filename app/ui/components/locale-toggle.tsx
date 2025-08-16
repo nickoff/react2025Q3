@@ -1,24 +1,25 @@
 'use client';
 
-import { usePathname } from '@/i18n/navigation';
-import Link from 'next/link';
+import { redirect, usePathname } from '@/i18n/navigation';
+import { useSearchParams } from 'next/navigation';
+import { Button } from './button';
 
 export const LocaleToggle = ({ locale }: { locale: string }) => {
   const pathname = usePathname();
-  console.log(pathname);
+  const searchParams = useSearchParams();
 
   return (
     <div className="flex items-center justify-center border-1 p-1 gap-1 border-gray-500 rounded-full">
-      <Link
+      <Button
         className={`${locale === 'en' ? 'bg-gray-300/20' : ''} flex items-center justify-center cursor-pointer w-9 h-9 p-0.5 rounded-full border-2 border-transparent transition duration-300 ease-in-out hover:border-2 hover:border-orange-400/50`}
-        href={'/en'}>
+        onClick={() => redirect({ href: `${pathname}?page=${searchParams.get('page')}`, locale: 'en' })}>
         EN
-      </Link>
-      <Link
+      </Button>
+      <Button
         className={`${locale === 'jp' ? 'bg-gray-300/20' : ''} flex items-center justify-center cursor-pointer w-9 h-9 p-0.5 rounded-full border-2 border-transparent transition duration-300 ease-in-out hover:border-2 hover:border-orange-400/50`}
-        href={'/jp'}>
+        onClick={() => redirect({ href: `${pathname}?page=${searchParams.get('page')}`, locale: 'jp' })}>
         JP
-      </Link>
+      </Button>
     </div>
   );
 };
