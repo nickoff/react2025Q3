@@ -1,6 +1,16 @@
-import type { CardModel } from '../types/card';
+'use server';
 
-export const downLoadSelectedCards = (selectedCards: CardModel[]) => {
+import path from 'path';
+import type { CardModel } from '../types/card';
+import { unlink, writeFile } from 'fs/promises';
+import { redirect } from 'next/navigation';
+
+export const downLoadSelectedCards = async (formData: FormData) => {
+  const raw = formData.get('selectedCards');
+  if (!raw || typeof raw !== 'string') return;
+
+  const selectedCards: CardModel[] = JSON.parse(raw);
+
   if (!selectedCards.length) return;
 
   const printData = selectedCards.map((card) => {
@@ -28,13 +38,20 @@ export const downLoadSelectedCards = (selectedCards: CardModel[]) => {
   const rows = printData.map((obj) => headers.map((header) => `"${obj[header]}"`).join(','));
 
   const csvContent = [headers.join(','), ...rows].join('\n');
-  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-  const url = URL.createObjectURL(blob);
+  const fileName = `${selectedCards.length}_items.csv`;
 
-  const link = document.createElement('a');
-  link.setAttribute('href', url);
-  link.setAttribute('download', `${printData.length}_items`);
-  link.click();
+  const filePath = path.join(process.cwd(), 'public', 'downloads', fileName);
 
-  URL.revokeObjectURL(url);
+  await writeFile(filePath, csvContent, 'utf8');
+
+  setTimeout(async () => {
+    try {
+      await unlink(filePath);
+      console.log(`Deleted: ${fileName}`);
+    } catch (err) {
+      console.error(err);
+    }
+  }, 15000);
+
+  redirect(`/downloads/${fileName}`);
 };

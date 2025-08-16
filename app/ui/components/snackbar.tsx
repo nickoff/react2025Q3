@@ -2,7 +2,7 @@
 
 import { useAppDispatch, useAppSelector } from '@/app/lib/hooks/useStoreHooks';
 import { clearSelectedCards } from '@/app/lib/reducers/selectedCards';
-import { downLoadSelectedCards } from '@/app/lib/utils/downLoadSelectedCards';
+import { downLoadSelectedCards } from '@/app/lib/actions/downloadCsv';
 import { Button } from '@/app/ui/components';
 
 const CONTENT = {
@@ -19,10 +19,6 @@ export const Snackbar = () => {
     dispatch(clearSelectedCards());
   };
 
-  const handleDownLoad = () => {
-    downLoadSelectedCards(selectedCards);
-  };
-
   if (!numSelectedCards) return;
 
   if (numSelectedCards) {
@@ -31,7 +27,10 @@ export const Snackbar = () => {
         <p>{`${numSelectedCards} ${numSelectedCards === 1 ? 'item is ' : 'items are '}selected`}</p>
         <div className="flex gap-2">
           <Button onClick={handelUnselect}>{CONTENT.unselect}</Button>
-          <Button onClick={handleDownLoad}>{CONTENT.downLoad}</Button>
+          <form action={downLoadSelectedCards}>
+            <input type="hidden" name="selectedCards" value={JSON.stringify(selectedCards)} />
+            <Button type="submit">{CONTENT.downLoad}</Button>
+          </form>
         </div>
       </div>
     );
