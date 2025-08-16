@@ -47,7 +47,9 @@ const DescriptionContent = (props: { malId: string }) => {
         <Button disabled={isFetching} onClick={handleRefresh}>
           {isFetching ? t('refresh_button_fetching') : t('refresh_button')}
         </Button>
-        <Image width={200} height={150} src={description.data.images.webp.image_url} alt="Description image" />
+        <div className="aspect-[3/4] relative w-[30%]">
+          <Image fill src={description.data.images.webp.image_url} alt="Description image" />
+        </div>
         <p className="text-2xl text-left ">{description.data.synopsis}</p>
         <p className="text-2xl text-left">
           {t('source')} {description.data.source}

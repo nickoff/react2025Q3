@@ -43,7 +43,7 @@ export default async function LocaleLayout({
               <div
                 className={`h-[100vh] bg-[url('/light-theme.png')] dark:bg-[url('/dark-theme.jpg')] [overflow:overlay] bg-center bg-no-repeat bg-fixed bg-[length:100%_auto]`}>
                 <div className="max-w-7xl mx-auto flex flex-col">
-                  <Header />
+                  <Header locale={locale} />
                   <main className="w-full flex flex-1 justify-between gap-5 p-5 pb-10">
                     <Suspense fallback={<Loading />}>{children}</Suspense>
                   </main>

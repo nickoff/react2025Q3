@@ -5,8 +5,9 @@ import { Loading } from './loading/loading';
 import { Link } from '@/i18n/navigation';
 import { ThemeToggle } from './theme-toggle/theme-toggle';
 import { useTranslations } from 'next-intl';
+import { LocaleToggle } from './locale-toggle';
 
-export const Header = () => {
+export const Header = ({ locale }: { locale: string }) => {
   const t = useTranslations('Header');
 
   return (
@@ -18,6 +19,7 @@ export const Header = () => {
       <Suspense fallback={<Loading />}>
         <Search />
         <Navigation />
+        <LocaleToggle locale={locale} />
         <ThemeToggle />
       </Suspense>
     </header>
