@@ -2,6 +2,7 @@
 import createNextIntlPlugin from 'next-intl/plugin';
 
 const nextConfig = {
+  distDir: 'dist',
   devIndicators: false,
   images: {
     remotePatterns: [new URL('https://cdn.myanimelist.net/**')],
