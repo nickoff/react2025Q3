@@ -20,7 +20,7 @@ export const Card = (props: CardProps) => {
   const title = card.titles.find((title) => title.type === 'Default')?.title;
   const searchParams = useSearchParams();
   const pathname = usePathname();
-  const isActivePath = pathname === `/${card.mal_id}`;
+  const isActivePath = pathname === `/${pathname.split('/')[1]}/${card.mal_id}`;
   const toUrl = isActivePath
     ? `/?page=${searchParams.get('page')}`
     : `/${card.mal_id}?page=${searchParams.get('page')}`;
