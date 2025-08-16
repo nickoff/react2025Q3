@@ -7,6 +7,8 @@ import { useParams, useSearchParams } from 'next/navigation';
 import { Link } from '@/i18n/navigation';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
+import { ThemeContext } from '@/app/lib/theme-provider';
+import { useContext } from 'react';
 
 const pageParam = '/?page=';
 
@@ -65,11 +67,12 @@ export const Description = () => {
   const searchParams = useSearchParams();
   const params = useParams();
   const mal_id = params.mal_id as string;
+  const { themeDark } = useContext(ThemeContext);
   const t = useTranslations('ResultList');
 
   return (
     <div
-      className={`dark:bg-[rgba(0,0,0,0.7)] dark:text-gray-300 bg-[rgba(235,232,232,0.7)] text-gray-600 w-full relative h-fit flex flex-col justify-start items-start rounded-md gap-5 py-5 px-8`}>
+      className={`${themeDark ? 'bg-[rgba(0,0,0,0.7)] dark:text-gray-300' : 'bg-[rgba(235,232,232,0.7)] text-gray-600'} w-full relative h-fit flex flex-col justify-start items-start rounded-md gap-5 py-5 px-8`}>
       <Link
         className="absolute top-5 right-5 text-2xl text-amber-50 px-4 py-1 ml-auto rounded-md border border-black outline-none bg-gray-500 transition duration-300 ease-in-out hover:bg-orange-400"
         href={pageParam + searchParams.get('page')}>

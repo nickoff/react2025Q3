@@ -8,6 +8,8 @@ import { NextIntlClientProvider, hasLocale } from 'next-intl';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import { setRequestLocale } from 'next-intl/server';
+import { ThemeContextProvider } from '../lib/theme-provider';
+import AppBackground from '../ui/components/app-background';
 
 export const metadata: Metadata = {
   title: {
@@ -39,17 +41,18 @@ export default async function LocaleLayout({
       <body className={`${architectsDaughter.className} antialiased`}>
         <div id="root">
           <NextIntlClientProvider>
-            <StoreProvider>
-              <div
-                className={`h-[100vh] bg-[url('/light-theme.png')] dark:bg-[url('/dark-theme.jpg')] [overflow:overlay] bg-center bg-no-repeat bg-fixed bg-[length:100%_auto]`}>
-                <div className="max-w-7xl mx-auto flex flex-col">
-                  <Header locale={locale} />
-                  <main className="w-full flex flex-1 justify-between gap-5 p-5 pb-10">
-                    <Suspense fallback={<Loading />}>{children}</Suspense>
-                  </main>
-                </div>
-              </div>
-            </StoreProvider>
+            <ThemeContextProvider>
+              <StoreProvider>
+                <AppBackground>
+                  <div className="max-w-7xl mx-auto flex flex-col">
+                    <Header locale={locale} />
+                    <main className="w-full flex flex-1 justify-between gap-5 p-5 pb-10">
+                      <Suspense fallback={<Loading />}>{children}</Suspense>
+                    </main>
+                  </div>
+                </AppBackground>
+              </StoreProvider>
+            </ThemeContextProvider>
           </NextIntlClientProvider>
         </div>
       </body>
