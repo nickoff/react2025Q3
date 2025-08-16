@@ -1,11 +1,7 @@
-'use server';
+import type { CardModel } from '../../lib/types/card';
 
-import path from 'path';
-import type { CardModel } from '../types/card';
-import { unlink, writeFile } from 'fs/promises';
-import { redirect } from 'next/navigation';
-
-export const downLoadSelectedCards = async (formData: FormData) => {
+export async function POST(req: Request) {
+  const formData = await req.formData();
   const raw = formData.get('selectedCards');
   if (!raw || typeof raw !== 'string') return;
 
@@ -40,18 +36,10 @@ export const downLoadSelectedCards = async (formData: FormData) => {
   const csvContent = [headers.join(','), ...rows].join('\n');
   const fileName = `${selectedCards.length}_items.csv`;
 
-  const filePath = path.join(process.cwd(), 'public', 'downloads', fileName);
-
-  await writeFile(filePath, csvContent, 'utf8');
-
-  setTimeout(async () => {
-    try {
-      await unlink(filePath);
-      console.log(`Deleted: ${fileName}`);
-    } catch (err) {
-      console.error(err);
-    }
-  }, 15000);
-
-  redirect(`/downloads/${fileName}`);
-};
+  return new Response(csvContent, {
+    headers: {
+      'Content-Type': 'text/csv',
+      'Content-Disposition': `attachment; filename="${fileName}"`,
+    },
+  });
+}
