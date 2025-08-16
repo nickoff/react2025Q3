@@ -1,0 +1,46 @@
+{
+  "HomePage": {
+    "title": "ようこそ、オタク仲間の皆さん 🌸",
+    "content": "左側のリストからアニメを選択すると、詳細が表示されます。検索バーを使ってお気に入りの作品を見つけてください。"
+  },
+  "Header": {
+    "title": "アニメサーチャー",
+    "button": "検索",
+    "nav_link_home": "家",
+    "nav_link_about": "について"
+  },
+  "ResultList": {
+    "refresh_button": "リフレッシュ",
+    "refresh_button_fetching": "さわやか ...",
+    "previous_button": "前の",
+    "next_button": "次",
+    "page": "ページ",
+    "of": "の",
+    "close": "近い",
+    "error": "❌ 読み込みエラー: ",
+    "source": "ソース: ",
+    "duration": "間隔: ",
+    "aired": "放送された: ",
+    "no_results": "おっと…結果が見つかりませんでした 😟"
+  },
+  "Loading": {
+    "loading": "読み込み中"
+  },
+  "About": {
+    "title": "について",
+    "paragraph_1": "これはアニメを検索するためのシンプルなアプリで、ユーザーはお気に入りの作品を探したり、新しい作品を発見したりするためのシンプルなインターフェースを利用できます。Reactコースの一環として開発されました",
+    "paragraph_2": "コンポーネントベースのアーキテクチャ、動的ルーティング、非同期 API 相互作用、TailwindCSS を使用した最新のスタイル設定などの主要な概念の実践に重点を置いています",
+    "author": "著者:"
+  },
+  "NotFound": {
+    "back": "ホームに戻る",
+    "404": "404: ページが見つかりません"
+  },
+  "Snackbar": {
+    "item": "アイテムは ",
+    "items": "アイテムは ",
+    "selected": "選択された",
+    "unselect_button": "すべて選択解除",
+    "download_button": "ダウンロード"
+  }
+}

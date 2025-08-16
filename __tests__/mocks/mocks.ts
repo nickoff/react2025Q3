@@ -1,7 +1,7 @@
 import { vi } from 'vitest';
-import { ICard } from '../../src/types/card';
+import { CardModel } from '../../src/types/card';
 
-export const mockCard: ICard = {
+export const mockCard: CardModel = {
   mal_id: 1,
   images: { webp: { image_url: 'https://example.com/image.jpg' } },
   title_english: 'Test Card 1',
@@ -13,7 +13,7 @@ export const mockCard: ICard = {
   duration: '1 hr 55 min',
 };
 
-export const mockData: { data: ICard[] } = {
+export const mockData: { data: CardModel[] } = {
   data: [
     {
       mal_id: 1,

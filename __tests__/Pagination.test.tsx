@@ -1,10 +1,10 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import '@testing-library/jest-dom';
-import { IPagination } from '../src/types/pagination';
+import { PaginationModel } from '../src/types/pagination';
 import { Pagination } from '../src/components/Pagination/Pagination';
 
-const mockPagination: IPagination = {
+const mockPagination: PaginationModel = {
   current_page: 2,
   has_next_page: true,
   has_prev_page: false,
