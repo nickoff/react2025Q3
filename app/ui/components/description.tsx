@@ -11,15 +11,15 @@ import { useTranslations } from 'next-intl';
 const pageParam = '/?page=';
 
 type CustomError = {
+  status: number;
   data: {
-    status: string;
     message: string;
   };
 };
 
 const DescriptionContent = (props: { malId: string }) => {
   const { malId } = props;
-  const { isFetching, isLoading, isError, error, data: description, refetch } = useGetAnimeByIdQuery(malId);
+  const { isFetching, isError, error, data: description, refetch } = useGetAnimeByIdQuery(malId);
   const t = useTranslations('ResultList');
 
   const handleRefresh = () => {
@@ -28,12 +28,12 @@ const DescriptionContent = (props: { malId: string }) => {
 
   if (isFetching) return <Loading />;
 
-  if (!isLoading && isError) {
+  if (isError && error) {
     const err = error as CustomError;
 
     return (
       <div className="flex justify-center items-center text-3xl mt-48 mb-65 w-full text-red-500">
-        {t('error')} {err.data.status} {err.data.message}
+        {t('error')} {err.data.message}
       </div>
     );
   }
@@ -66,8 +66,6 @@ export const Description = () => {
   const params = useParams();
   const mal_id = params.mal_id as string;
   const t = useTranslations('ResultList');
-
-  if (!mal_id) return null;
 
   return (
     <div

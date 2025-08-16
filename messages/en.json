@@ -31,5 +31,9 @@
     "paragraph_1": "This is a simple app to search for anime, offering users a clean interface to explore their favorite titles and discover new ones. It is developed as part of the React course at",
     "paragraph_2": ", with a focus on practicing key concepts like component-based architecture, dynamic routing, asynchronous API interactions, and modern styling using TailwindCSS.",
     "author": "Author:"
+  },
+  "NotFound": {
+    "back": "Back to Home",
+    "404": "404: Page not found"
   }
 }
