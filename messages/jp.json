@@ -35,5 +35,12 @@
   "NotFound": {
     "back": "ホームに戻る",
     "404": "404: ページが見つかりません"
+  },
+  "Snackbar": {
+    "item": "アイテムは ",
+    "items": "アイテムは ",
+    "selected": "選択された",
+    "unselect_button": "すべて選択解除",
+    "download_button": "ダウンロード"
   }
 }

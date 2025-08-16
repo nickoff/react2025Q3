@@ -35,5 +35,12 @@
   "NotFound": {
     "back": "Back to Home",
     "404": "404: Page not found"
+  },
+  "Snackbar": {
+    "item": "item is ",
+    "items": "items are ",
+    "selected": "selected",
+    "unselect_button": "Unselect all",
+    "download_button": "Download"
   }
 }
