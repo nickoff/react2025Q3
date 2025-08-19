@@ -32,8 +32,8 @@ function App() {
           This React Hook Form Modal
         </Modal>
 
-        <Modal isOpen={isOpenFormUncontrolledModal} onClose={handleReactHookModalToggle}>
-          This React Hook Form Modal
+        <Modal isOpen={isOpenFormUncontrolledModal} onClose={handleFormUncontrolledModalToggle}>
+          This Form Uncontrolled Modal
         </Modal>
       </main>
       <footer className="py-9">RS school &copy;2025</footer>

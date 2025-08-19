@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 interface ModalProps {
@@ -10,21 +10,31 @@ interface ModalProps {
 export const Modal = ({ isOpen, onClose, children }: ModalProps) => {
   const [isModalOpen, setModalOpen] = useState(isOpen);
   const modalRef = useRef<HTMLDialogElement | null>(null);
-  const overlayRef = useRef<HTMLDivElement | null>(null);
+  const dialogBodyRef = useRef<HTMLDivElement | null>(null);
   const mouseDownTarget = useRef<EventTarget | null>(null);
 
-  const handleMouseDown = useCallback((event: MouseEvent) => {
-    mouseDownTarget.current = event.target;
-  }, []);
+  const handleCloseModal = () => {
+    if (onClose) {
+      onClose();
+    }
+    setModalOpen(false);
+  };
 
-  const handleMouseUp = useCallback(
-    (event: MouseEvent) => {
-      if (event.target === mouseDownTarget.current && !overlayRef.current?.contains(event.target as Node)) {
-        onClose();
-      }
-    },
-    [onClose]
-  );
+  const handleMouseDown = (event: MouseEvent) => {
+    mouseDownTarget.current = event.target;
+  };
+
+  const handleMouseUp = (event: MouseEvent) => {
+    if (event.target === mouseDownTarget.current && !modalRef.current?.contains(event.target as Node)) {
+      handleCloseModal();
+    }
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLDialogElement>) => {
+    if (event.key === 'Escape') {
+      handleCloseModal();
+    }
+  };
 
   useEffect(() => {
     setModalOpen(isOpen);
@@ -44,26 +54,18 @@ export const Modal = ({ isOpen, onClose, children }: ModalProps) => {
         document.removeEventListener('mouseup', handleMouseUp);
       }
     }
-  }, [handleMouseDown, handleMouseUp, isModalOpen]);
-
-  const handleCloseModal = () => {
-    if (onClose) {
-      onClose();
-    }
-    setModalOpen(false);
-  };
-
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLDialogElement>) => {
-    if (event.key === 'Escape') {
-      handleCloseModal();
-    }
-  };
+  }, [isModalOpen]);
 
   return isOpen
     ? createPortal(
-        <dialog ref={modalRef} onKeyDown={handleKeyDown}>
-          <div ref={overlayRef}>
-            <button onClick={handleCloseModal}>CLOSE</button>
+        <dialog
+          className="p-0 border m-auto border-gray-300 relative rounded-xl shadow-md"
+          ref={modalRef}
+          onKeyDown={handleKeyDown}>
+          <div className="px-12 py-10 border-none rounded-2xl" ref={dialogBodyRef}>
+            <button className="absolute top-4 right-2 cursor-pointer" onClick={handleCloseModal}>
+              CLOSE
+            </button>
             {children}
           </div>
         </dialog>,

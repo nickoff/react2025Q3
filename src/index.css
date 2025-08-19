@@ -20,4 +20,8 @@
   margin: 0 auto;
   padding: 0;
   text-align: center;
+  dialog::backdrop {
+    background-color: #00000080;
+    backdrop-filter: blur(6px);
+  }
 }
