@@ -2,14 +2,23 @@ import { useState } from 'react';
 import { Modal } from '../components/ui/Modal';
 
 function App() {
+  const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const [isOpenReactHookModal, setIsOpenReactHookModal] = useState<boolean>(false);
   const [isOpenFormUncontrolledModal, setIsOpenFormUncontrolledModal] = useState<boolean>(false);
 
-  const handleReactHookModalToggle = () => {
-    setIsOpenReactHookModal(!isOpenReactHookModal);
+  const handleModalClose = () => {
+    setIsOpenModal(false);
+    setIsOpenReactHookModal(false);
+    setIsOpenFormUncontrolledModal(false);
+  };
+
+  const handleReactHookModalOpen = () => {
+    setIsOpenModal(true);
+    setIsOpenReactHookModal(true);
   };
   const handleFormUncontrolledModalToggle = () => {
-    setIsOpenFormUncontrolledModal(!isOpenFormUncontrolledModal);
+    setIsOpenModal(true);
+    setIsOpenFormUncontrolledModal(true);
   };
 
   return (
@@ -18,7 +27,7 @@ function App() {
       <main className="w-full h-full flex justify-between">
         <div className="w-full flex justify-center items-start gap-10 mt-5">
           <button
-            onClick={handleReactHookModalToggle}
+            onClick={handleReactHookModalOpen}
             className="p-5 min-w-80 uppercase font-bold border-2 border-cyan-800 rounded-md cursor-pointer hover:bg-cyan-800">
             React Hook Form
           </button>
@@ -28,12 +37,9 @@ function App() {
             Form uncontrolled
           </button>
         </div>
-        <Modal isOpen={isOpenReactHookModal} onClose={handleReactHookModalToggle}>
-          This React Hook Form Modal
-        </Modal>
-
-        <Modal isOpen={isOpenFormUncontrolledModal} onClose={handleFormUncontrolledModalToggle}>
-          This Form Uncontrolled Modal
+        <Modal isOpen={isOpenModal} onClose={handleModalClose}>
+          {isOpenReactHookModal && 'This React Hook Form Modal'}
+          {isOpenFormUncontrolledModal && 'This FormUncontrolled Modal'}
         </Modal>
       </main>
       <footer className="py-9">RS school &copy;2025</footer>

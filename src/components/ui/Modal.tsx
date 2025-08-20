@@ -26,7 +26,7 @@ export const Modal = ({ isOpen, onClose, children }: ModalProps) => {
 
   const handleMouseUp = (event: MouseEvent) => {
     if (event.target === mouseDownTarget.current && !modalRef.current?.contains(event.target as Node)) {
-      handleCloseModal();
+      setModalOpen(false);
     }
   };
 
