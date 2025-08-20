@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Modal } from '../components/ui/Modal';
+import { ReactHookForm } from '../components/ui/ReactHookForm';
 
 function App() {
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
@@ -43,7 +44,7 @@ function App() {
           colorBorderModal={
             (isOpenReactHookModal && 'border-cyan-800') || (isOpenFormUncontrolledModal && 'border-red-800') || ''
           }>
-          {isOpenReactHookModal && 'This React Hook Form Modal'}
+          {isOpenReactHookModal && <ReactHookForm />}
           {isOpenFormUncontrolledModal && 'This FormUncontrolled Modal'}
         </Modal>
       </main>

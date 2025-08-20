@@ -44,7 +44,7 @@ export const Modal = ({ isOpen, onClose, children, colorBorderModal }: ModalProp
   return isModalOpen
     ? createPortal(
         <div
-          className="top-0 bottom-0 right-0 left-0 fixed z-10 bg-gray-800/90 flex justify-center items-center"
+          className="top-0 bottom-0 right-0 left-0 fixed overflow-auto z-10 bg-gray-800/90 flex justify-center"
           ref={overlayRef}
           onClick={(e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
             if (e.target === overlayRef.current) {
@@ -52,7 +52,7 @@ export const Modal = ({ isOpen, onClose, children, colorBorderModal }: ModalProp
             }
           }}>
           <div
-            className={`p-12 relative border-1 rounded-2xl ${colorBorderModal && colorBorderModal} shadow-2xl shadow-black/30`}
+            className={`py-7 px-12 my-10 relative border-2 h-fit bg-gray-600 rounded-2xl ${colorBorderModal && colorBorderModal} shadow-2xl shadow-black/30`}
             ref={modalRef}>
             <button
               className="absolute top-3 right-3 flex items-center justify-center cursor-pointer group"
