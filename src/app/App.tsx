@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Modal } from '../components/ui/Modal';
 import { ReactHookForm } from '../components/ui/ReactHookForm';
+import { Footer } from '../components/ui/Footer';
 
 function App() {
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
@@ -17,6 +18,7 @@ function App() {
     setIsOpenModal(true);
     setIsOpenReactHookModal(true);
   };
+
   const handleFormUncontrolledModalToggle = () => {
     setIsOpenModal(true);
     setIsOpenFormUncontrolledModal(true);
@@ -44,11 +46,11 @@ function App() {
           colorBorderModal={
             (isOpenReactHookModal && 'border-cyan-800') || (isOpenFormUncontrolledModal && 'border-red-800') || ''
           }>
-          {isOpenReactHookModal && <ReactHookForm />}
+          {isOpenReactHookModal && <ReactHookForm onSuccess={handleModalClose} />}
           {isOpenFormUncontrolledModal && 'This FormUncontrolled Modal'}
         </Modal>
       </main>
-      <footer className="py-9">RS school &copy;2025</footer>
+      <Footer />
     </div>
   );
 }
