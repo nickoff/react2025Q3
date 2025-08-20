@@ -16,13 +16,12 @@ export const formValidationSchema = z.object({
       message: VALIDATION_ERRORS_MESSAGE.invalidCharacters,
     }),
   age: z
-    .transform((val) => Number(val))
-    .number()
-    .refine((val) => typeof val !== 'number', {
+    .string()
+    .trim()
+    .refine((val) => typeof Number(val) === 'number', {
       message: VALIDATION_ERRORS_MESSAGE.required,
     })
-
-    .refine((val) => val >= 0, {
+    .refine((val) => Number(val) >= 0, {
       message: VALIDATION_ERRORS_MESSAGE.mustNotBeNegative,
     }),
   email: z.string(),
@@ -30,7 +29,7 @@ export const formValidationSchema = z.object({
   confirmPassword: z.string(),
   gender: z.string(),
   accept: z.boolean(),
-  upload: z.file(),
+  upload: z.instanceof(FileList),
   country: z.string(),
 });
 

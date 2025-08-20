@@ -16,6 +16,8 @@ export const ReactHookForm = ({ onSuccess }: ReactHookFormProps) => {
     resolver: zodResolver(formValidationSchema),
   });
 
+  console.log(errors);
+
   const handleSubmitForm = (data: FormValidationSchema) => {
     console.log(data);
     onSuccess();
