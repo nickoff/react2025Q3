@@ -37,7 +37,12 @@ function App() {
             Form uncontrolled
           </button>
         </div>
-        <Modal isOpen={isOpenModal} onClose={handleModalClose}>
+        <Modal
+          isOpen={isOpenModal}
+          onClose={handleModalClose}
+          colorBorderModal={
+            (isOpenReactHookModal && 'border-cyan-800') || (isOpenFormUncontrolledModal && 'border-red-800') || ''
+          }>
           {isOpenReactHookModal && 'This React Hook Form Modal'}
           {isOpenFormUncontrolledModal && 'This FormUncontrolled Modal'}
         </Modal>
