@@ -44,7 +44,8 @@ export const formValidationSchema = z
       })
       .refine((files) => files[0]?.type === 'image/jpeg' || files[0]?.type === 'image/png', {
         error: VALIDATION_ERRORS_MESSAGE.mustBeTypesJpegPng,
-      }),
+      })
+      .refine((files) => files[0]?.size < 1024000, { error: VALIDATION_ERRORS_MESSAGE.fileIsLarger }),
     country: z.string().min(1, VALIDATION_ERRORS_MESSAGE.required),
   })
   .refine((data) => data.newPassword === data.confirmPassword, {

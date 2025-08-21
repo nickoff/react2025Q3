@@ -13,4 +13,5 @@ export const VALIDATION_ERRORS_MESSAGE = {
   mustIncludeUppercaseLetter: 'Must include an uppercase letter',
   mustIncludeNumber: 'Must include a number',
   mustIncludeSpecialChar: 'Must include a special char @$!%*#?&',
+  fileIsLarger: 'This file is larger than permitted',
 };
