@@ -1,14 +1,21 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { formValidationSchema, type FormValidationSchema } from '../../utils/zod-schema';
+import { createCountrySchema } from '../../utils/zod.schema';
 import { PasswordStrengthBar } from './PasswordStrengthBar';
 import { useEffect } from 'react';
+import { useGetCountryNamesQuery } from '../../utils/restcountries.api';
+import type z from 'zod';
 
 interface ReactHookFormProps {
   onSuccess: () => void;
 }
 
 export const ReactHookForm = ({ onSuccess }: ReactHookFormProps) => {
+  const { data, isFetching } = useGetCountryNamesQuery(null);
+  const countries = data || [];
+  const formValidationSchema = createCountrySchema(countries);
+  type FormValidationSchema = z.infer<typeof formValidationSchema>;
+
   const {
     register,
     handleSubmit,
@@ -26,8 +33,6 @@ export const ReactHookForm = ({ onSuccess }: ReactHookFormProps) => {
   useEffect(() => {
     setFocus('name');
   }, [setFocus]);
-
-  console.log(errors);
 
   const handleSubmitForm = (data: FormValidationSchema) => {
     console.log(data);
@@ -130,8 +135,8 @@ export const ReactHookForm = ({ onSuccess }: ReactHookFormProps) => {
           {...register('country')}
         />
         <datalist id="country-list">
-          <option value="belarus"></option>
-          <option value="poland"></option>
+          {isFetching && 'Loading...'}
+          {data && data.map((country, index) => <option key={index} value={country}></option>)}
         </datalist>
         <div className="flex items-center justify-center gap-5">
           <button

@@ -14,4 +14,5 @@ export const VALIDATION_ERRORS_MESSAGE = {
   mustIncludeNumber: 'Must include a number',
   mustIncludeSpecialChar: 'Must include a special char @$!%*#?&',
   fileIsLarger: 'This file is larger than permitted',
+  isNotValidCountry: 'Please select a valid country',
 };
