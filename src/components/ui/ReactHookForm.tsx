@@ -2,6 +2,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { formValidationSchema, type FormValidationSchema } from '../../utils/zod-schema';
 import { PasswordStrengthBar } from './PasswordStrengthBar';
+import { useEffect } from 'react';
 
 interface ReactHookFormProps {
   onSuccess: () => void;
@@ -13,13 +14,18 @@ export const ReactHookForm = ({ onSuccess }: ReactHookFormProps) => {
     handleSubmit,
     watch,
     reset,
-    formState: { errors },
+    formState: { errors, isValid },
+    setFocus,
   } = useForm<FormValidationSchema>({
     mode: 'onChange',
     resolver: zodResolver(formValidationSchema),
   });
 
   const password = watch('newPassword');
+
+  useEffect(() => {
+    setFocus('name');
+  }, [setFocus]);
 
   console.log(errors);
 
@@ -39,9 +45,7 @@ export const ReactHookForm = ({ onSuccess }: ReactHookFormProps) => {
         className="text-xs uppercase flex flex-col items-start w-full gap-2"
         onSubmit={handleSubmit(handleSubmitForm)}>
         <div className="flex items-center justify-between w-full">
-          <label htmlFor="name" autoFocus>
-            Name
-          </label>
+          <label htmlFor="name">Name</label>
           {errors.name && <span className="text-red-400">{errors.name.message}</span>}
         </div>
         <input className="text-base p-2 bg-gray-500 outline-0 w-full" id="name" type="text" {...register('name')} />
@@ -130,7 +134,9 @@ export const ReactHookForm = ({ onSuccess }: ReactHookFormProps) => {
           <option value="poland"></option>
         </datalist>
         <div className="flex items-center justify-center gap-5">
-          <button className="p-3 min-w-50 uppercase font-bold border-2 bg-cyan-700 border-cyan-800 rounded-md cursor-pointer hover:bg-cyan-800">
+          <button
+            disabled={!isValid}
+            className="p-3 min-w-50 uppercase font-bold border-2 bg-cyan-700 disabled:bg-cyan-700/30 border-cyan-800 rounded-md cursor-pointer disabled:cursor-not-allowed hover:bg-cyan-800">
             Submit
           </button>
           <button
