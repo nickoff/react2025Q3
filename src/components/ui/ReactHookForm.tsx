@@ -68,7 +68,7 @@ export const ReactHookForm = ({ onSuccess }: ReactHookFormProps) => {
         />
         <div className="flex items-center justify-between w-full">
           <legend>Gender</legend>
-          <span></span>
+          {errors.gender && <span className="text-red-400">{errors.gender.message}</span>}
         </div>
         <div className="flex items-center justify-start gap-2">
           <label htmlFor="female">female</label>
@@ -88,19 +88,26 @@ export const ReactHookForm = ({ onSuccess }: ReactHookFormProps) => {
             {...register('gender')}
           />
         </div>
-        <div className="flex items-center justify-start gap-2">
-          <input className="text-base p-2 bg-gray-500 outline-0" id="accept" type="checkbox" {...register('accept')} />
-          <label htmlFor="accept">Accept Terms and Conditions agreement</label>
-          <span></span>
+        <div className="flex items-center justify-between w-full">
+          <div className="flex items-center justify-start gap-2">
+            <input
+              className="text-base p-2 bg-gray-500 outline-0"
+              id="accept"
+              type="checkbox"
+              {...register('accept')}
+            />
+            <label htmlFor="accept">Accept Terms and Conditions agreement</label>
+          </div>
+          {errors.accept && <span className="text-red-400">{errors.accept.message}</span>}
         </div>
-        <div>
+        <div className="flex items-center justify-between w-full">
           <label htmlFor="upload">Upload picture</label>
-          <span></span>
+          {errors.upload && <span className="text-red-400">{errors.upload.message}</span>}
         </div>
         <input className="text-base p-2 bg-gray-500 outline-0 w-full" id="upload" type="file" {...register('upload')} />
-        <div>
+        <div className="flex items-center justify-between w-full">
           <label htmlFor="country">Select country</label>
-          <span></span>
+          {errors.country && <span className="text-red-400">{errors.country.message}</span>}
         </div>
         <input
           className="text-base p-2 bg-gray-500 outline-0 w-full"

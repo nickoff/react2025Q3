@@ -6,4 +6,11 @@ export const VALIDATION_ERRORS_MESSAGE = {
   required: 'This field is required',
   mustNotBeNegative: 'Value must not be negative',
   passwordsMustMatch: 'Passwords must match',
+  genderSelectRequired: 'Gender selection is required',
+  mustBeAccept: 'You must be accept',
+  mustBeTypesJpegPng: 'File must be image type .jpeg or .png',
+  mustIncludeLowercaseLetter: 'Must include a lowercase letter',
+  mustIncludeUppercaseLetter: 'Must include an uppercase letter',
+  mustIncludeNumber: 'Must include a number',
+  mustIncludeSpecialChar: 'Must include a special char @$!%*#?&',
 };

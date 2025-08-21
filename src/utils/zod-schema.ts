@@ -27,12 +27,25 @@ export const formValidationSchema = z
         error: VALIDATION_ERRORS_MESSAGE.mustNotBeNegative,
       }),
     email: z.email(),
-    newPassword: z.string(),
-    confirmPassword: z.string(),
-    gender: z.string(),
-    accept: z.boolean(),
-    upload: z.instanceof(FileList),
-    country: z.string(),
+    newPassword: z
+      .string()
+      .min(1, VALIDATION_ERRORS_MESSAGE.required)
+      .refine((val) => /[a-z]/.test(val), { error: VALIDATION_ERRORS_MESSAGE.mustIncludeLowercaseLetter })
+      .refine((val) => /[A-Z]/.test(val), { error: VALIDATION_ERRORS_MESSAGE.mustIncludeUppercaseLetter })
+      .refine((val) => /\d/.test(val), { error: VALIDATION_ERRORS_MESSAGE.mustIncludeNumber })
+      .refine((val) => /[@$!%*#?&]/.test(val), { error: VALIDATION_ERRORS_MESSAGE.mustIncludeSpecialChar }),
+    confirmPassword: z.string().min(1, VALIDATION_ERRORS_MESSAGE.required),
+    gender: z.string({ error: VALIDATION_ERRORS_MESSAGE.genderSelectRequired }),
+    accept: z.boolean().refine((val) => val === true, { error: VALIDATION_ERRORS_MESSAGE.mustBeAccept }),
+    upload: z
+      .instanceof(FileList)
+      .refine((files) => files.length > 0, {
+        error: VALIDATION_ERRORS_MESSAGE.required,
+      })
+      .refine((files) => files[0]?.type === 'image/jpeg' || files[0]?.type === 'image/png', {
+        error: VALIDATION_ERRORS_MESSAGE.mustBeTypesJpegPng,
+      }),
+    country: z.string().min(1, VALIDATION_ERRORS_MESSAGE.required),
   })
   .refine((data) => data.newPassword === data.confirmPassword, {
     error: VALIDATION_ERRORS_MESSAGE.passwordsMustMatch,
