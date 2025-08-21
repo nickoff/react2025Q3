@@ -41,14 +41,14 @@ export const ReactHookForm = ({ onSuccess }: ReactHookFormProps) => {
           {errors.age && <span className="text-red-400">{errors.age.message}</span>}
         </div>
         <input className="text-base p-2 bg-gray-500 outline-0  w-full" id="age" type="text" {...register('age')} />
-        <div>
+        <div className="flex items-center justify-between w-full">
           <label htmlFor="email">Email</label>
-          <span></span>
+          {errors.email && <span className="text-red-400">{errors.email.message}</span>}
         </div>
         <input className="text-base p-2 bg-gray-500 outline-0 w-full" id="email" type="email" {...register('email')} />
-        <div>
+        <div className="flex items-center justify-between w-full">
           <label htmlFor="newPassword">New password</label>
-          <span></span>
+          {errors.newPassword && <span className="text-red-400">{errors.newPassword.message}</span>}
         </div>
         <input
           className="text-base p-2 bg-gray-500 outline-0 w-full"
@@ -56,9 +56,9 @@ export const ReactHookForm = ({ onSuccess }: ReactHookFormProps) => {
           type="password"
           {...register('newPassword')}
         />
-        <div>
+        <div className="flex items-center justify-between w-full">
           <label htmlFor="confirmPassword">Confirm password</label>
-          <span></span>
+          {errors.confirmPassword && <span className="text-red-400">{errors.confirmPassword.message}</span>}
         </div>
         <input
           className="text-base p-2 bg-gray-500 outline-0 w-full"
@@ -66,7 +66,7 @@ export const ReactHookForm = ({ onSuccess }: ReactHookFormProps) => {
           type="password"
           {...register('confirmPassword')}
         />
-        <div>
+        <div className="flex items-center justify-between w-full">
           <legend>Gender</legend>
           <span></span>
         </div>
