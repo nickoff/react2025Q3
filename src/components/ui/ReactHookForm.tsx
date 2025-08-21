@@ -5,6 +5,7 @@ import { PasswordStrengthBar } from './PasswordStrengthBar';
 import { useEffect } from 'react';
 import { useGetCountryNamesQuery } from '../../utils/restcountries.api';
 import type z from 'zod';
+import { Button } from './Button';
 
 interface ReactHookFormProps {
   onSuccess: () => void;
@@ -139,17 +140,12 @@ export const ReactHookForm = ({ onSuccess }: ReactHookFormProps) => {
           {data && data.map((country, index) => <option key={index} value={country}></option>)}
         </datalist>
         <div className="flex items-center justify-center gap-5">
-          <button
-            disabled={!isValid}
-            className="p-3 min-w-50 uppercase font-bold border-2 bg-cyan-700 disabled:bg-cyan-700/30 border-cyan-800 rounded-md cursor-pointer disabled:cursor-not-allowed hover:bg-cyan-800">
+          <Button type="submit" disabled={!isValid}>
             Submit
-          </button>
-          <button
-            className="p-3 min-w-50 uppercase font-bold border-2 bg-red-700 border-red-800 rounded-md cursor-pointer hover:bg-red-800"
-            type="button"
-            onClick={handleResetForm}>
+          </Button>
+          <Button variant="danger" type="button" onClick={handleResetForm}>
             Reset form
-          </button>
+          </Button>
         </div>
       </form>
     </>
