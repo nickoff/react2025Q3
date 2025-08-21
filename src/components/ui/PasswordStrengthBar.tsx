@@ -10,7 +10,8 @@ export const PasswordStrengthBar = ({ password }: PasswordStrengthBarProps) => {
     hasSpecialChar: /[@$!%*#?&]/.test(password),
   };
 
-  const getPasswordStrengthScore = (Object.values(checks).filter(Boolean).length / Object.values(checks).length) * 100;
+  const getPasswordStrengthScore =
+    password && (Object.values(checks).filter(Boolean).length / Object.values(checks).length) * 100;
 
   return (
     <div className="w-full items-center h-min-4 flex flex-1 gap-2">
