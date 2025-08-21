@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { formValidationSchema, type FormValidationSchema } from '../../utils/zod-schema';
+import { PasswordStrengthBar } from './PasswordStrengthBar';
 
 interface ReactHookFormProps {
   onSuccess: () => void;
@@ -10,11 +11,14 @@ export const ReactHookForm = ({ onSuccess }: ReactHookFormProps) => {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<FormValidationSchema>({
     mode: 'onChange',
     resolver: zodResolver(formValidationSchema),
   });
+
+  const password = watch('newPassword');
 
   console.log(errors);
 
@@ -56,6 +60,7 @@ export const ReactHookForm = ({ onSuccess }: ReactHookFormProps) => {
           type="password"
           {...register('newPassword')}
         />
+        <PasswordStrengthBar password={password} />
         <div className="flex items-center justify-between w-full">
           <label htmlFor="confirmPassword">Confirm password</label>
           {errors.confirmPassword && <span className="text-red-400">{errors.confirmPassword.message}</span>}
