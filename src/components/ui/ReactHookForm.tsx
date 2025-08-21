@@ -12,6 +12,7 @@ export const ReactHookForm = ({ onSuccess }: ReactHookFormProps) => {
     register,
     handleSubmit,
     watch,
+    reset,
     formState: { errors },
   } = useForm<FormValidationSchema>({
     mode: 'onChange',
@@ -25,6 +26,10 @@ export const ReactHookForm = ({ onSuccess }: ReactHookFormProps) => {
   const handleSubmitForm = (data: FormValidationSchema) => {
     console.log(data);
     onSuccess();
+  };
+
+  const handleResetForm = () => {
+    reset();
   };
 
   return (
@@ -130,7 +135,8 @@ export const ReactHookForm = ({ onSuccess }: ReactHookFormProps) => {
           </button>
           <button
             className="p-3 min-w-50 uppercase font-bold border-2 bg-red-700 border-red-800 rounded-md cursor-pointer hover:bg-red-800"
-            type="button">
+            type="button"
+            onClick={handleResetForm}>
             Reset form
           </button>
         </div>
