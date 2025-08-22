@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { VALIDATION_ERRORS_MESSAGE } from '../constant/errors-message';
 
-export const createCountrySchema = (allowedCountries: string[]) =>
+export const createCountrySchema = (allowedCountries: string[], password: string) =>
   z
     .object({
       name: z
@@ -35,7 +35,10 @@ export const createCountrySchema = (allowedCountries: string[]) =>
         .refine((val) => /[A-Z]/.test(val), { error: VALIDATION_ERRORS_MESSAGE.mustIncludeUppercaseLetter })
         .refine((val) => /\d/.test(val), { error: VALIDATION_ERRORS_MESSAGE.mustIncludeNumber })
         .refine((val) => /[@$!%*#?&]/.test(val), { error: VALIDATION_ERRORS_MESSAGE.mustIncludeSpecialChar }),
-      confirmPassword: z.string().min(1, VALIDATION_ERRORS_MESSAGE.required),
+      confirmPassword: z
+        .string()
+        .min(1, VALIDATION_ERRORS_MESSAGE.required)
+        .refine((val) => val === password, { error: VALIDATION_ERRORS_MESSAGE.passwordsMustMatch }),
       gender: z.enum(['female', 'male'], { error: VALIDATION_ERRORS_MESSAGE.genderSelectRequired }),
       accept: z.boolean().refine((val) => val === true, { error: VALIDATION_ERRORS_MESSAGE.mustBeAccept }),
       upload: z

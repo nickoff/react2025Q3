@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { createCountrySchema } from '../../utils/zod.schema';
 import { PasswordStrengthBar } from './PasswordStrengthBar';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useGetCountryNamesQuery } from '../../utils/restcountries.api';
 import type z from 'zod';
 import { Button } from './Button';
@@ -17,7 +17,8 @@ interface ReactHookFormProps {
 export const ReactHookForm = ({ onSuccess }: ReactHookFormProps) => {
   const { data, isFetching } = useGetCountryNamesQuery(null);
   const countries = data || [];
-  const formValidationSchema = createCountrySchema(countries);
+  const [newPassword, setNewPassword] = useState('');
+  const formValidationSchema = createCountrySchema(countries, newPassword);
   type FormValidationSchema = z.infer<typeof formValidationSchema>;
   const dispatch = useAppDispatch();
 
@@ -34,7 +35,10 @@ export const ReactHookForm = ({ onSuccess }: ReactHookFormProps) => {
   });
 
   const password = watch('newPassword');
-  console.log(errors);
+
+  useEffect(() => {
+    setNewPassword(password);
+  }, [password]);
 
   useEffect(() => {
     setFocus('name');
