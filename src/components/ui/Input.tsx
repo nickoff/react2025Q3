@@ -41,19 +41,18 @@ export const Input = ({
           {radioList &&
             radioList.map((item, index) => {
               return (
-                <>
+                <div className="flex items-center justify-start gap-1.5" key={index}>
                   <label key={index} htmlFor={item.value}>
                     {item.label}
                   </label>
                   <input
-                    key={index}
                     className="text-base p-2 bg-gray-500 outline-0"
                     id={item.value}
                     value={item.value}
                     type="radio"
                     {...props}
                   />
-                </>
+                </div>
               );
             })}
         </div>
