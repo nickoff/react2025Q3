@@ -18,7 +18,7 @@ export const ModalSwitchWidget = () => {
     setIsOpenReactHookModal(true);
   };
 
-  const handleFormUncontrolledModalToggle = () => {
+  const handleFormUncontrolledModalOpen = () => {
     setIsOpenModal(true);
     setIsOpenFormUncontrolledModal(true);
   };
@@ -32,7 +32,7 @@ export const ModalSwitchWidget = () => {
           React Hook Form
         </button>
         <button
-          onClick={handleFormUncontrolledModalToggle}
+          onClick={handleFormUncontrolledModalOpen}
           className="p-5 min-w-80 uppercase font-bold border-2 border-red-800 rounded-md cursor-pointer hover:bg-red-800">
           Form uncontrolled
         </button>
