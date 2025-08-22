@@ -6,6 +6,9 @@ import { useEffect } from 'react';
 import { useGetCountryNamesQuery } from '../../utils/restcountries.api';
 import type z from 'zod';
 import { Button } from './Button';
+import { useAppDispatch } from '../../store/hooks';
+import { transformToDispatchModel } from '../../utils/transformToDispatchModel';
+import { submitForm } from '../../store/reducers/formSlice';
 
 interface ReactHookFormProps {
   onSuccess: () => void;
@@ -16,13 +19,14 @@ export const ReactHookForm = ({ onSuccess }: ReactHookFormProps) => {
   const countries = data || [];
   const formValidationSchema = createCountrySchema(countries);
   type FormValidationSchema = z.infer<typeof formValidationSchema>;
+  const dispatch = useAppDispatch();
 
   const {
     register,
     handleSubmit,
     watch,
     reset,
-    formState: { errors, isValid },
+    formState: { errors },
     setFocus,
   } = useForm<FormValidationSchema>({
     mode: 'onChange',
@@ -30,13 +34,16 @@ export const ReactHookForm = ({ onSuccess }: ReactHookFormProps) => {
   });
 
   const password = watch('newPassword');
+  console.log(errors);
 
   useEffect(() => {
     setFocus('name');
   }, [setFocus]);
 
-  const handleSubmitForm = (data: FormValidationSchema) => {
-    console.log(data);
+  const handleSubmitForm = async (data: FormValidationSchema) => {
+    const form = await transformToDispatchModel(data);
+    dispatch(submitForm(form));
+
     onSuccess();
   };
 
@@ -140,9 +147,7 @@ export const ReactHookForm = ({ onSuccess }: ReactHookFormProps) => {
           {data && data.map((country, index) => <option key={index} value={country}></option>)}
         </datalist>
         <div className="flex items-center justify-center gap-5">
-          <Button type="submit" disabled={!isValid}>
-            Submit
-          </Button>
+          <Button type="submit">Submit</Button>
           <Button variant="danger" type="button" onClick={handleResetForm}>
             Reset form
           </Button>

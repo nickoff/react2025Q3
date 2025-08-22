@@ -2,11 +2,15 @@ import { useState } from 'react';
 import { Modal } from '../components/ui/Modal';
 import { ReactHookForm } from '../components/ui/ReactHookForm';
 import { Footer } from '../components/ui/Footer';
+import { useAppSelector } from '../store/hooks';
 
 export const Layout = () => {
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const [isOpenReactHookModal, setIsOpenReactHookModal] = useState<boolean>(false);
   const [isOpenFormUncontrolledModal, setIsOpenFormUncontrolledModal] = useState<boolean>(false);
+  const formList = useAppSelector((state) => state.form.formSubmissions);
+  const lastFormId = useAppSelector((state) => state.form.lastFormId);
+  console.log(lastFormId, formList);
 
   const handleModalClose = () => {
     setIsOpenModal(false);

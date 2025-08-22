@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { rootReducer } from './reducers/root-reducer';
+import { rootReducer } from './reducers/rootReducer';
 import { restcountries } from '../utils/restcountries.api';
 
 export const store = configureStore({

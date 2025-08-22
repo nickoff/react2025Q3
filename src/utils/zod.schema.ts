@@ -36,7 +36,7 @@ export const createCountrySchema = (allowedCountries: string[]) =>
         .refine((val) => /\d/.test(val), { error: VALIDATION_ERRORS_MESSAGE.mustIncludeNumber })
         .refine((val) => /[@$!%*#?&]/.test(val), { error: VALIDATION_ERRORS_MESSAGE.mustIncludeSpecialChar }),
       confirmPassword: z.string().min(1, VALIDATION_ERRORS_MESSAGE.required),
-      gender: z.string({ error: VALIDATION_ERRORS_MESSAGE.genderSelectRequired }),
+      gender: z.enum(['female', 'male'], { error: VALIDATION_ERRORS_MESSAGE.genderSelectRequired }),
       accept: z.boolean().refine((val) => val === true, { error: VALIDATION_ERRORS_MESSAGE.mustBeAccept }),
       upload: z
         .instanceof(FileList)
