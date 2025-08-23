@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { createCountrySchema } from '../../utils/zod.schema';
+import { createSchema } from '../../utils/zod.schema';
 import { PasswordStrengthBar } from './PasswordStrengthBar';
 import { useEffect, useState } from 'react';
 import { useGetCountryNamesQuery } from '../../utils/restcountries.api';
@@ -19,7 +19,7 @@ export const ReactHookForm = ({ onSuccess }: ReactHookFormProps) => {
   const { data, isFetching } = useGetCountryNamesQuery(null);
   const countries = data || [];
   const [newPassword, setNewPassword] = useState('');
-  const formValidationSchema = createCountrySchema(countries, newPassword);
+  const formValidationSchema = createSchema(countries, newPassword);
   type FormValidationSchema = z.infer<typeof formValidationSchema>;
   const dispatch = useAppDispatch();
 

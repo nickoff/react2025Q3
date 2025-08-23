@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { VALIDATION_ERRORS_MESSAGE } from '../constant/errors-message';
 
-export const createCountrySchema = (allowedCountries: string[], password: string) =>
+export const createSchema = (allowedCountries: string[], password: string) =>
   z
     .object({
       name: z
