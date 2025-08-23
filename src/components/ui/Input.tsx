@@ -4,7 +4,7 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   variant?: 'text-input' | 'radio-list' | 'checkbox';
   label: string;
   id?: string;
-  error?: FieldError;
+  error?: FieldError | { message: string };
   radioList?: { label: string; value: string }[];
 }
 
@@ -48,6 +48,7 @@ export const Input = ({
                   <input
                     className="text-base p-2 bg-gray-500 outline-0"
                     id={item.value}
+                    name={id}
                     value={item.value}
                     type="radio"
                     {...props}
@@ -64,7 +65,7 @@ export const Input = ({
       <div className={`${baseStyle} ${className}`}>
         <div className="flex items-center justify-between w-full">
           <div className="flex items-center justify-start gap-2">
-            <input className="text-base p-2 bg-gray-500 outline-0" id={id} type="checkbox" {...props} />
+            <input className="text-base p-2 bg-gray-500 outline-0" id={id} name={id} type="checkbox" {...props} />
             <label htmlFor={id}>{label}</label>
           </div>
           {error && <span className="text-red-400">{error.message}</span>}

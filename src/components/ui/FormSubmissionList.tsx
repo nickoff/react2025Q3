@@ -26,30 +26,32 @@ export const FormSubmissionList = () => {
               )}
               <div className="flex text-base flex-col text-sx gap-1.5 items-start">
                 <table>
-                  <tr>
-                    <th className="p-1 text-left">Name:</th>
-                    <td className="p-1 text-left">{form.storedForm.name}</td>
-                  </tr>
-                  <tr>
-                    <th className="p-1 text-left">Age:</th>
-                    <td className="p-1 text-left">{form.storedForm.age}</td>
-                  </tr>
-                  <tr>
-                    <th className="p-1 text-left">Password:</th>
-                    <td className="p-1 text-left">{form.storedForm.newPassword}</td>
-                  </tr>
-                  <tr>
-                    <th className="p-1 text-left">Email:</th>
-                    <td className="p-1 text-left">{form.storedForm.email}</td>
-                  </tr>
-                  <tr>
-                    <th className="p-1 text-left">Gender:</th>
-                    <td className="p-1 text-left">{form.storedForm.gender}</td>
-                  </tr>
-                  <tr>
-                    <th className="p-1 text-left">Country:</th>
-                    <td className="p-1 text-left">{form.storedForm.country}</td>
-                  </tr>
+                  <tbody>
+                    <tr>
+                      <th className="p-1 text-left">Name:</th>
+                      <td className="p-1 text-left">{form.storedForm.name}</td>
+                    </tr>
+                    <tr>
+                      <th className="p-1 text-left">Age:</th>
+                      <td className="p-1 text-left">{form.storedForm.age}</td>
+                    </tr>
+                    <tr>
+                      <th className="p-1 text-left">Password:</th>
+                      <td className="p-1 text-left">{form.storedForm.newPassword}</td>
+                    </tr>
+                    <tr>
+                      <th className="p-1 text-left">Email:</th>
+                      <td className="p-1 text-left">{form.storedForm.email}</td>
+                    </tr>
+                    <tr>
+                      <th className="p-1 text-left">Gender:</th>
+                      <td className="p-1 text-left">{form.storedForm.gender}</td>
+                    </tr>
+                    <tr>
+                      <th className="p-1 text-left">Country:</th>
+                      <td className="p-1 text-left">{form.storedForm.country}</td>
+                    </tr>
+                  </tbody>
                 </table>
               </div>
               <img className="w-32 h-auto object-contain" src={form.storedForm.upload} alt="avatar" />

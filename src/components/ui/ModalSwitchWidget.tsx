@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Modal } from './Modal';
 import { ReactHookForm } from './ReactHookForm';
+import { FormUncontrolled } from './FormUncontrolled';
 
 export const ModalSwitchWidget = () => {
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
@@ -44,7 +45,7 @@ export const ModalSwitchWidget = () => {
           (isOpenReactHookModal && 'border-cyan-800') || (isOpenFormUncontrolledModal && 'border-red-800') || ''
         }>
         {isOpenReactHookModal && <ReactHookForm onSuccess={handleModalClose} />}
-        {isOpenFormUncontrolledModal && 'This FormUncontrolled Modal'}
+        {isOpenFormUncontrolledModal && <FormUncontrolled onSuccess={handleModalClose} />}
       </Modal>
     </div>
   );
