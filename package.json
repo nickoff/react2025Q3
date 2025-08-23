@@ -13,7 +13,7 @@
     "format:fix": "prettier --write .",
     "precommit": "npm run lint:fix && npm run format",
     "test": "vitest run --silent",
-    "test:coverage": "vitest run --silent --coverage"
+    "test:coverage": "vitest run --coverage"
   },
   "lint-staged": {
     "**/*.{ts,tsx,js,jsx, css}": [
