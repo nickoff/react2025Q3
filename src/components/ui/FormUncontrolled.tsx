@@ -48,6 +48,24 @@ export const FormUncontrolled = ({ onSuccess }: FormUncontrolledProps) => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    const rawData = getRawData();
+    const countries = data || [];
+    const isValidForm = createSchema(countries, password).safeParse(rawData);
+
+    console.log(isValidForm.error);
+
+    if (isValidForm.success) {
+      const form = await transformToDispatchModel(isValidForm.data);
+      dispatch(submitForm(form));
+      onSuccess();
+    }
+  };
+
+  const handleResetForm = () => {
+    formRef.current?.reset();
+  };
+
+  const getRawData = () => {
     const form = formRef.current;
     if (!form) return;
     const formData = new FormData(form);
@@ -65,21 +83,6 @@ export const FormUncontrolled = ({ onSuccess }: FormUncontrolledProps) => {
     if (uploadInput?.files) {
       rawData['upload'] = uploadInput.files;
     }
-
-    const countries = data || [];
-    const isValidForm = createSchema(countries, password).safeParse(rawData);
-
-    console.log(isValidForm.error);
-
-    if (isValidForm.success) {
-      const form = await transformToDispatchModel(isValidForm.data);
-      dispatch(submitForm(form));
-      onSuccess();
-    }
-  };
-
-  const handleResetForm = () => {
-    formRef.current?.reset();
   };
 
   return (
