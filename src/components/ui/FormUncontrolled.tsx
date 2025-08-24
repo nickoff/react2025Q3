@@ -46,6 +46,7 @@ export const FormUncontrolled = ({ onSuccess }: FormUncontrolledProps) => {
     };
 
     form.addEventListener('input', handleChangeForm);
+    (form.elements.namedItem('name') as HTMLInputElement).focus();
 
     return () => form.removeEventListener('input', handleChangeForm);
   }, []);
