@@ -7,26 +7,31 @@ import { createSchema } from '../../utils/zod.schema';
 import { useAppDispatch } from '../../store/hooks';
 import { transformToDispatchModel } from '../../utils/transformToDispatchModel';
 import { submitForm } from '../../store/reducers/formSlice';
+import type { ZodError } from 'zod';
+import type { FormInputModel } from '../../types/form.type';
+import { z } from 'zod';
+
+type Issue = z.core.$ZodIssue;
 
 interface FormUncontrolledProps {
   onSuccess: () => void;
 }
 
 interface ErrorForm {
-  name?: { message: string };
-  age?: { message: string };
-  email?: { message: string };
-  newPassword?: { message: string };
-  confirmPassword?: { message: string };
-  gender?: { message: string };
-  accept?: { message: string };
-  upload?: { message: string };
-  country?: { message: string };
+  name?: Issue;
+  age?: Issue;
+  email?: Issue;
+  newPassword?: Issue;
+  confirmPassword?: Issue;
+  gender?: Issue;
+  accept?: Issue;
+  upload?: Issue;
+  country?: Issue;
 }
 
 export const FormUncontrolled = ({ onSuccess }: FormUncontrolledProps) => {
   const { data, isFetching } = useGetCountryNamesQuery(null);
-  const [errors] = useState<ErrorForm>({});
+  const [errors, setErrors] = useState<ErrorForm>({});
   const [password, setPassword] = useState('');
   const formRef = useRef<HTMLFormElement>(null);
   const dispatch = useAppDispatch();
@@ -52,7 +57,9 @@ export const FormUncontrolled = ({ onSuccess }: FormUncontrolledProps) => {
     const countries = data || [];
     const isValidForm = createSchema(countries, password).safeParse(rawData);
 
-    console.log(isValidForm.error);
+    const errors = getErrors(isValidForm.error);
+
+    if (errors) setErrors(errors);
 
     if (isValidForm.success) {
       const form = await transformToDispatchModel(isValidForm.data);
@@ -77,12 +84,28 @@ export const FormUncontrolled = ({ onSuccess }: FormUncontrolledProps) => {
 
     if (rawData.accept) {
       rawData.accept = true;
+    } else {
+      rawData.accept = false;
     }
 
     const uploadInput = form.elements.namedItem('upload') as HTMLInputElement;
     if (uploadInput?.files) {
       rawData['upload'] = uploadInput.files;
     }
+
+    return rawData;
+  };
+
+  const getErrors = (zodError: ZodError<FormInputModel> | undefined) => {
+    if (!zodError) return;
+    const pathsError = new Set<string>();
+    zodError.issues.forEach((item) => item.path && pathsError.add(item.path[0] as string));
+
+    const errors: Record<string, Issue> = {};
+
+    pathsError.forEach((path) => (errors[path] = zodError.issues.filter((item) => item.path[0] === path)[0]));
+
+    return errors;
   };
 
   return (
