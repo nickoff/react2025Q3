@@ -1,0 +1,18 @@
+export const VALIDATION_ERRORS_MESSAGE = {
+  noContainsDigits: 'Name must not contain digits',
+  mustBeDigit: 'Name must be number',
+  startsWithCapital: 'Name must start with a capital letter',
+  invalidCharacters: 'Only letters, spaces, and hyphens are allowed',
+  required: 'This field is required',
+  mustNotBeNegative: 'Value must not be negative',
+  passwordsMustMatch: 'Passwords must match',
+  genderSelectRequired: 'Gender selection is required',
+  mustBeAccept: 'You must be accept',
+  mustBeTypesJpegPng: 'File must be image type .jpeg or .png',
+  mustIncludeLowercaseLetter: 'Must include a lowercase letter',
+  mustIncludeUppercaseLetter: 'Must include an uppercase letter',
+  mustIncludeNumber: 'Must include a number',
+  mustIncludeSpecialChar: 'Must include a special char @$!%*#?&',
+  fileIsLarger: 'This file is larger than permitted',
+  isNotValidCountry: 'Please select a valid country',
+};
