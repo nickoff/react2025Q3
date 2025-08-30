@@ -1,6 +1,7 @@
 import { Footer } from '../components/ui/Footer';
 import { Header } from '../components/ui/Header';
 import { Spreadsheet } from '../components/ui/Spreadsheet';
+import { FilterProvider } from '../providers/filterContextProvider';
 
 function App() {
   return (
@@ -10,7 +11,9 @@ function App() {
         <h1 className="font-bold text-3xl text-emerald-300">
           CO<sub>2</sub> and Greenhouse Gas Emissions 🍃
         </h1>
-        <Spreadsheet />
+        <FilterProvider>
+          <Spreadsheet />
+        </FilterProvider>
       </main>
       <Footer />
     </div>

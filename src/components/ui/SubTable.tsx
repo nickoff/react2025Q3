@@ -55,8 +55,8 @@ export const SubTable = (props: SubTableProps) => {
                   <tr key={index}>
                     <th className={cellBorder}>{item.year}</th>
                     <th className={cellBorder}>{item.population}</th>
-                    <th className={cellBorder}>{item.cement_co2}</th>
-                    <th className={cellBorder}>{item.cement_co2_per_capita}</th>
+                    <th className={cellBorder}>{item.co2}</th>
+                    <th className={cellBorder}>{item.co2_per_capita}</th>
                   </tr>
                 );
               })}

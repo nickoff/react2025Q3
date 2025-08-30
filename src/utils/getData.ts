@@ -1,6 +1,7 @@
 import type { Country, CountryData, RawCountry } from '../types/data.type';
 
-const URL = 'https://nyc3.digitaloceanspaces.com/owid-public/data/co2/owid-co2-data.json';
+//const URL = 'https://nyc3.digitaloceanspaces.com/owid-public/data/co2/owid-co2-data.json';
+const URL = './owid-co2-data.json';
 
 export const getData = async () => {
   try {
@@ -14,8 +15,8 @@ export const getData = async () => {
       const data: CountryData[] = countryInfo.data.map((entry) => ({
         year: entry.year ?? 0,
         population: entry.population ?? 'N/A',
-        cement_co2: entry.cement_co2 ?? 'N/A',
-        cement_co2_per_capita: entry.cement_co2_per_capita ?? 'N/A',
+        co2: entry.co2 ?? 'N/A',
+        co2_per_capita: entry.co2_per_capita ?? 'N/A',
       }));
 
       return {
