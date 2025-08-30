@@ -4,7 +4,7 @@ export interface Country {
   name: string;
   iso_code?: string;
   data: CountryData[];
-};
+}
 
 export interface CountryData {
   year: number;

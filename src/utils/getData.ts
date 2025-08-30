@@ -1,4 +1,4 @@
-import type { Country, CountryData, RawCountry } from "../types/data.type";
+import type { Country, CountryData, RawCountry } from '../types/data.type';
 
 const URL = 'https://nyc3.digitaloceanspaces.com/owid-public/data/co2/owid-co2-data.json';
 
@@ -9,24 +9,24 @@ export const getData = async () => {
     const rawJson: Record<string, RawCountry> = await res.json();
 
     const countries: Country[] = Object.entries(rawJson).map(([countryName, countryInfo]) => {
-    const iso_code = countryInfo.iso_code;
+      const iso_code = countryInfo.iso_code;
 
-    const data: CountryData[] = countryInfo.data.map((entry: any) => ({
-      year: entry.year,
-      population: entry.population ?? 0,
-      cement_co2: entry.cement_co2 ?? 0,
-      cement_co2_per_capita: entry.cement_co2_per_capita ?? 0,
-      cumulative_cement_co2: entry.cumulative_cement_co2 ?? 0
-    }));
+      const data: CountryData[] = countryInfo.data.map((entry) => ({
+        year: entry.year ?? 0,
+        population: entry.population ?? 0,
+        cement_co2: entry.cement_co2 ?? 0,
+        cement_co2_per_capita: entry.cement_co2_per_capita ?? 0,
+        cumulative_cement_co2: entry.cumulative_cement_co2 ?? 0,
+      }));
 
-    return {
-      name: countryName,
-      iso_code,
-      data
-    };
-  });
+      return {
+        name: countryName,
+        iso_code,
+        data,
+      };
+    });
 
-  return { data: countries, error: null }; 
+    return { data: countries, error: null };
   } catch (error) {
     return { data: null, error };
   }

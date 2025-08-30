@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from "react";
-import { getData } from "../../utils/getData";
-import type { Country } from "../../types/data.type";
+import { useEffect, useRef, useState } from 'react';
+import { getData } from '../../utils/getData';
+import type { Country } from '../../types/data.type';
 
 export const DataTable = ({ width }: { width: number }) => {
   const [data, setData] = useState<Country[]>([]);
@@ -15,26 +15,40 @@ export const DataTable = ({ width }: { width: number }) => {
     });
   }, []);
 
-  if (loading) return <table className="text-xl"><tbody><tr><td colSpan={4}>Loading...</td></tr></tbody></table>;
+  if (loading)
+    return (
+      <table className="text-xl">
+        <tbody>
+          <tr>
+            <td colSpan={4}>Loading...</td>
+          </tr>
+        </tbody>
+      </table>
+    );
 
   return (
     <div className="h-[60vh] overflow-auto">
       <table className="text-xl w-full">
-      <colgroup><col style={{ width: `${width * 0.1}px` }} /><col style={{ width: `${width * 0.5}px` }} /><col style={{ width: `${width * 0.2}px` }} /><col /></colgroup>
-      <tbody>
-        {data.map((country, index) => {
-          const latestYearData = country.data.reduce((a, b) => (b.year > a.year ? b : a));
-          return (
-            <tr key={index} className={`${index % 2 && 'bg-gray-700'}`}>
-              <td className={cellBorder}>{index + 1}</td>
-              <td className={cellBorder}>{country.name}</td>
-              <td className={cellBorder}>{latestYearData.population}</td>
-              <td className={cellBorder}>{country.iso_code || 'N/A'}</td>
-            </tr>
-          );
-        })}
-      </tbody>
-    </table>
+        <colgroup>
+          <col style={{ width: `${width * 0.1}px` }} />
+          <col style={{ width: `${width * 0.5}px` }} />
+          <col style={{ width: `${width * 0.2}px` }} />
+          <col />
+        </colgroup>
+        <tbody>
+          {data.map((country, index) => {
+            const latestYearData = country.data.reduce((a, b) => (b.year > a.year ? b : a));
+            return (
+              <tr key={index} className={`${index % 2 && 'bg-gray-700'}`}>
+                <td className={cellBorder}>{index + 1}</td>
+                <td className={cellBorder}>{country.name}</td>
+                <td className={cellBorder}>{latestYearData.population}</td>
+                <td className={cellBorder}>{country.iso_code || 'N/A'}</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
     </div>
   );
 };
@@ -56,7 +70,12 @@ export const Spreadsheet = () => {
     <div className="flex flex-col w-full">
       <div className="flex flex-col w-full">
         <table ref={tableRef} className="text-xl">
-          <colgroup><col className="w-[10%]" /><col className="w-[50%]" /><col className="w-[20%]" /><col className="w-[20%]" /></colgroup>
+          <colgroup>
+            <col className="w-[10%]" />
+            <col className="w-[50%]" />
+            <col className="w-[20%]" />
+            <col className="w-[20%]" />
+          </colgroup>
           <thead>
             <tr>
               {headerCols.map((col, index) => (
