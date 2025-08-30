@@ -4,6 +4,7 @@ import { useFilter } from '../../hooks/useFilter';
 
 export const FilterControls = ({ data }: { data: Country[] }) => {
   const [year, setYear] = useState('');
+  const [country, setCountry] = useState('');
   const { filter, setFilter } = useFilter();
 
   const yearsSet = new Set<number>();
@@ -16,9 +17,23 @@ export const FilterControls = ({ data }: { data: Country[] }) => {
     setFilter({ ...filter, year: Number(selectedYear) });
   };
 
+  const handleCountryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedCountry = e.target.value;
+    setCountry(selectedCountry);
+    setFilter({ ...filter, searchCountry: selectedCountry });
+  };
+
   return (
     <div className="flex w-full uppercase gap-4 items-center">
       <h4 className="text-base font-bold text-gray-400">Filters:</h4>
+      <input
+        className="text-base p-1 bg-gray-500 outline-0 placeholder:uppercase"
+        placeholder="Search country..."
+        type="text"
+        value={country}
+        id="year"
+        onChange={handleCountryChange}
+      />
       <input
         className="text-base p-1 bg-gray-500 outline-0 placeholder:uppercase"
         placeholder="Select year..."

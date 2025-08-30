@@ -23,6 +23,11 @@ export const Spreadsheet = () => {
       .filter(Boolean) as Country[];
   };
 
+  const filterDataByCountry = (term: string, rawData: Country[]) => {
+    if (!term) return rawData;
+    return rawData.filter((country) => country.name.toLowerCase().startsWith(term.toLowerCase()));
+  };
+
   useEffect(() => {
     getData().then(({ data }) => {
       setRawData(data || []);
@@ -31,9 +36,11 @@ export const Spreadsheet = () => {
   }, []);
 
   useEffect(() => {
-    const result = filterDataByYear(filter.year, rawData);
+    const filteredCountry = filterDataByCountry(filter.searchCountry, rawData);
+    setFilteredData(filteredCountry);
+    const result = filterDataByYear(filter.year, filteredCountry);
     setFilteredData(result);
-  }, [filter.year, rawData]);
+  }, [filter.searchCountry, filter.year, rawData]);
 
   return (
     <div className="flex flex-col w-full gap-5">
