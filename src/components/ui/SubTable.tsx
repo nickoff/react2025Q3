@@ -46,7 +46,7 @@ export const SubTable = (props: SubTableProps) => {
             </tr>
           </thead>
         </table>
-        <div className="h-72 overflow-auto">
+        <div className="max-h-72 overflow-auto">
           <table className="text-base w-full">
             <Colgroup width={width} numberColumn={numberColumn} />
             <tbody>

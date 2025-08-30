@@ -1,6 +1,6 @@
 export type Filter = {
   searchCountry: string;
-  year: string | null;
+  year: number | null;
   sortCountryByName: 'asc' | 'desc' | null;
   sortCountryByPopulation: 'asc' | 'desc' | null;
 };

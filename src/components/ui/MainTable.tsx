@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import type { Country } from '../../types/data.type';
 import { Loading } from './Loading';
 import { SubTable } from './SubTable';
+import React from 'react';
 
 interface MainTableProps {
   data: Country[];
@@ -58,23 +59,31 @@ export const MainTable = (props: MainTableProps) => {
             <col />
           </colgroup>
           <tbody>
-            {data.map((country, index) => {
-              const latestYearData = country.data.reduce((a, b) => (b.year > a.year ? b : a));
-              return (
-                <>
-                  <tr
-                    key={index}
-                    onClick={() => toggleRow(index)}
-                    className={`${(index % 2 && 'bg-gray-700') || (extendedIndex === index && 'bg-emerald-300/30')} cursor-pointer hover:bg-emerald-300/30`}>
-                    <td className={cellBorder}>{index + 1}</td>
-                    <td className={cellBorder}>{country.name}</td>
-                    <td className={cellBorder}>{latestYearData.population}</td>
-                    <td className={cellBorder}>{country.iso_code || 'N/A'}</td>
-                  </tr>
-                  {extendedIndex === index && <SubTable countryData={country.data} width={width} />}
-                </>
-              );
-            })}
+            {data.length === 0 && (
+              <tr>
+                <td className={cellBorder} colSpan={4}>
+                  Oops! No data! Try reset filters!
+                </td>
+              </tr>
+            )}
+            {data.length > 0 &&
+              data.map((country, index) => {
+                const latestYearData = country.data.reduce((a, b) => (b.year > a.year ? b : a));
+                return (
+                  <React.Fragment key={index}>
+                    <tr
+                      key={index}
+                      onClick={() => toggleRow(index)}
+                      className={`${(index % 2 && 'bg-gray-700') || (extendedIndex === index && 'bg-emerald-300/30')} cursor-pointer hover:bg-emerald-300/30`}>
+                      <td className={cellBorder}>{index + 1}</td>
+                      <td className={cellBorder}>{country.name}</td>
+                      <td className={cellBorder}>{latestYearData.population || 'N/A'}</td>
+                      <td className={cellBorder}>{country.iso_code || 'N/A'}</td>
+                    </tr>
+                    {extendedIndex === index && <SubTable countryData={country.data} width={width} />}
+                  </React.Fragment>
+                );
+              })}
           </tbody>
         </table>
       </div>
