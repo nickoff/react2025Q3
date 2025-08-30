@@ -8,10 +8,10 @@ export interface Country {
 
 export interface CountryData {
   year: number;
-  population: number;
-  cement_co2: number;
-  cement_co2_per_capita: number;
-  cumulative_cement_co2: number;
+  population?: number | string;
+  cement_co2?: number | string;
+  cement_co2_per_capita?: number | string;
+  cumulative_cement_co2?: number | string;
 }
 
 export interface RawCountry {

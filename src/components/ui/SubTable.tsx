@@ -1,24 +1,38 @@
-import type { Country } from '../../types/data.type';
+import type { CountryData } from '../../types/data.type';
 
 interface SubTableProps {
   width: number;
-  country: Country;
+  countryData: CountryData[];
 }
 
+interface ColgroupProps {
+  width: number;
+  numberColumn: number;
+}
+
+const Colgroup = (props: ColgroupProps) => {
+  const { width, numberColumn } = props;
+
+  return (
+    <colgroup>
+      {Array.from({ length: numberColumn - 1 }).map((_, index) => (
+        <col key={index} style={{ width: `${width / numberColumn}px` }} />
+      ))}
+      <col />
+    </colgroup>
+  );
+};
+
 export const SubTable = (props: SubTableProps) => {
-  const { width, country } = props;
+  const { width, countryData } = props;
   const cellBorder = 'border-1 border-gray-700 p-2';
+  const numberColumn = Object.keys(countryData[0]).length;
 
   return (
     <tr className="bg-gray-700/30 border-2 border-emerald-300/30">
       <td colSpan={4}>
-        <table className="text-xl w-full">
-          <colgroup>
-            <col style={{ width: `${width * 0.1}px` }} />
-            <col style={{ width: `${width * 0.4}px` }} />
-            <col style={{ width: `${width * 0.25}px` }} />
-            <col />
-          </colgroup>
+        <table className="text-base w-full">
+          <Colgroup width={width} numberColumn={numberColumn} />
           <thead>
             <tr>
               <th className={cellBorder}>Year</th>
@@ -33,15 +47,10 @@ export const SubTable = (props: SubTableProps) => {
           </thead>
         </table>
         <div className="h-72 overflow-auto">
-          <table className="text-xl w-full">
-            <colgroup>
-              <col style={{ width: `${width * 0.1}px` }} />
-              <col style={{ width: `${width * 0.4}px` }} />
-              <col style={{ width: `${width * 0.25}px` }} />
-              <col />
-            </colgroup>
+          <table className="text-base w-full">
+            <Colgroup width={width} numberColumn={numberColumn} />
             <tbody>
-              {country.data.map((item, index) => {
+              {countryData.map((item, index) => {
                 return (
                   <tr key={index}>
                     <th className={cellBorder}>{item.year}</th>

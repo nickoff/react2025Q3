@@ -13,10 +13,9 @@ export const getData = async () => {
 
       const data: CountryData[] = countryInfo.data.map((entry) => ({
         year: entry.year ?? 0,
-        population: entry.population ?? 0,
-        cement_co2: entry.cement_co2 ?? 0,
-        cement_co2_per_capita: entry.cement_co2_per_capita ?? 0,
-        cumulative_cement_co2: entry.cumulative_cement_co2 ?? 0,
+        population: entry.population ?? 'N/A',
+        cement_co2: entry.cement_co2 ?? 'N/A',
+        cement_co2_per_capita: entry.cement_co2_per_capita ?? 'N/A',
       }));
 
       return {
