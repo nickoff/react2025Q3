@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { getData } from '../../utils/getData';
 import type { Country } from '../../types/data.type';
 import { SubTable } from './SubTable';
+import { Loading } from './Loading';
 
 export const DataTable = ({ width }: { width: number }) => {
   const [data, setData] = useState<Country[]>([]);
@@ -26,7 +27,9 @@ export const DataTable = ({ width }: { width: number }) => {
       <table className="text-xl">
         <tbody>
           <tr>
-            <td colSpan={4}>Loading...</td>
+            <td colSpan={4}>
+              <Loading />
+            </td>
           </tr>
         </tbody>
       </table>
