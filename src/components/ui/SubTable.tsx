@@ -32,7 +32,6 @@ export const SubTable = (props: SubTableProps) => {
   const { visibleFields } = filter;
   const cellBorder = 'border-1 border-gray-700 p-2';
   const numberColumn = Object.values(visibleFields).filter((item) => item).length;
-  console.log(numberColumn);
 
   return (
     <tr className="bg-gray-700/30 border-2 border-emerald-300/30">
