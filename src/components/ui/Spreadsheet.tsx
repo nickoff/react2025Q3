@@ -29,8 +29,8 @@ export const Spreadsheet = () => {
   }, [filter.searchCountry, filter.year, rawData]);
 
   useEffect(() => {
-    sortCountry(filter.sortCountryBy, filteredData, setSortedData);
-  }, [filter.sortCountryBy, filteredData]);
+    sortCountry(filter.sortCountryBy, filteredData, filter.year, setSortedData);
+  }, [filter.sortCountryBy, filteredData, filter.year]);
 
   return (
     <div className="flex flex-col w-full gap-5">
