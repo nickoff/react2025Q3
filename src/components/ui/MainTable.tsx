@@ -74,7 +74,7 @@ export const MainTable = (props: MainTableProps) => {
                     <tr
                       key={index}
                       onClick={() => toggleRow(index)}
-                      className={`${(index % 2 && 'bg-gray-700') || (extendedIndex === index && 'bg-emerald-300/30')} cursor-pointer hover:bg-emerald-300/30`}>
+                      className={`${(index % 2 && 'bg-gray-700') || (extendedIndex === index && 'bg-emerald-300/30')} cursor-pointer transition-colors duration-300 hover:bg-emerald-300/30`}>
                       <td className={cellBorder}>{index + 1}</td>
                       <td className={cellBorder}>{country.name}</td>
                       <td className={cellBorder}>{latestYearData.population || 'N/A'}</td>

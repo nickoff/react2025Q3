@@ -17,6 +17,9 @@ export const getData = async () => {
         population: entry.population ?? 'N/A',
         co2: entry.co2 ?? 'N/A',
         co2_per_capita: entry.co2_per_capita ?? 'N/A',
+        methane: entry.methane ?? 'N/A',
+        oil_co2: entry.oil_co2 ?? 'N/A',
+        temperature_change_from_co2: entry.temperature_change_from_co2 ?? 'N/A',
       }));
 
       return {

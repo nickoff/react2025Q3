@@ -1,3 +1,4 @@
+import { useFilter } from '../../hooks/useFilter';
 import type { CountryData } from '../../types/data.type';
 
 interface SubTableProps {
@@ -15,7 +16,9 @@ const Colgroup = (props: ColgroupProps) => {
 
   return (
     <colgroup>
-      {Array.from({ length: numberColumn - 1 }).map((_, index) => (
+      <col style={{ width: `90px` }} />
+      <col style={{ width: `100px` }} />
+      {Array.from({ length: numberColumn - 3 }).map((_, index) => (
         <col key={index} style={{ width: `${width / numberColumn}px` }} />
       ))}
       <col />
@@ -25,38 +28,61 @@ const Colgroup = (props: ColgroupProps) => {
 
 export const SubTable = (props: SubTableProps) => {
   const { width, countryData } = props;
+  const { filter } = useFilter();
+  const { visibleFields } = filter;
   const cellBorder = 'border-1 border-gray-700 p-2';
-  const numberColumn = Object.keys(countryData[0]).length;
+  const numberColumn = Object.values(visibleFields).filter((item) => item).length;
+  console.log(numberColumn);
 
   return (
     <tr className="bg-gray-700/30 border-2 border-emerald-300/30">
       <td colSpan={4}>
-        <table className="text-base w-full">
+        <table className="text-[14px] w-full">
           <Colgroup width={width} numberColumn={numberColumn} />
           <thead>
             <tr>
-              <th className={cellBorder}>Year</th>
-              <th className={cellBorder}>Population</th>
-              <th className={cellBorder}>
-                CO<sub>2</sub>
-              </th>
-              <th className={cellBorder}>
-                CO<sub>2</sub> per capita
-              </th>
+              {visibleFields.year && <th className={cellBorder}>Year</th>}
+              {visibleFields.population && <th className={cellBorder}>Population</th>}
+              {visibleFields.co2 && (
+                <th className={cellBorder}>
+                  CO<sub>2</sub>
+                </th>
+              )}
+              {visibleFields.co2_per_capita && (
+                <th className={cellBorder}>
+                  CO<sub>2</sub> per capita
+                </th>
+              )}
+              {visibleFields.methane && <th className={cellBorder}>Methane</th>}
+              {visibleFields.oil_co2 && (
+                <th className={cellBorder}>
+                  Oil CO<sub>2</sub>
+                </th>
+              )}
+              {visibleFields.temperature_change_from_co2 && (
+                <th className={cellBorder}>
+                  Temperature change from CO<sub>2</sub>
+                </th>
+              )}
             </tr>
           </thead>
         </table>
         <div className="max-h-72 overflow-auto">
-          <table className="text-base w-full">
+          <table className="text-[14px] w-full">
             <Colgroup width={width} numberColumn={numberColumn} />
             <tbody>
               {countryData.map((item, index) => {
                 return (
                   <tr key={index}>
-                    <th className={cellBorder}>{item.year}</th>
-                    <th className={cellBorder}>{item.population}</th>
-                    <th className={cellBorder}>{item.co2}</th>
-                    <th className={cellBorder}>{item.co2_per_capita}</th>
+                    {visibleFields.year && <th className={cellBorder}>{item.year}</th>}
+                    {visibleFields.population && <th className={cellBorder}>{item.population}</th>}
+                    {visibleFields.co2 && <th className={cellBorder}>{item.co2}</th>}
+                    {visibleFields.co2_per_capita && <th className={cellBorder}>{item.co2_per_capita}</th>}
+                    {visibleFields.methane && <th className={cellBorder}>{item.methane}</th>}
+                    {visibleFields.oil_co2 && <th className={cellBorder}>{item.oil_co2}</th>}
+                    {visibleFields.temperature_change_from_co2 && (
+                      <th className={cellBorder}>{item.temperature_change_from_co2}</th>
+                    )}
                   </tr>
                 );
               })}
