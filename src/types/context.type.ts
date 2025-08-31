@@ -1,8 +1,9 @@
+export type SortCountryBy = 'nameAsc' | 'nameDesc' | 'populationAsc' | 'populationDesc';
+
 export type Filter = {
   searchCountry: string;
   year: number | null;
-  sortCountryByName: 'asc' | 'desc' | null;
-  sortCountryByPopulation: 'asc' | 'desc' | null;
+  sortCountryBy: SortCountryBy;
 };
 
 export type FilterContextType = {

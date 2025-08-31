@@ -6,8 +6,7 @@ export const FilterProvider = ({ children }: { children: React.ReactNode }) => {
   const [filter, setFilter] = useState<Filter>({
     searchCountry: '',
     year: null,
-    sortCountryByName: 'asc',
-    sortCountryByPopulation: null,
+    sortCountryBy: 'nameAsc',
   });
 
   return <FilterContext.Provider value={{ filter, setFilter }}>{children}</FilterContext.Provider>;
