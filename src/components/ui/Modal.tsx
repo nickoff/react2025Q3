@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { memo, useCallback, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 interface ModalProps {
@@ -8,17 +8,17 @@ interface ModalProps {
   colorBorderModal?: string;
 }
 
-export const Modal = ({ isOpen, onClose, children, colorBorderModal }: ModalProps) => {
+const Modal = memo(function Modal({ isOpen, onClose, children, colorBorderModal }: ModalProps) {
   const [isModalOpen, setModalOpen] = useState(isOpen);
   const overlayRef = useRef<HTMLDivElement | null>(null);
   const modalRef = useRef<HTMLDivElement | null>(null);
 
-  const handleCloseModal = () => {
+  const handleCloseModal = useCallback(() => {
     if (onClose) {
       onClose();
     }
     setModalOpen(false);
-  };
+  }, [onClose]);
 
   useEffect(() => {
     const handleGlobalKeyDown = (event: KeyboardEvent) => {
@@ -68,4 +68,6 @@ export const Modal = ({ isOpen, onClose, children, colorBorderModal }: ModalProp
         document.body
       )
     : null;
-};
+});
+
+export default Modal;

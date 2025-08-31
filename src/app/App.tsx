@@ -1,7 +1,11 @@
+import { Suspense } from 'react';
 import { Footer } from '../components/ui/Footer';
 import { Header } from '../components/ui/Header';
-import { Spreadsheet } from '../components/ui/Spreadsheet';
 import { FilterProvider } from '../providers/filterContextProvider';
+import { Loading } from '../components/ui/Loading';
+import React from 'react';
+
+const Spreadsheet = React.lazy(() => import('../components/ui/Spreadsheet'));
 
 function App() {
   return (
@@ -12,7 +16,9 @@ function App() {
           CO<sub>2</sub> and Greenhouse Gas Emissions 🍃
         </h1>
         <FilterProvider>
-          <Spreadsheet />
+          <Suspense fallback={<Loading />}>
+            <Spreadsheet />
+          </Suspense>
         </FilterProvider>
       </main>
       <Footer />

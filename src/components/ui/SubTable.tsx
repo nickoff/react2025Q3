@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { useFilter } from '../../hooks/useFilter';
 import type { CountryData } from '../../types/data.type';
 
@@ -11,7 +12,7 @@ interface ColgroupProps {
   numberColumn: number;
 }
 
-const Colgroup = (props: ColgroupProps) => {
+const Colgroup = memo(function Colgroup(props: ColgroupProps) {
   const { width, numberColumn } = props;
 
   return (
@@ -24,9 +25,9 @@ const Colgroup = (props: ColgroupProps) => {
       <col />
     </colgroup>
   );
-};
+});
 
-export const SubTable = (props: SubTableProps) => {
+const SubTable = memo(function SubTable(props: SubTableProps) {
   const { width, countryData } = props;
   const { filter } = useFilter();
   const { visibleFields } = filter;
@@ -91,4 +92,6 @@ export const SubTable = (props: SubTableProps) => {
       </td>
     </tr>
   );
-};
+});
+
+export default SubTable;

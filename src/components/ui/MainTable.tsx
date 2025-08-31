@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import type { Country } from '../../types/data.type';
 import { Loading } from './Loading';
-import { SubTable } from './SubTable';
 import React from 'react';
+import SubTable from './SubTable';
 
 interface MainTableProps {
   data: Country[];
@@ -25,9 +25,9 @@ export const MainTable = (props: MainTableProps) => {
     }
   }, [isLoading]);
 
-  const toggleRow = (index: number) => {
+  const toggleRow = useCallback((index: number) => {
     setExtendedIndex((prev) => (prev === index ? null : index));
-  };
+  }, []);
 
   if (isLoading) return <Loading />;
 

@@ -45,12 +45,7 @@ const comparePopulationDesc = (year: number) => {
   };
 };
 
-export const sortCountry = (
-  sortType: SortCountryBy,
-  data: Country[],
-  year: number | null,
-  setSortedData: (data: Country[]) => void
-) => {
+export const getSortCountry = (sortType: SortCountryBy, data: Country[], year: number | null) => {
   const sortedData = [...data];
   const allYears = data.flatMap((country) => country.data.map((d) => d.year));
   const latestYear = Math.max(...allYears);
@@ -70,5 +65,6 @@ export const sortCountry = (
       sortedData.sort((a, b) => a.name.localeCompare(b.name));
       break;
   }
-  setSortedData(sortedData);
+
+  return sortedData;
 };

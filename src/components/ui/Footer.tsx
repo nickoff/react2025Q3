@@ -1,7 +1,8 @@
+import { memo } from 'react';
 import gitLogo from '../../assets/github.svg';
 import rssLogo from '../../assets/rss-logo.svg';
 
-export const Footer = () => {
+export const Footer = memo(function Footer() {
   return (
     <footer className="text-base text-gray-400 py-9 flex gap-3 items-center justify-between">
       <a className="flex gap-2 items-center underline hover:text-gray-300" href="https://github.com/nickoff">
@@ -13,4 +14,4 @@ export const Footer = () => {
       </a>
     </footer>
   );
-};
+});

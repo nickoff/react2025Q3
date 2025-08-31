@@ -1,4 +1,6 @@
-export const Loading = () => {
+import { memo } from 'react';
+
+export const Loading = memo(function Loading() {
   return (
     <div className="flex flex-col items-center gap-2 mt-48 mb-65 justify-center w-full">
       <div className="flex gap-2">
@@ -12,4 +14,4 @@ export const Loading = () => {
       <p className="text-2xl font-bold">LOADING</p>
     </div>
   );
-};
+});
